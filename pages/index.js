@@ -4,6 +4,7 @@ import { PlusCircleOutlined } from '@ant-design/icons';
 import PageContent from '../components/PageContent';
 import LimitChart from '../components/LimitChart/LimitChart';
 import VirtualAccount from '../components/VirtualAccount/VirtualAccount';
+import OrdersList from '../components/OrdersList/OrdersList';
 
 export default function Home() {
   return (
@@ -15,6 +16,11 @@ export default function Home() {
         <VirtualAccount />
       </div>
 
+      <div className="orders-list">
+        <OrdersList />
+      </div>
+
+
       <style jsx>{`
         .account-info {
           display: grid;
@@ -22,6 +28,10 @@ export default function Home() {
           justify-content: space-between;
           border-bottom: 2px dotted #EBEBEB;
           height: 153px;
+        }
+        .orders-list {
+          display: block;
+          margin-top: 20px;
         }
       `}</style>
     </PageContent>

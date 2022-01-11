@@ -50,7 +50,7 @@ export default css.global`
   .active { 
     border-bottom: 4px solid var(--red);
   }
-  .user-avatar {
+  .bell-icon {
     background-color: var(--shark);
   }
   

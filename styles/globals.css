@@ -23,5 +23,6 @@ a {
 }
 
 .ant-tooltip-inner {
-  
+  color: #000 !important;
+  font-size: 12px !important;
 }

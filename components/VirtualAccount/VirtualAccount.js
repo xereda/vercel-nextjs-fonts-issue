@@ -12,6 +12,7 @@ export default function VirtualAccount() {
         <Tooltip
           placement="rightBottom"
           title="Os seus créditos serão usados automaticamente nos próximos pedidos."
+          color="#FFF"
         >
           <InfoCircleOutlined />
         </Tooltip>

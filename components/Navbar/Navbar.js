@@ -58,7 +58,7 @@ const Navbar = () => {
         <Badge count={1} size="small">
           <Dropdown overlay={option} trigger={['click']} arrow placement="bottomRight" overlayStyle={{position: "fixed"}}>
             <a onClick={e => e.preventDefault()}>
-              <Avatar className="user-avatar" icon={<BellOutlined />} shape="circle" size="large" />
+              <Avatar className="bell-icon" icon={<BellOutlined />} shape="circle" size="large" />
             </a>
           </Dropdown>
         </Badge>
