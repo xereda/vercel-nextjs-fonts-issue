@@ -15,7 +15,7 @@ export default css.global`
     flex: 1;
     min-height: 100vh;
     width: 79rem;
-    padding: 20px;
+    padding: 20px 10px;
     margin: 0 auto;
     margin-top: 30px;
     background-color: var(--white);

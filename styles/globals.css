@@ -19,10 +19,14 @@ a {
 }
 
 .ant-page-header-back-button:focus, .ant-page-header-back-button:hover {
-  color: #000 !important;
+  color: var(--black) !important;
 }
 
 .ant-tooltip-inner {
-  color: #000 !important;
+  color: var(--black) !important;
   font-size: 12px !important;
+}
+
+.ant-btn-link {
+  color: var(--blue) !important;
 }

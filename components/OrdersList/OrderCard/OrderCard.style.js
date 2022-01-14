@@ -7,8 +7,9 @@ export default css.global`
     display: grid;
     grid-template-columns: 130px 200px 150px 215px 250px 130px;
     justify-content: space-around;
-    padding: 8px;
+    padding: 16px 8px;
     background: var(--whiteF2);
+    border-radius: 4px;
     position: relative;
   }
   .order-row {
@@ -17,6 +18,13 @@ export default css.global`
     flex-direction: column;
     margin: auto;
     position: relative;
+    font-size: 13px;
+  }
+  .order-content {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+    overflow: hidden;
   }
   a, a:hover {
     color: var(--lightBlack);
