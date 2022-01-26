@@ -1,6 +1,3 @@
-import { Button } from 'antd'
-import { PlusCircleOutlined } from '@ant-design/icons';
-
 import PageContent from '../components/PageContent';
 import LimitChart from '../components/LimitChart/LimitChart';
 import VirtualAccount from '../components/VirtualAccount/VirtualAccount';
@@ -11,6 +8,7 @@ export default function Home() {
     <PageContent
       title="Histórico de pedidos"
     >
+
       <div className="account-info">
         <LimitChart />
         <VirtualAccount />
@@ -19,7 +17,6 @@ export default function Home() {
       <div className="orders-list">
         <OrdersList />
       </div>
-
 
       <style jsx>{`
         .account-info {
@@ -35,5 +32,5 @@ export default function Home() {
         }
       `}</style>
     </PageContent>
-  )
+  );
 }

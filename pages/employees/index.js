@@ -1,4 +1,4 @@
-import PageContent from "../../components/PageContent";
+import PageContent from '../../components/PageContent';
 
 export default function Employees() {
   return (
@@ -8,5 +8,5 @@ export default function Employees() {
     >
       <p>employees.js</p>
     </PageContent>
-  )
+  );
 }
