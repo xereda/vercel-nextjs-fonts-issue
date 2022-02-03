@@ -1,23 +1,29 @@
-import global from './OrderCard.style.js';
 import { useState } from 'react';
-import { Dropdown } from 'antd';
-import { DownOutlined, SearchOutlined } from '@ant-design/icons';
-import GhostButton from '../../GhostButton.js';
-import CancelOrderModal from '../../CancelOrderModal.js';
+import { Button, Dropdown, Menu } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
+import CancelOrderModal from '@/components/CancelOrderModal/CancelOrderModal.js';
+import style from './OrderCard.style.js';
 
 export default function OrderCard() {
+  const [showCancelModal, toggleCancelModal] = useState(false);
 
-  const option = (
-    <div className="optionDropdown">
-      <CancelOrderModal />
-      <style jsx global>
-        { global }
-      </style>
-    </div>
+  const DropdownItems = (
+    <Menu>
+      <Menu.Item key="0">
+        <a onClick={() => toggleCancelModal(true)}>
+          Cancelar pedido
+        </a>
+      </Menu.Item>
+    </Menu>
   );
-  
+
   return (
     <>
+      {showCancelModal &&
+        <CancelOrderModal
+          handleContinue={() => console.log('handleContinue')}
+          handleCloseModal={() => toggleCancelModal(false)}
+        />}
       <div className="order-card">
         <div className="order-row">
           <span>ID do Pedido</span>
@@ -34,7 +40,7 @@ export default function OrderCard() {
         <div className="order-row">
           <span>Status do Pedido</span>
           <div>
-            <Dropdown overlay={option} trigger={['click']} arrow placement="bottomRight">
+            <Dropdown overlay={DropdownItems} trigger={['click']} arrow placement="bottomRight">
               <a onClick={e => e.preventDefault()} className="order-content">
                 Concluído <DownOutlined />
               </a>
@@ -46,13 +52,10 @@ export default function OrderCard() {
           <span className="order-content">Aguardando</span>
         </div>
         <div className="order-row">
-          <GhostButton>Detalhe</GhostButton>
+          <Button type="link">Detalhe</Button>
         </div>
-
-        <style jsx global>
-          { global }
-        </style>
       </div>
+      <style jsx>{style}</style>
     </>
-  )
+  );
 }

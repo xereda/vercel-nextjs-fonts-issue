@@ -1,21 +1,26 @@
 module.exports = {
+  env: {
+    jest: true,
+  },
   extends: [
+    'eslint:recommended',
     'next',
     'prettier',
     'plugin:import/recommended',
   ],
-  'settings': {
+  settings: {
     'import/resolver': {
       'alias': {
         'map': [
-          ['components', './components'],
-          ['utils', './utils'],
-          ['lib', './lib'],
+          ['@/components', './components'],
+          ['@/utils', './utils'],
         ],
       },
     },
   },
   rules: {
+    'react/prop-types': 'error',
+    'react/require-default-props': 'error',
     'no-unused-vars': [
       'error',
       { 'vars': 'all', 'args': 'after-used', 'ignoreRestSiblings': false },

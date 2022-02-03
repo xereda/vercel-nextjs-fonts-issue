@@ -1,6 +1,6 @@
-import css from 'styled-jsx/css'
+import css from 'styled-jsx/css';
 
-export default css.global`
+export default css`
   .warning {
     display: flex;
     -webkit-box-align: center;
@@ -44,4 +44,4 @@ export default css.global`
     margin-right: 45px;
     
   }
-`
+`;

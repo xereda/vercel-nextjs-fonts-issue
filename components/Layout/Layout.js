@@ -1,29 +1,30 @@
-import { useRouter } from "next/router";
-import Navbar from "../Navbar/Navbar";
-import PaymentWarning from "../PaymentWarning/PaymentWarning";
-import global from './Layout.style.js' 
+import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
+import Navbar from '../Navbar/Navbar';
+import PaymentWarning from '../../pages/dashboard/PaymentWarning';
+import style from './Layout.style.js';
 
-const Layout = ({ children }) => {
-  
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default function Layout ({ children }) {
+
   const router = useRouter();
 
   return (
     <div className="layout">
       <Navbar />
 
-      {router.pathname == "/" && (
+      {router.pathname == '/' && (
         <PaymentWarning />
       )}
 
       <div className="container">
         {children}
       </div>
-    
-      <style jsx global>
-        {global}
-      </style>
-    </div>
-  )
-};
 
-export default Layout;
+      <style jsx="true">{style}</style>
+    </div>
+  );
+};

@@ -1,6 +1,6 @@
-import css from 'styled-jsx/css'
+import css from 'styled-jsx/css';
 
-export default css.global`
+export default css`
   .order-card {
     min-height: 75px;
     margin: auto auto 8px;
@@ -29,4 +29,4 @@ export default css.global`
   a, a:hover {
     color: var(--lightBlack);
   }
-`
+`;

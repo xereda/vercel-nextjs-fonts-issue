@@ -1,6 +1,6 @@
-import css from 'styled-jsx/css'
+import css from 'styled-jsx/css';
 
-export default css.global`
+export default css`
   .layout {
     width: 100%;
     height: calc(100% - 148px);
@@ -30,4 +30,4 @@ export default css.global`
     padding-bottom: 24px;
     border-bottom: 0px;
   }
-`
+`;

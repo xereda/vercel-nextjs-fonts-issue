@@ -1,10 +1,19 @@
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 import { Tooltip } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
-import global from './VirtualAccount.style.js'
+import style from './VirtualAccount.style.js';
 
-export default function VirtualAccount() {
-  
+VirtualAccount.propTypes = {
+  virtualBalance: PropTypes.string,
+};
+
+VirtualAccount.defaultProps = {
+  virtualBalance: 'R$ 1.000,00',
+};
+
+export default function VirtualAccount({ virtualBalance }) {
+
   return(
     <div className="balance-wrapper">
       <div className="row-title">
@@ -17,8 +26,8 @@ export default function VirtualAccount() {
           <InfoCircleOutlined />
         </Tooltip>
       </div>
-      <span id="total-value">R$ 1.000,00</span>
-    
+      <span id="total-value">{ virtualBalance }</span>
+
       <section className="extract">
         <span id="extract-message">
           Este valor representa o saldo total de todas as suas empresas juntas.
@@ -29,10 +38,8 @@ export default function VirtualAccount() {
           <a id="extract-redirect">Ir para extrato</a>
         </Link>
       </section>
-      
-      <style jsx global>
-        {global}
-      </style>
+
+      <style jsx="true">{style}</style>
     </div>
-  )
+  );
 }

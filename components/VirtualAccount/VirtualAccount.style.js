@@ -1,6 +1,6 @@
-import css from 'styled-jsx/css'
+import css from 'styled-jsx/css';
 
-export default css.global`
+export default css`
   .balance-wrapper {
     margin-left: 37px;
     margin-top: 30px;
@@ -52,4 +52,4 @@ export default css.global`
     color: var(--blue);
     cursor: pointer;
   }
-`
+`;

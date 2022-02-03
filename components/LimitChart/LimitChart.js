@@ -1,26 +1,44 @@
-import { PieChart } from "react-minimal-pie-chart";
+import { PieChart } from 'react-minimal-pie-chart';
+import PropTypes from 'prop-types';
+import style from './LimitChart.style';
 
-import global from './LimitChart.style.js'
-import { toMoneyMask } from "../utils/helper.js";
+LimitChart.propTypes = {
+  percentage: PropTypes.number,
+  limiteBalance: PropTypes.string,
+  usedLimit: PropTypes.string,
+  totalLimit: PropTypes.string,
+};
 
-export default function LimitChart() {
-  
+LimitChart.defaultProps = {
+  percentage: 0,
+  limiteBalance: 'R$ 0,00',
+  usedLimit: 'R$ 0,00',
+  totalLimit: 'R$ 0,00',
+};
+
+export default function LimitChart({
+  percentage,
+  limiteBalance,
+  usedLimit,
+  totalLimit,
+}) {
+
   return(
     <div className="chart-container">
       <div className="chart-wrapper">
         <div className="chart-transform">
           <PieChart
             id="chart"
-            data={[{ value: 1, key: 1 }]}
-            reveal={1}
+            data={[{ value: 1, key: 1, color: 'green' }]}
+            reveal={percentage}
             lineWidth={25}
-            percentage="1"
+            percentage={`${percentage}`}
             lengthAngle={270}
             rounded
             background="#2AD178"
           />
         </div>
-        <span id="chart-percentage">1%</span>
+        <span id="chart-percentage">{`${percentage}%`}</span>
         <span className="label">Utilizado</span>
       </div>
       <div className="description">
@@ -29,26 +47,23 @@ export default function LimitChart() {
         </span>
 
         <span id="chart-available-value">
-          {` ${toMoneyMask(49938564.42)} `}
+          {limiteBalance}
         </span>
 
         <span id="chart-desc">
           Você está utilizando
           <span id="used-value">
-            {` ${toMoneyMask(61435.58)} `}
+            {` ${usedLimit} `}
           </span>
-            do seu limite total de
+          do seu limite total de
           <span id="total">
-            {` ${toMoneyMask(50000000)} `}
+            {` ${totalLimit} `}
           </span>
         </span>
-    
+
       </div>
 
-      <style jsx global>
-        {global}
-      </style>
-
+      <style jsx="true">{style}</style>
     </div>
-  )
+  );
 }

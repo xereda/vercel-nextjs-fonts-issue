@@ -1,7 +1,7 @@
-import css from 'styled-jsx/css'
+import css from 'styled-jsx/css';
 
-export default css.global`
-  .optionDropdown {
+export const dropdownNotificationStyle = css`
+  .option-dropdown {
     background-color: var(--white);
     padding: 16px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;  
@@ -12,6 +12,9 @@ export default css.global`
   .notification-link, .notification-link:hover {
     color: var(--blue);
   }
+`;
+
+export default css`
   .navbar {
     background-color: var(--navBarGrey);
     height: 98px;
@@ -37,7 +40,7 @@ export default css.global`
     list-style: none;
     margin: 0;
   }
-  #nav-link a {
+  .nav-link {
     display: flex;
     align-items: center;
     color: var(--white);
@@ -46,6 +49,7 @@ export default css.global`
     height: 94px;
     margin: 0px 15px;
     text-decoration: none;
+    cursor: pointer;
   }
   .active { 
     border-bottom: 4px solid var(--red);
@@ -54,4 +58,4 @@ export default css.global`
     background-color: var(--shark);
   }
   
-`
+`;

@@ -1,6 +1,6 @@
-import css from 'styled-jsx/css'
+import css from 'styled-jsx/css';
 
-export default css.global`
+export default css`
   .chart-container {
     display: flex;
     padding: 40px 20px 24px 0;
@@ -13,14 +13,15 @@ export default css.global`
     position: relative;
   }
   .chart-transform {
-    transform: scaleX(-1) rotate(135deg);
+    transform: rotate(135deg);
   }
   #chart-percentage {
     position: absolute;
-    left: 17px;
+    left: 20px;
     top: 35px;
     width: 45px;
     font-weight: 700;
+    font-size: 1.1em;
     text-align: center;
     letter-spacing: 0.1;
   }
@@ -31,8 +32,8 @@ export default css.global`
     text-align: center;
     letter-spacing: 0.1px;
     color: var(--black);
-    top: 76px;
-    left: 15px;
+    top: 80px;
+    left: 18px;
   }
   .description {
     display: flex;
@@ -69,4 +70,4 @@ export default css.global`
   #total {
     color: var(--black);
   }
-`
+`;
