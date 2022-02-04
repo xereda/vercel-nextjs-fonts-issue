@@ -7,7 +7,7 @@ export default css`
     justify-content: center;
     flex-shrink: 0;
     width: 240px;
-    height: 48px;
+    height: 40px;
     margin-left: auto;
     font-size: 14px;
     cursor: pointer;
@@ -22,5 +22,12 @@ export default css`
     outline: none;
     line-height: normal;
     text-decoration: none;
+  }
+  
+  .primary-btn:disabled {
+    background-color: var(--mediumGrey);
+    color: var(--dustyGrey);
+    cursor: not-allowed;
+    border: 2px solid var(--mediumGrey);
   }
 `;

@@ -10,7 +10,8 @@ const useDashboard = (options = defaultOptions) => {
   return {
     data,
     isLoading: !error && !data,
-    isError: error,
+    hasError: error,
+    noContent: !error && !data?.virtualBalance,
   };
 };
 
