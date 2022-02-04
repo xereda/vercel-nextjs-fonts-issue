@@ -12,8 +12,9 @@ module.exports = {
     'import/resolver': {
       'alias': {
         'map': [
-          ['@/components', './components'],
-          ['@/utils', './utils'],
+          ['@/components', './src/components'],
+          ['@/utils', './src/utils'],
+          ['@/styles', './src/styles'],
         ],
       },
     },
@@ -45,7 +46,11 @@ module.exports = {
     ],
     'max-len': [
       'error',
-      { ignoreStrings: true, ignoreComments: true },
+      {
+        ignoreStrings: true,
+        ignoreComments: true,
+        ignoreTemplateLiterals: true,
+      },
     ],
     'comma-dangle': ['error', 'always-multiline' ],
     'semi': [ 'error', 'always' ],

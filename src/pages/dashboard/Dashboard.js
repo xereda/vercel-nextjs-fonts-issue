@@ -1,10 +1,17 @@
+import Layout from '@/components/Layout/Layout';
 import PageContent from '@/components/PageContent/PageContent';
 import LimitChart from '@/components/LimitChart/LimitChart';
 import VirtualAccount from '@/components/VirtualAccount/VirtualAccount';
+import PaymentWarning from '@/components/PaymentWarning/PaymentWarning';
 import OrdersList from './OrdersList/OrdersList';
 import style from './Dashboard.style';
+import { useDashboard } from './services';
 
 export default function Dashboard() {
+  const { data, error, isLoading } = useDashboard();
+
+  console.log({ data, isLoading, error });
+
   return (
     <PageContent
       title="Histórico de pedidos"
@@ -28,3 +35,13 @@ export default function Dashboard() {
     </PageContent>
   );
 }
+
+Dashboard.getLayout = function getLayout(page) {
+  return (
+    <Layout
+      renderNotice={() => <PaymentWarning />}
+    >
+      {page}
+    </Layout>
+  );
+};

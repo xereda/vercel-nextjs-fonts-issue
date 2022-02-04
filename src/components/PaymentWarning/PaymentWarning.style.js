@@ -37,7 +37,7 @@ export default css`
     background: rgba(0, 0, 0, 0.1);
     border-radius: 50%;
   }
-  .content {
+  .notice {
     font-size: 16px;
     color: var(--darkGrey);
     margin-left: 26px;

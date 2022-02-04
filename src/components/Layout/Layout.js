@@ -1,24 +1,23 @@
-import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import Navbar from '../Navbar/Navbar';
-import PaymentWarning from '../../pages/dashboard/PaymentWarning';
 import style from './Layout.style.js';
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
+  renderNotice: PropTypes.func,
 };
 
-export default function Layout ({ children }) {
+Layout.defaultProps = {
+  renderNotice: () => null,
+};
 
-  const router = useRouter();
+export default function Layout ({ children, renderNotice }) {
 
   return (
     <div className="layout">
       <Navbar />
 
-      {router.pathname == '/' && (
-        <PaymentWarning />
-      )}
+      {renderNotice()}
 
       <div className="container">
         {children}

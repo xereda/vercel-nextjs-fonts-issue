@@ -1,3 +1,4 @@
+import Layout from '@/components/Layout/Layout';
 import PageContent from '@/components/PageContent/PageContent';
 
 export default function Employees() {
@@ -10,3 +11,9 @@ export default function Employees() {
     </PageContent>
   );
 }
+
+Employees.getLayout = function getLayout(page) {
+  return (
+    <Layout>{page}</Layout>
+  );
+};
