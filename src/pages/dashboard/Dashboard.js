@@ -11,9 +11,9 @@ import { useDashboard } from './services';
 export default function Dashboard() {
   const { data, hasError, isLoading, noContent } = useDashboard();
 
-  console.log({ data, isLoading, hasError, noContent });
-
   const virtualBalance = data?.virtualBalance?.balanceValue;
+  const useLimit = data?.useLimit;
+  const orders = data?.orders;
 
   return (
     <FeedbackPlaceholder {...{ isLoading, hasError, noContent }}>
@@ -22,17 +22,12 @@ export default function Dashboard() {
       >
 
         <div className="account-info">
-          <LimitChart
-            percentage={1}
-            limiteBalance="R$ 99,00"
-            usedLimit="R$ 1,00"
-            totalLimit="R$ 100,00"
-          />
+          <LimitChart {...useLimit} />
           <VirtualAccount virtualBalance={virtualBalance} />
         </div>
 
         <div className="orders-list">
-          <OrdersList />
+          <OrdersList {...{ orders }} />
         </div>
 
         <style jsx="true">{style}</style>

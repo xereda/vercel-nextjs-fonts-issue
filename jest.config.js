@@ -14,9 +14,10 @@ const customJestConfig = {
     '<rootDir>/jest.setup.js',
   ],
   moduleNameMapper: {
-    '^@/components/(.*)$': '<rootDir>/components/$1',
-    '^@/utils/(.*)$':  '<rootDir>/utils/$1',
-    '^@/styles/(.*)$':  '<rootDir>/styles/$1',
+    '^@/components/(.*)$': '<rootDir>/src/components/$1',
+    '^@/utils/(.*)$':  '<rootDir>/src/utils/$1',
+    '^@/styles/(.*)$':  '<rootDir>/src/styles/$1',
+    '^@/mocks/(.*)$':  '<rootDir>/src/mocks/$1',
   },
 };
 

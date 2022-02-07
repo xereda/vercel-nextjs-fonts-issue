@@ -1,10 +1,19 @@
+import PropTypes from 'prop-types';
 import OrderCard from './OrderCard/OrderCard.js';
 
-export default function OrdersList() {
+OrdersList.propTypes = {
+  orders: PropTypes.arrayOf(PropTypes.shape({})),
+};
+
+OrdersList.defaultProps = {
+  orders: [],
+};
+
+export default function OrdersList({ orders }) {
 
   return(
     <>
-      <OrderCard />
+      {orders.map((order, index) => <OrderCard {...{order}} key={index} />)}
     </>
   );
 }

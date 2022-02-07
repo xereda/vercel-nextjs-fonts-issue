@@ -1,6 +1,7 @@
 import useSWR from 'swr';
+import axios from 'axios';
 
-const fetcher = (...args) => fetch(...args).then(res => res.json());
+const fetcher = url => axios.get(url).then(res => res.data);
 
 const defaultOptions = { refreshInterval: 5000 };
 
@@ -10,7 +11,7 @@ const useDashboard = (options = defaultOptions) => {
   return {
     data,
     isLoading: !error && !data,
-    hasError: error,
+    hasError: !!error,
     noContent: !error && !data?.virtualBalance,
   };
 };
