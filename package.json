@@ -8,7 +8,8 @@
     "lint": "next lint",
     "test": "jest --",
     "test:watch": "jest --watch",
-    "test:watchAll": "jest --watchAll"
+    "test:watchAll": "jest --watchAll",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
@@ -31,6 +32,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.25.4",
+    "husky": "^7.0.4",
     "jest": "^27.4.7",
     "msw": "^0.36.8",
     "sass": "^1.45.1"
