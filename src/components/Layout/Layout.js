@@ -1,10 +1,10 @@
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import Navbar from '../Navbar/Navbar';
 import style from './Layout.style.js';
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-  renderNotice: PropTypes.func,
+  children: propTypes.node.isRequired,
+  renderNotice: propTypes.func,
 };
 
 Layout.defaultProps = {

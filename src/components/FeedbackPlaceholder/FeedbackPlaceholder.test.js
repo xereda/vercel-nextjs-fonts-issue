@@ -16,7 +16,7 @@ describe('FeedbackPlaceholder component', () => {
 
   test('deve renderizar a dinamica de loadind independente do estado das demais props', () => {
     render(
-      <FeedbackPlaceholder isLoading hasError noContent>
+      <FeedbackPlaceholder isLoading hasError noData>
         <Component />
       </FeedbackPlaceholder>,
     );
@@ -36,11 +36,11 @@ describe('FeedbackPlaceholder component', () => {
 
   test('deve renderizar o componente relativo ao nao retorno de dados da integracao', () => {
     render(
-      <FeedbackPlaceholder isLoading={false} hasError={false} noContent={true}>
+      <FeedbackPlaceholder isLoading={false} hasError={false} noData={true}>
         <Component />
       </FeedbackPlaceholder>,
     );
 
-    expect(screen.getByText('no content')).toBeInTheDocument();
+    expect(screen.getByText('no data')).toBeInTheDocument();
   });
 });

@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import { PageHeader } from 'antd';
 import style from './PageContent.style';
 
 PageContent.propTypes = {
-  title: PropTypes.string.isRequired,
-  onBack: PropTypes.func,
-  children: PropTypes.node.isRequired,
+  title: propTypes.string.isRequired,
+  onBack: propTypes.func,
+  children: propTypes.node.isRequired,
 };
 
 PageContent.defaultProps = {

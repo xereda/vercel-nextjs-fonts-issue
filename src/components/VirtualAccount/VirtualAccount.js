@@ -1,11 +1,11 @@
 import Link from 'next/link';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import { Tooltip } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import style from './VirtualAccount.style.js';
 
 VirtualAccount.propTypes = {
-  virtualBalance: PropTypes.string,
+  virtualBalance: propTypes.string,
 };
 
 VirtualAccount.defaultProps = {

@@ -1,12 +1,12 @@
 import { PieChart } from 'react-minimal-pie-chart';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import style from './LimitChart.style';
 
 LimitChart.propTypes = {
-  percentage: PropTypes.number,
-  limiteBalance: PropTypes.string,
-  usedLimit: PropTypes.string,
-  totalLimit: PropTypes.string,
+  percentage: propTypes.number,
+  limiteBalance: propTypes.string,
+  usedLimit: propTypes.string,
+  totalLimit: propTypes.string,
 };
 
 LimitChart.defaultProps = {

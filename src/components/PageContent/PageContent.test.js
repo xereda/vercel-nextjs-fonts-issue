@@ -13,7 +13,7 @@ describe('PageContent Component', () => {
     expect(screen.getByText('hello world!')).toBeInTheDocument();
   });
 
-  test.only('deve renderizar COM o botao de voltar', () => {
+  test('deve renderizar COM o botao de voltar', () => {
     const { getByRole } = render(
       <PageContent title="teste" onBack={() => null}>
         <Component />

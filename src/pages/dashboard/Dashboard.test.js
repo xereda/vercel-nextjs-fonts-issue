@@ -1,36 +1,40 @@
 import React from 'react';
-import { cleanup, render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { setupServer } from 'msw/node';
-import { rest } from 'msw';
-import mock from '@/mocks/dashboard-mock';
 import Dashboard from './Dashboard';
-
-const server = setupServer();
-
-beforeAll(() => server.listen());
-afterEach(() => {
-  server.resetHandlers();
-});
-afterEach(cleanup);
-afterAll(() => server.close());
+import { rest } from 'msw';
+import { server } from '@/mocks/server';
+import RenderWithoutSWRCache from '@/mocks/RenderWithouCache';
 
 describe('Dashboard component', () => {
-
-  test('deve renderizar o componente de loading inicialmente', () => {
-    render(<Dashboard />);
+  test('should render dashboard integrated with mock', async () => {
+    render( <Dashboard />);
 
     expect(screen.getByText('loading...')).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(screen.getByText('1111')).toBeInTheDocument();
+      expect(screen.getAllByText('Id do pedido')).toHaveLength(2);
+    });
+
   });
 
-  test('deve renderizar o componente de erro', async () => {
+  test('should render error component', async () => {
     server.use(
       rest.get('/api/dashboard', (req, res, ctx) => {
-        return res(ctx.status(403));
+        return res(
+          ctx.status(500),
+          ctx.json({ message: 'Internal server error' }),
+        );
       }),
     );
 
-    render(<Dashboard />);
+    render(
+      <RenderWithoutSWRCache>
+        <Dashboard />
+      </RenderWithoutSWRCache>);
+
+    expect(screen.getByText('loading...')).toBeInTheDocument();
 
     await waitFor(() => {
       expect(screen.getByText('error')).toBeInTheDocument();
@@ -38,18 +42,25 @@ describe('Dashboard component', () => {
 
   });
 
-  test('deve renderizar o dashboard integrado com o mock', async () => {
+  test('should render no data component', async () => {
     server.use(
       rest.get('/api/dashboard', (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(mock));
+        return res(
+          ctx.status(200),
+          ctx.json({}),
+        );
       }),
     );
 
-    render(<Dashboard />);
+    render(
+      <RenderWithoutSWRCache>
+        <Dashboard />
+      </RenderWithoutSWRCache>);
+
+    expect(screen.getByText('loading...')).toBeInTheDocument();
 
     await waitFor(() => {
-      expect(screen.getByText('1111')).toBeInTheDocument();
-      expect(screen.getAllByText('Id do pedido')).toHaveLength(2);
+      expect(screen.getByText('no data')).toBeInTheDocument();
     });
 
   });

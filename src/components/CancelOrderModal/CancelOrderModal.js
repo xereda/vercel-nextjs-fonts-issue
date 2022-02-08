@@ -1,17 +1,13 @@
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import { Modal } from 'antd';
 import { WarningOutlined } from '@ant-design/icons';
 import style from './CancelOrderModal.style';
 
 CancelOrderModal.propTypes = {
-  handleContinue: PropTypes.func.isRequired,
-  handleCloseModal: PropTypes.func.isRequired,
+  handleCloseModal: propTypes.func.isRequired,
 };
 
-export default function CancelOrderModal({
-  handleContinue,
-  handleCloseModal,
-}) {
+export default function CancelOrderModal({ handleCloseModal }) {
 
   const modalStyle = {
     display: 'flex',
@@ -26,7 +22,7 @@ export default function CancelOrderModal({
     <>
       <Modal
         visible
-        onOk={handleContinue}
+        onOk={() => console.log('continuar')}
         onCancel={handleCloseModal}
         okText="Continuar"
         cancelText="Sair"

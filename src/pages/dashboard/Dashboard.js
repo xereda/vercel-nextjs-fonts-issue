@@ -9,14 +9,14 @@ import style from './Dashboard.style';
 import { useDashboard } from './services';
 
 export default function Dashboard() {
-  const { data, hasError, isLoading, noContent } = useDashboard();
+  const { data, hasError, isLoading, noData } = useDashboard();
 
   const virtualBalance = data?.virtualBalance?.balanceValue;
   const useLimit = data?.useLimit;
   const orders = data?.orders;
 
   return (
-    <FeedbackPlaceholder {...{ isLoading, hasError, noContent }}>
+    <FeedbackPlaceholder {...{ isLoading, hasError, noData }}>
       <PageContent
         title="Histórico de pedidos"
       >

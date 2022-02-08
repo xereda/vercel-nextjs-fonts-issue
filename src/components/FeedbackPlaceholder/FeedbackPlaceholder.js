@@ -1,28 +1,28 @@
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 
 FeedbackPlaceholder.propTypes = {
-  isLoading: PropTypes.bool,
-  hasError: PropTypes.bool,
-  noContent: PropTypes.bool,
-  children: PropTypes.node.isRequired,
+  isLoading: propTypes.bool,
+  hasError: propTypes.bool,
+  noData: propTypes.bool,
+  children: propTypes.node.isRequired,
 };
 
 FeedbackPlaceholder.defaultProps = {
   isLoading: false,
   hasError: false,
-  noContent: false,
+  noData: false,
 };
 
 export default function FeedbackPlaceholder({
   isLoading,
   hasError,
-  noContent,
+  noData,
   children,
 }) {
 
   if (isLoading) return 'loading...';
   if (hasError && !isLoading ) return 'error';
-  if (!hasError && !isLoading && noContent) return 'no content';
+  if (!hasError && !isLoading && noData) return 'no data';
 
   return children;
 }

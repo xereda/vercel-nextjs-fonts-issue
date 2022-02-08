@@ -6,7 +6,7 @@ const mock = {
     totalLimit: 'R$ 100,00',
   },
   virtualBalance: {
-    balanceValue: 'R$ 5.999,99',
+    balanceValue: 'R$ 1.000,00',
   },
   orders: [
     {

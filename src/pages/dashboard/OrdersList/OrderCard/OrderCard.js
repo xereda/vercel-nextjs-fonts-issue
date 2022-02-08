@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import { useState } from 'react';
 import { Button, Dropdown, Menu } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
@@ -6,17 +6,17 @@ import CancelOrderModal from '@/components/CancelOrderModal/CancelOrderModal.js'
 import style from './OrderCard.style.js';
 
 OrderCard.propTypes = {
-  order: PropTypes.shape({
-    orderId: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
-    status: PropTypes.shape({
-      enum: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
+  order: propTypes.shape({
+    orderId: propTypes.string.isRequired,
+    date: propTypes.string.isRequired,
+    value: propTypes.string.isRequired,
+    status: propTypes.shape({
+      enum: propTypes.string.isRequired,
+      label: propTypes.string.isRequired,
     }),
-    paymentStatus: PropTypes.shape({
-      enum: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
+    paymentStatus: propTypes.shape({
+      enum: propTypes.string.isRequired,
+      label: propTypes.string.isRequired,
     }),
   }).isRequired,
 };

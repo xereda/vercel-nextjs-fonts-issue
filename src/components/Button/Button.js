@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import style from './Button.style';
 
 Button.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: propTypes.node.isRequired,
 };
 
 export default function Button({ children }) {

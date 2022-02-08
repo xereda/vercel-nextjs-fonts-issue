@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import OrderCard from './OrderCard/OrderCard.js';
 
 OrdersList.propTypes = {
-  orders: PropTypes.arrayOf(PropTypes.shape({})),
+  orders: propTypes.arrayOf(propTypes.shape({})),
 };
 
 OrdersList.defaultProps = {
