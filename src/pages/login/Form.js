@@ -1,10 +1,9 @@
 import { useFormik } from 'formik';
 import { useState } from 'react';
-
 import { toCPFMask, isValidCPF } from '@/utils/format';
-
-import style from './LoginForm.style.js';
-import Recaptcha from './Recaptcha/Recaptcha';
+import Button from '@/components/Button/Button.js';
+import Recaptcha from '@/components/Recaptcha/Recaptcha';
+import style from './Form.style.js';
 
 export default function LoginForm() {
 
@@ -21,7 +20,7 @@ export default function LoginForm() {
         errors.hasError = true;
       } else if (
 
-        !/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/.test(values.cpf) ||
+        !/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(values.cpf) ||
         !isValidCPF(values.cpf)
       ) {
 
