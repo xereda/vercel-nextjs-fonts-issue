@@ -7,7 +7,7 @@ export default css`
     min-height: calc(100% - 148px);
     padding-bottom: 18px;
     position: relative;
-    background: var(--black) url(/bg.png) no-repeat left bottom;
+    background: var(--black) url(/png/bg.png) no-repeat left bottom;
   }
   .container {
     display: flex;

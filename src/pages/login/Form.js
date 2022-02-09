@@ -79,8 +79,6 @@ export default function LoginForm() {
 
   return (
     <form className="login-form" onSubmit={formik.handleSubmit}>
-      {`${JSON.stringify(formik.errors.cpf)} - ${JSON.stringify(formik.errors.password)}`}
-
       <div className="fieldset">
         <label htmlFor="cpf">CPF</label>
         <input
@@ -122,24 +120,16 @@ export default function LoginForm() {
         }
       </div>
 
-      {formik.values && (<div>{JSON.stringify(formik.values)}</div>)}
-      {formik.dirty && (<div>{JSON.stringify(formik.dirty)}</div>)}
-      {formik.touched.cpf && (<div>touched cpf</div>)}
-      {formik.touched.password && (<div>touched password</div>)}
-      {formik.touched.cpf || formik.touched.password && (<div>touched</div>)}
-      {formik.dirty && (<div>dirty</div>)}
-      {formik.errors.hasError && (<div>tem erros</div>)}
-
       <Recaptcha {...{handleRecaptch}} />
 
       <div>
-        <Button type="submit" isFullWidth disabled={disableSubmitButton()}>
+        <Button isFullWidth type="submit" disabled={disableSubmitButton()} arial-label="submit-login">
           Fazer login
         </Button>
       </div>
 
       <div className="password-recovery">
-        <button className="forgot-password">Esqueceu sua senha?</button>
+        <button className="forgot-password" aria-label='password-recover'>Esqueceu sua senha?</button>
       </div>
 
       <style jsx="true">{style}</style>

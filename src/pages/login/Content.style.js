@@ -1,22 +1,6 @@
 import css from 'styled-jsx/css';
 
 export default css`
-  .login-container {
-    display: flex;
-  }
-  .aside-bg {
-    background: #4e2789;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    min-height: -webkit-fill-available;
-    position: fixed;
-    width: 40vw;
-  }
-  .logo {
-    padding: 3rem 0;
-  }
   .login-content {
     padding: 65px 45px 0 45px;
     max-width: 650px;
