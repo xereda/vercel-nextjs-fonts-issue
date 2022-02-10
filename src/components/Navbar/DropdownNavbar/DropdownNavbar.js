@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Menu } from 'antd';
 
 export default function DropdownNavbar() {
@@ -5,19 +6,19 @@ export default function DropdownNavbar() {
   return (
     <Menu>
       <Menu.Item key="0">
-        <a href="/permissao-acesso">Permissão de acesso</a>
+        <Link href="/permissao-acesso">Permissão de acesso</Link>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key="1">
-        <a href="/conversor">Converter arquivos</a>
+        <Link href="/conversor">Converter arquivos</Link>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key="2">
-        <a href="/locais-entrega">Locais de entrega</a>
+        <Link href="/locais-entrega">Locais de entrega</Link>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key="3">
-        <a href="/login">Sair</a>
+        <Link href="/login">Sair</Link>
       </Menu.Item>
     </Menu>
   );
