@@ -33,7 +33,7 @@ export default function PaymentWarning() {
         <div
           className="notice"
           role="notice"
-          aria-label={isBoleto ? 'boleto' : 'TED'}
+          aria-label={isBoleto ? 'Boleto' : 'TED'}
         >
           {isBoleto ? noticeBoleto : noticeTED}
         </div>

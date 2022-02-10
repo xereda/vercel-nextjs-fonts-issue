@@ -129,7 +129,7 @@ export default function LoginForm() {
       </div>
 
       <div className="password-recovery">
-        <button className="forgot-password" aria-label='password-recover'>Esqueceu sua senha?</button>
+        <button className="forgot-password">Esqueceu sua senha?</button>
       </div>
 
       <style jsx="true">{style}</style>

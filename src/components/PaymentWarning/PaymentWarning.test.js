@@ -6,7 +6,7 @@ describe('PaymentWarning component', () => {
     render(<PaymentWarning />);
 
     expect(
-      screen.getByRole('notice', { name: 'boleto' }),
+      screen.getByRole('notice', { name: 'Boleto' }),
     ).toBeInTheDocument();
   });
 });
