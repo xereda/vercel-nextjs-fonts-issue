@@ -51,26 +51,4 @@ describe('Form login component', () => {
     expect(screen.queryAllByText(/campo obrigatório/i)).toHaveLength(0);
     expect(screen.getByRole('button', { name: 'Fazer login' })).toBeEnabled();
   });
-
-  test.only('renderiza e submete o formulário formik', () => {
-    const cpf = screen.getByLabelText(/CPF/i);
-    const password = screen.getByLabelText(/Senha/i);
-    const handleSubmit = jest.fn();
-
-    render(<Form onSubmit={handleSubmit} />);
-    userEvent.type(cpf, '123.456.789.12');
-    userEvent.type(password, '123');
-
-    waitFor(() => {
-
-      screen.getByRole('button', { name: /Fazer login/i });
-    });
-
-    waitFor(() =>
-      expect(handleSubmit).toHaveBeenCalledWith({
-        cpf: '999',
-        password: '999',
-      }),
-    );
-  });
 });
