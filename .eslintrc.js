@@ -17,6 +17,7 @@ module.exports = {
           ['@/utils', './src/utils'],
           ['@/styles', './src/styles'],
           ['@/mocks', './src/mocks'],
+          ['@/providers', './src/providers'],
         ],
       },
     },

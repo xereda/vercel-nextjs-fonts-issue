@@ -5,6 +5,7 @@ import VirtualAccount from '@/components/VirtualAccount/VirtualAccount';
 import PaymentWarning from '@/components/PaymentWarning/PaymentWarning';
 import OrdersList from './OrdersList/OrdersList';
 import FeedbackPlaceholder from '@/components/FeedbackPlaceholder/FeedbackPlaceholder';
+import { useSession } from '@/providers/index';
 import style from './Dashboard.style';
 import { useDashboard } from './services';
 
@@ -20,7 +21,7 @@ export default function Dashboard() {
       <PageContent
         title="Histórico de pedidos"
       >
-
+        {useSession().session}
         <div className="account-info">
           <LimitChart {...useLimit} />
           <VirtualAccount virtualBalance={virtualBalance} />

@@ -1,8 +1,10 @@
 import { WarningOutlined, CloseOutlined } from '@ant-design/icons';
-import Button from '../../components/Button/Button.js';
+import { sessionStore } from '@/providers/index';
+import Button from '@/components/Button/Button.js';
 import style from './PaymentWarning.style.js';
 
 export default function PaymentWarning() {
+  const dispatch = sessionStore.useDispatchSession();
 
   const isBoleto = true;
   const idPedido = '9999';
@@ -15,7 +17,7 @@ export default function PaymentWarning() {
     Comprovante TED nº XXXX.`;
 
   const noticeBoleto = `O(s) boleto(s) estão disponíveis no menu financeiro, 
-    clique no botão ao lado para visualizá-los.`;
+    clique no botão ao lado para visualizá-los. ${sessionStore.useSession().session}`;
 
   return (
     <>
@@ -40,7 +42,7 @@ export default function PaymentWarning() {
 
         {isBoleto && (
           <div>
-            <Button aria-label="ver-boletos">Ver boletos</Button>
+            <Button onClick={() => dispatch({ session: 'C A C A U ! ! ! '})} aria-label="ver-boletos">Ver boletos</Button>
           </div>
         )}
       </section>
