@@ -1,18 +1,23 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
-import Dashboard from './Dashboard';
 import { rest } from 'msw';
 import { server } from '@/mocks/server';
+import { render, screen, waitFor } from '@testing-library/react';
 import RenderWithoutSWRCache from '@/mocks/RenderWithouCache';
+import { Providers } from '@/providers/index';
+import Dashboard from './Dashboard.page';
 
 describe('Dashboard component', () => {
   test('should render dashboard integrated with mock', async () => {
-    render( <Dashboard />);
+    render((
+      <Providers>
+        <Dashboard />
+      </Providers>
+    ));
 
     expect(screen.getByText('loading...')).toBeInTheDocument();
 
     await waitFor(() => {
-      expect(screen.getByText('1111')).toBeInTheDocument();
+      expect(screen.getByText(/1111/)).toBeInTheDocument();
       expect(screen.getAllByText('Id do pedido')).toHaveLength(2);
     });
 
@@ -30,7 +35,9 @@ describe('Dashboard component', () => {
 
     render(
       <RenderWithoutSWRCache>
-        <Dashboard />
+        <Providers>
+          <Dashboard />
+        </Providers>
       </RenderWithoutSWRCache>);
 
     expect(screen.getByText('loading...')).toBeInTheDocument();
@@ -53,7 +60,9 @@ describe('Dashboard component', () => {
 
     render(
       <RenderWithoutSWRCache>
-        <Dashboard />
+        <Providers>
+          <Dashboard />
+        </Providers>
       </RenderWithoutSWRCache>);
 
     expect(screen.getByText('loading...')).toBeInTheDocument();

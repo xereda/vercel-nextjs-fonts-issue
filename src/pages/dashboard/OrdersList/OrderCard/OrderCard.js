@@ -2,7 +2,6 @@ import propTypes from 'prop-types';
 import { useState } from 'react';
 import { Button, Dropdown, Menu } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
-import { sessionStore } from '@/providers/index';
 import CancelOrderModal from '@/components/CancelOrderModal/CancelOrderModal.js';
 import style from './OrderCard.style.js';
 
@@ -25,8 +24,6 @@ OrderCard.propTypes = {
 export default function OrderCard({ order }) {
   const [showCancelModal, toggleCancelModal] = useState(false);
 
-  const dispatch = sessionStore.useDispatchSession();
-
   const DropdownItems = (
     <Menu>
       <Menu.Item key="0">
@@ -47,8 +44,7 @@ export default function OrderCard({ order }) {
       <div className="order-card">
         <div className="order-row">
           <span>Id do pedido</span>
-          <span className="order-content">{order.orderId} - {sessionStore.useSession().session}</span>
-          <button onClick={() => dispatch({ session: 'ah para neh sula!'})}>alterar o state</button>
+          <span className="order-content">{order.orderId}</span>
         </div>
         <div className="order-row">
           <span>Data de criação</span>
