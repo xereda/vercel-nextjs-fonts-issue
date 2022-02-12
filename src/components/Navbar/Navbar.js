@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import iconBen from '@/public/svg/icon-ben.svg';
 
 import { Badge, Avatar, Dropdown } from 'antd';
 import { BellOutlined, UserOutlined } from '@ant-design/icons';
@@ -28,7 +29,7 @@ const Navbar = () => {
     <>
       <nav className="navbar">
         <div className="wrapper-nav">
-          <Image src="/svg/icon-ben.svg" alt="Ben Visa Vale" width={60} height={60} />
+          <Image src={iconBen} alt="Ben Visa Vale" width={60} height={60} />
           <ul className="nav-links">
             <li className={getClassNameForNavBarItem('/')} id="nav-link">
               <Link href="/">

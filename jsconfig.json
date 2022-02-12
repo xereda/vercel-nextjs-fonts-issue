@@ -17,6 +17,9 @@
       "@/providers/*": [
         "src/providers/*"
       ],
+      "@/public/*": [
+        "public/*"
+      ],
     },
   },
   "exclude": [
