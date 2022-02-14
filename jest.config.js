@@ -19,7 +19,6 @@ const customJestConfig = {
     '^@/styles/(.*)$':  '<rootDir>/src/styles/$1',
     '^@/mocks/(.*)$':  '<rootDir>/src/mocks/$1',
     '^@/providers/(.*)$':  '<rootDir>/src/providers/$1',
-    '^@/public/(.*)$':  '<rootDir>/public/$1',
   },
 };
 

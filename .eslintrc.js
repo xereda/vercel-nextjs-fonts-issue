@@ -18,7 +18,6 @@ module.exports = {
           ['@/styles', './src/styles'],
           ['@/mocks', './src/mocks'],
           ['@/providers', './src/providers'],
-          ['@/public', './public'],
         ],
       },
     },
