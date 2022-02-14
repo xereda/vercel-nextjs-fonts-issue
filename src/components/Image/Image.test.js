@@ -3,9 +3,7 @@ import Image from './Image';
 
 describe('Image Wrapper for Next/Image', () => {
   test('deve renderizar o componente de imagem', () => {
-    render(
-      <Image src="/public/svg/icon-ben.svg" alt="logo da ben" layout="fill" />,
-    );
+    render(<Image src="/svg/icon-ben.svg" alt="logo da ben" layout="fill" />);
 
     expect(
       screen.getByRole('img', { name: 'logo da ben' }),
