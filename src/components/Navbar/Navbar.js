@@ -36,7 +36,10 @@ const Navbar = () => {
             height={60}
           />
           <ul className="nav-links">
-            <li className={getClassNameForNavBarItem('/')} id="nav-link">
+            <li
+              className={getClassNameForNavBarItem('/dashboard')}
+              id="nav-link"
+            >
               <Link href="/dashboard">
                 <a className="nav-link">Pedidos</a>
               </Link>
