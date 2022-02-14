@@ -1,11 +1,11 @@
 import propTypes from 'prop-types';
-import Image from 'next/image';
-import style from './Content.style';
+import Image from '@/components/Image/Image';
 import googlePlay from '@/public/svg/google-play.svg';
 import appleStore from '@/public/svg/apple-store.svg';
 import facebook from '@/public/svg/icon-facebook.svg';
 import instagram from '@/public/svg/icon-instagram.svg';
 import linkedin from '@/public/svg/icon-linkedin.svg';
+import style from './Content.style';
 
 Content.propTypes = {
   children: propTypes.node.isRequired,

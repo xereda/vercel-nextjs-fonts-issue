@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from '@/components/Image/Image';
 import iconBen from '@/public/svg/icon-ben.svg';
 import homeBackground from '@/public/png/homebackground.png';
 
