@@ -1,10 +1,5 @@
 import propTypes from 'prop-types';
 import Image from '@/components/Image/Image';
-import googlePlay from '@/public/svg/google-play.svg';
-import appleStore from '@/public/svg/apple-store.svg';
-import facebook from '@/public/svg/icon-facebook.svg';
-import instagram from '@/public/svg/icon-instagram.svg';
-import linkedin from '@/public/svg/icon-linkedin.svg';
 import style from './Content.style';
 
 Content.propTypes = {
@@ -49,10 +44,10 @@ export default function Content({ children }) {
             </p>
             <div className="app-download">
               <a href="https://play.google.com/store/apps/details?id=br.com.santander.benvisavale&hl=pt_BR">
-                <Image src={googlePlay} width={120} height={40} alt="Disponível no Google Play" />
+                <Image src="/public/svg/google-play.svg" width={120} height={40} alt="Disponível no Google Play" />
               </a>
               <a href="https://apps.apple.com/br/app/ben-visa-vale/id1426592452">
-                <Image src={appleStore} width={110} height={40} alt="Baixar na App Store" />
+                <Image src="/public/svg/apple-store.svg" width={110} height={40} alt="Baixar na App Store" />
               </a>
             </div>
           </div>
@@ -68,13 +63,13 @@ export default function Content({ children }) {
           </div>
           <div className="ben-network">
             <a href="https://www.facebook.com/benvisavale/">
-              <Image src={facebook} width={32} height={32} alt="Facebook" />
+              <Image src="/public/svg/icon-facebook.svg" width={32} height={32} alt="Facebook" />
             </a>
             <a href="https://www.instagram.com/benvisavale/?hl=pt-br">
-              <Image src={instagram} width={32} height={32} alt="Instagram" />
+              <Image src="/public/svg/icon-instagram.svg" width={32} height={32} alt="Instagram" />
             </a>
             <a href="https://www.linkedin.com/company/benvisavale/">
-              <Image src={linkedin} width={32} height={32} alt="Linkedin" />
+              <Image src="/public/svg/icon-linkedin.svg" width={32} height={32} alt="Linkedin" />
             </a>
           </div>
         </footer>
