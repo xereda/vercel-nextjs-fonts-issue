@@ -1,3 +1,11 @@
 module.exports = {
-  pageExtensions: ['page.tsx', 'page.ts', 'page.jsx', 'page.js'],
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/dashboard',
+        permanent: true,
+      },
+    ];
+  },
 };

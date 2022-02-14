@@ -17,6 +17,9 @@
       "@/providers/*": [
         "src/providers/*"
       ],
+      "@/modules/*": [
+        "src/modules/*"
+      ],
     },
   },
   "exclude": [

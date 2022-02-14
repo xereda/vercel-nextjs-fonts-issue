@@ -37,7 +37,7 @@ const Navbar = () => {
           />
           <ul className="nav-links">
             <li className={getClassNameForNavBarItem('/')} id="nav-link">
-              <Link href="/">
+              <Link href="/dashboard">
                 <a className="nav-link">Pedidos</a>
               </Link>
             </li>
