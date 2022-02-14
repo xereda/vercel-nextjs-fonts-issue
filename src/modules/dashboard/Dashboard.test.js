@@ -4,15 +4,15 @@ import { server } from '@/mocks/server';
 import { render, screen, waitFor } from '@testing-library/react';
 import RenderWithoutSWRCache from '@/mocks/RenderWithouCache';
 import { Providers } from '@/providers/index';
-import Dashboard from './Dashboard.page';
+import Dashboard from './Dashboard';
 
 describe('Dashboard component', () => {
   test('should render dashboard integrated with mock', async () => {
-    render((
+    render(
       <Providers>
         <Dashboard />
-      </Providers>
-    ));
+      </Providers>,
+    );
 
     expect(screen.getByText('loading...')).toBeInTheDocument();
 
@@ -20,7 +20,6 @@ describe('Dashboard component', () => {
       expect(screen.getByText(/1111/)).toBeInTheDocument();
       expect(screen.getAllByText('Id do pedido')).toHaveLength(2);
     });
-
   });
 
   test('should render error component', async () => {
@@ -38,23 +37,20 @@ describe('Dashboard component', () => {
         <Providers>
           <Dashboard />
         </Providers>
-      </RenderWithoutSWRCache>);
+      </RenderWithoutSWRCache>,
+    );
 
     expect(screen.getByText('loading...')).toBeInTheDocument();
 
     await waitFor(() => {
       expect(screen.getByText('error')).toBeInTheDocument();
     });
-
   });
 
   test('should render no data component', async () => {
     server.use(
       rest.get('/api/dashboard', (req, res, ctx) => {
-        return res(
-          ctx.status(200),
-          ctx.json({}),
-        );
+        return res(ctx.status(200), ctx.json({}));
       }),
     );
 
@@ -63,13 +59,13 @@ describe('Dashboard component', () => {
         <Providers>
           <Dashboard />
         </Providers>
-      </RenderWithoutSWRCache>);
+      </RenderWithoutSWRCache>,
+    );
 
     expect(screen.getByText('loading...')).toBeInTheDocument();
 
     await waitFor(() => {
       expect(screen.getByText('no data')).toBeInTheDocument();
     });
-
   });
 });

@@ -10,15 +10,14 @@ const createJestConfig = nextJest({
 const customJestConfig = {
   moduleDirectories: ['node_modules', '<rootDir>/'],
   testEnvironment: 'jest-environment-jsdom',
-  setupFilesAfterEnv: [
-    '<rootDir>/jest.setup.js',
-  ],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   moduleNameMapper: {
     '^@/components/(.*)$': '<rootDir>/src/components/$1',
-    '^@/utils/(.*)$':  '<rootDir>/src/utils/$1',
-    '^@/styles/(.*)$':  '<rootDir>/src/styles/$1',
-    '^@/mocks/(.*)$':  '<rootDir>/src/mocks/$1',
-    '^@/providers/(.*)$':  '<rootDir>/src/providers/$1',
+    '^@/utils/(.*)$': '<rootDir>/src/utils/$1',
+    '^@/styles/(.*)$': '<rootDir>/src/styles/$1',
+    '^@/mocks/(.*)$': '<rootDir>/src/mocks/$1',
+    '^@/providers/(.*)$': '<rootDir>/src/providers/$1',
+    '^@/modules/(.*)$': '<rootDir>/src/modules/$1',
   },
 };
 
