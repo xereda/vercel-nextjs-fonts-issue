@@ -1,5 +1,5 @@
 import propTypes from 'prop-types';
-import Image from '@/components/Image/Image';
+import Image from 'next/image';
 import style from './Content.style';
 
 Content.propTypes = {

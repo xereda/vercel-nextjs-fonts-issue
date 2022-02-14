@@ -1,4 +1,4 @@
-import Image from '@/components/Image/Image';
+import Image from 'next/image';
 
 export default function Aside() {
   return (

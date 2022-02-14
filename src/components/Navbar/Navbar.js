@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import Image from '@/components/Image/Image';
+import Image from 'next/image';
 
 import { Badge, Avatar, Dropdown } from 'antd';
 import { BellOutlined, UserOutlined } from '@ant-design/icons';
