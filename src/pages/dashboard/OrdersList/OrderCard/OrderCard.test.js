@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { Providers } from '@/providers/index';
 import mock from '@/mocks/dashboard-mock';
 import OrderCard from './OrderCard';
 
@@ -7,7 +8,11 @@ const order = orders[0];
 
 describe('OrderCard', () => {
   test('deve renderizar o card com os valores informados via prop', () => {
-    render(<OrderCard order={order} />);
+    render((
+      <Providers>
+        <OrderCard order={order} />
+      </Providers>
+    ));
 
     expect(screen.getByText(order.orderId)).toBeInTheDocument();
     expect(screen.getByText(order.date)).toBeInTheDocument();

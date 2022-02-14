@@ -13,7 +13,6 @@ beforeEach(() => {
 
 describe('Layout component', () => {
   test('deve renderizar o Layout com o Navbar', () => {
-
     expect(screen.queryByText('Pedidos')).toBeInTheDocument();
   });
 
