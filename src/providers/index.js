@@ -1,28 +1,41 @@
 import propTypes from 'prop-types';
-import { useContext, createContext, useState } from 'react';
+import { useContext, createContext, useReducer } from 'react';
 
 Providers.propTypes = {
   children: propTypes.node.isRequired,
 };
 
-const SessionStateContext = createContext();
-const SessionDispatchContext = createContext();
+const StateContext = createContext();
+const DispatchContext = createContext();
 
-const initialSessionState = { session: 'blablabla' };
+const initialState = {
+  session: { userId: '1111', name: 'Laiz Front-end' },
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+  case 'RESET_STATE':
+    return initialState;
+  case 'SET_DATA_SESSION':
+    return { ...state, session: action.payload };
+  default:
+    throw new Error(`Unknown action: ${action.type}`);
+  }
+};
 
 export function Providers({ children }) {
-  const [state, dispatch] = useState(initialSessionState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <SessionDispatchContext.Provider value={dispatch}>
-      <SessionStateContext.Provider value={state}>
+    <DispatchContext.Provider value={dispatch}>
+      <StateContext.Provider value={state}>
         {children}
-      </SessionStateContext.Provider>
-    </SessionDispatchContext.Provider>
+      </StateContext.Provider>
+    </DispatchContext.Provider>
   );
 };
 
-export const useSession = () => useContext(SessionStateContext);
-export const useDispatchSession = () => useContext(SessionDispatchContext);
+export const useStore = () => useContext(StateContext);
+export const useDispatch = () => useContext(DispatchContext);
 
-export const sessionStore = { useSession, useDispatchSession };
+export const store = { useStore, useDispatch };

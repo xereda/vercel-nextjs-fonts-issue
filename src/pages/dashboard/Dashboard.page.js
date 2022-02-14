@@ -5,7 +5,7 @@ import VirtualAccount from '@/components/VirtualAccount/VirtualAccount';
 import PaymentWarning from '@/components/PaymentWarning/PaymentWarning';
 import OrdersList from './OrdersList/OrdersList';
 import FeedbackPlaceholder from '@/components/FeedbackPlaceholder/FeedbackPlaceholder';
-import { useSession } from '@/providers/index';
+import { store } from '@/providers/index';
 import style from './Dashboard.style';
 import { useDashboard } from './services';
 
@@ -16,12 +16,14 @@ export default function Dashboard() {
   const useLimit = data?.useLimit;
   const orders = data?.orders;
 
+  const session = store.useStore().session;
+
   return (
     <FeedbackPlaceholder {...{ isLoading, hasError, noData }}>
       <PageContent
         title="Histórico de pedidos"
       >
-        {useSession().session}
+        {session.name}
         <div className="account-info">
           <LimitChart {...useLimit} />
           <VirtualAccount virtualBalance={virtualBalance} />
