@@ -12,13 +12,6 @@ jest.mock('next/router', () => ({
   },
 }));
 
-jest.mock('next/image', () => ({
-  __esModule: true,
-  default: () => {
-    return 'Next image stub'; // whatever
-  },
-}));
-
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation(query => ({
