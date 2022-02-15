@@ -1,17 +1,26 @@
 import Image from 'next/image';
 
 export default function Aside() {
-
   return (
     <>
       <aside className="aside-bg">
         <div className="logo">
           <a href="https://www.benvisavale.com.br/">
-            <Image src="/svg/icon-ben.svg" alt="Ben Visa Vale" width={70} height={70} />
+            <Image
+              src="/svg/icon-ben.svg"
+              alt="Ben Visa Vale"
+              width={70}
+              height={70}
+            />
           </a>
         </div>
         <div className="">
-          <Image src="/png/homebackground.png" alt="Ben Visa Vale" width={410} height={550} />
+          <Image
+            src="/png/homebackground.png"
+            alt="Ben Visa Vale"
+            width={410}
+            height={550}
+          />
         </div>
       </aside>
 

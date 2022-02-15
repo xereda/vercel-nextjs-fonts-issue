@@ -1,19 +1,3 @@
-import Layout from '@/components/Layout/Layout';
-import PageContent from '@/components/PageContent/PageContent';
+import Employees from '@/modules/employees/Employees';
 
-export default function Employees() {
-  return (
-    <PageContent
-      title="Funcionários"
-      onBack={() => window.history.back()}
-    >
-      <p>employees.js</p>
-    </PageContent>
-  );
-}
-
-Employees.getLayout = function getLayout(page) {
-  return (
-    <Layout>{page}</Layout>
-  );
-};
+export default Employees;

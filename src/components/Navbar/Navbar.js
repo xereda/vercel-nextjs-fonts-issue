@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 import { Badge, Avatar, Dropdown } from 'antd';
 import { BellOutlined, UserOutlined } from '@ant-design/icons';
@@ -22,25 +22,40 @@ const Navbar = () => {
     </>
   );
 
-  const getClassNameForNavBarItem = pathName => router.pathname === pathName ? 'active' : '';
+  const getClassNameForNavBarItem = (pathName) =>
+    router.pathname === pathName ? 'active' : '';
 
   return (
     <>
       <nav className="navbar">
         <div className="wrapper-nav">
-          <Image src="/svg/icon-ben.svg" alt="Ben Visa Vale" width={60} height={60} />
+          <Image
+            src="/svg/icon-ben.svg"
+            alt="Ben Visa Vale"
+            width={60}
+            height={60}
+          />
           <ul className="nav-links">
-            <li className={getClassNameForNavBarItem('/')} id="nav-link">
-              <Link href="/">
+            <li
+              className={getClassNameForNavBarItem('/dashboard')}
+              id="nav-link"
+            >
+              <Link href="/dashboard">
                 <a className="nav-link">Pedidos</a>
               </Link>
             </li>
-            <li className={getClassNameForNavBarItem('/employees')} id="nav-link">
+            <li
+              className={getClassNameForNavBarItem('/employees')}
+              id="nav-link"
+            >
               <Link href="/employees">
                 <a className="nav-link">Gerenciar funcionários</a>
               </Link>
             </li>
-            <li className={getClassNameForNavBarItem('/financial')} id="nav-link">
+            <li
+              className={getClassNameForNavBarItem('/financial')}
+              id="nav-link"
+            >
               <Link href="/financial">
                 <a className="nav-link">Financeiro</a>
               </Link>
@@ -53,19 +68,39 @@ const Navbar = () => {
           </ul>
 
           <Badge count={1} size="small">
-            <Dropdown overlay={Options} trigger={['click']} arrow placement="bottomRight" overlayStyle={{position: 'fixed'}}>
-              <a onClick={e => e.preventDefault()}>
-                <Avatar className="bell-icon" icon={<BellOutlined />} shape="circle" size="large" />
+            <Dropdown
+              overlay={Options}
+              trigger={['click']}
+              arrow
+              placement="bottomRight"
+              overlayStyle={{ position: 'fixed' }}
+            >
+              <a onClick={(e) => e.preventDefault()}>
+                <Avatar
+                  className="bell-icon"
+                  icon={<BellOutlined />}
+                  shape="circle"
+                  size="large"
+                />
               </a>
             </Dropdown>
           </Badge>
 
-          <Dropdown overlay={DropdownNavbar} trigger={['click']} placement="bottomRight" overlayStyle={{position: 'fixed'}}>
-            <a onClick={e => e.preventDefault()}>
-              <Avatar icon={<UserOutlined />} shape="circle" size="large" style={{backgroundColor: '#009CFF'}}/>
+          <Dropdown
+            overlay={DropdownNavbar}
+            trigger={['click']}
+            placement="bottomRight"
+            overlayStyle={{ position: 'fixed' }}
+          >
+            <a onClick={(e) => e.preventDefault()}>
+              <Avatar
+                icon={<UserOutlined />}
+                shape="circle"
+                size="large"
+                style={{ backgroundColor: '#009CFF' }}
+              />
             </a>
           </Dropdown>
-
         </div>
       </nav>
       <style jsx="true">{style}</style>

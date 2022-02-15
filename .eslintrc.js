@@ -11,12 +11,14 @@ module.exports = {
   ],
   settings: {
     'import/resolver': {
-      'alias': {
-        'map': [
+      alias: {
+        map: [
           ['@/components', './src/components'],
           ['@/utils', './src/utils'],
           ['@/styles', './src/styles'],
           ['@/mocks', './src/mocks'],
+          ['@/providers', './src/providers'],
+          ['@/modules', './src/modules'],
         ],
       },
     },
@@ -26,26 +28,16 @@ module.exports = {
     'react/require-default-props': 'error',
     'no-unused-vars': [
       'error',
-      { 'vars': 'all', 'args': 'after-used', 'ignoreRestSiblings': false },
+      { vars: 'all', args: 'after-used', ignoreRestSiblings: false },
     ],
     'import/no-unused-modules': 'error',
-    'react/jsx-filename-extension': [
-      1,
-      { extensions: ['.js', '.jsx' ] },
-    ],
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/react-in-jsx-scope': 'off',
     'react/jsx-uses-react': 'error',
     'react/jsx-uses-vars': 'error',
-    'no-multiple-empty-lines': [
-      'error',
-      { max: 1, maxBOF: 0, maxEOF: 0 },
-    ],
+    'no-multiple-empty-lines': ['error', { max: 1, maxBOF: 0, maxEOF: 0 }],
     'no-multi-spaces': 'error',
-    'quotes': [
-      'error',
-      'single',
-      { 'allowTemplateLiterals': true },
-    ],
+    quotes: ['error', 'single', { allowTemplateLiterals: true }],
     'max-len': [
       'error',
       {
@@ -54,14 +46,14 @@ module.exports = {
         ignoreTemplateLiterals: true,
       },
     ],
-    'comma-dangle': ['error', 'always-multiline' ],
-    'semi': [ 'error', 'always' ],
-    'indent': ['error', 2 ],
+    'comma-dangle': ['error', 'always-multiline'],
+    semi: ['error', 'always'],
+    indent: ['error', 2],
     'no-trailing-spaces': 'error',
     'react/jsx-indent': [
       2,
       2,
-      {checkAttributes: true, indentLogicalExpressions: true },
+      { checkAttributes: true, indentLogicalExpressions: true },
     ],
   },
 };
