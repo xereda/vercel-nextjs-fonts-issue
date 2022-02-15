@@ -1,3 +1,4 @@
+import propTypes from 'prop-types';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import { toCPFMask, isValidCPF } from '@/utils/format';
@@ -5,9 +6,18 @@ import Button from '@/components/Button/Button.js';
 import Recaptcha from '@/components/Recaptcha/Recaptcha';
 import style from './Form.style.js';
 
-export default function LoginForm() {
+Form.propTypes = {
+  withRecaptcha: propTypes.bool,
+};
 
-  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
+Form.defaultProps = {
+  withRecaptcha: true,
+};
+
+export default function Form({ withRecaptcha }) {
+
+  const [isCaptchaVerified, setIsCaptchaVerified] =
+    useState(withRecaptcha ? false : true);
 
   const formik = useFormik({
     initialValues: { cpf: '', password: '' },
@@ -17,27 +27,19 @@ export default function LoginForm() {
       if (!values.cpf) {
 
         errors.cpf = 'Campo obrigatório';
-        errors.hasError = true;
-      } else if (
-
-        !/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(values.cpf) ||
-        !isValidCPF(values.cpf)
-      ) {
+      } else if (!isValidCPF(values.cpf)) {
 
         errors.cpf = 'O CPF digitado não é valido.';
-        errors.hasError = true;
       }
 
-      if (!values.password) {
+      if (!values.password.trim()) {
 
         errors.password = 'Campo obrigatório';
-        errors.hasError = true;
       }
 
       return errors;
     },
     onSubmit: (values, { setSubmitting }) => {
-      console.log(values);
       setSubmitting(false);
     },
   });
@@ -72,10 +74,13 @@ export default function LoginForm() {
     return '';
   };
 
-  const disableSubmitButton = () =>
-    formik.errors.hasError ||
-    !formik.dirty ||
-    !isCaptchaVerified;
+  const disableSubmitButton = () => {
+
+    return !formik.isValid ||
+      !formik.dirty ||
+      !isCaptchaVerified;
+
+  };
 
   return (
     <form className="login-form" onSubmit={formik.handleSubmit}>
@@ -87,6 +92,7 @@ export default function LoginForm() {
           className={`input-field ${defineClassCpfField()}`}
           type="text"
           name="cpf"
+          id="cpf"
           maxLength='14'
           value={toCPFMask(formik.values.cpf)}
           placeholder="Digite seu CPF"
@@ -107,6 +113,7 @@ export default function LoginForm() {
           className={`input-field ${defineClassPasswordField()}`}
           type="password"
           name="password"
+          id="password"
           value={formik.values.password}
           placeholder="Digite sua senha"
           onChange={formik.handleChange}
@@ -120,10 +127,10 @@ export default function LoginForm() {
         }
       </div>
 
-      <Recaptcha {...{handleRecaptch}} />
+      {withRecaptcha && <Recaptcha {...{ handleRecaptch }} />}
 
       <div>
-        <Button isFullWidth type="submit" disabled={disableSubmitButton()} arial-label="submit-login">
+        <Button isFullWidth type="submit" disabled={disableSubmitButton()}>
           Fazer login
         </Button>
       </div>

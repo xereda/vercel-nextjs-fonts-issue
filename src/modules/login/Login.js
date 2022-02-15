@@ -8,7 +8,7 @@ export default function Login() {
       <section className="login-container">
         <Aside />
         <Content>
-          <Form />
+          <Form onSubmit={console.log} />
         </Content>
       </section>
 
