@@ -23,13 +23,6 @@ const mock = {
       status: { enum: 'CONCLUIDO', label: 'Concluído' },
       paymentStatus: { enum: 'PAGO', label: 'Pago' },
     },
-    {
-      orderId: '3333',
-      date: '20/12/2021 - 11:35:10',
-      value: 'R$ 150.650,00',
-      status: { enum: 'CONCLUIDO', label: 'Concluído' },
-      paymentStatus: { enum: 'PAGO', label: 'Pago' },
-    },
   ],
 };
 
