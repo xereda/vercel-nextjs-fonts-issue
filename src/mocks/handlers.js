@@ -5,4 +5,7 @@ export const handlers = [
   rest.get('/api/dashboard', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(mock));
   }),
+  rest.post('/api/login__', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({}));
+  }),
 ];

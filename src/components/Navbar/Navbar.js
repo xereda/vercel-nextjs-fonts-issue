@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
-import { Badge, Avatar, Dropdown } from 'antd';
+import { Avatar, Badge, Dropdown } from 'antd';
 import { BellOutlined, UserOutlined } from '@ant-design/icons';
 
 import DropdownNavbar from './DropdownNavbar/DropdownNavbar.js';

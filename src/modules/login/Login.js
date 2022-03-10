@@ -8,14 +8,14 @@ export default function Login() {
       <section className="login-container">
         <Aside />
         <Content>
-          <Form onSubmit={console.log} />
+          <Form />
         </Content>
       </section>
 
       <style jsx="true">{`
         .login-container {
           display: flex;
-        }      
+        }
       `}</style>
     </>
   );

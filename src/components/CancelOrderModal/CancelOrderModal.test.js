@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import CancelOrderModal from './CancelOrderModal';
 
 const handleCloseModal = jest.fn(() => true);

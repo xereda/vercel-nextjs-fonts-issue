@@ -1,12 +1,10 @@
 import useSWR from 'swr';
-import axios from 'axios';
+import { fetcher } from '@/utils/services';
 
-const fetcher = url => axios.get(url).then(res => res.data);
-
-const defaultOptions = { refreshInterval: 5000 };
-
-const useDashboard = (options = defaultOptions) => {
-  const { data, error } = useSWR('/api/dashboard', fetcher, options);
+const useDashboard = () => {
+  const { data, error } = useSWR('/api/dashboard', fetcher, {
+    refreshInterval: 5000,
+  });
 
   return {
     data,

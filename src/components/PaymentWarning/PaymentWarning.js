@@ -1,4 +1,4 @@
-import { WarningOutlined, CloseOutlined } from '@ant-design/icons';
+import { CloseOutlined, WarningOutlined } from '@ant-design/icons';
 import { store } from '@/providers/index';
 import Button from '@/components/Button/Button.js';
 import style from './PaymentWarning.style.js';

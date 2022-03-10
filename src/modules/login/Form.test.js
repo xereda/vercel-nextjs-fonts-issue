@@ -1,4 +1,4 @@
-import { render, screen, waitFor, cleanup } from '@testing-library/react';
+import { cleanup, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Form from './Form';
 
@@ -8,7 +8,6 @@ afterEach(() => cleanup());
 
 describe('Form login component', () => {
   test('deve iniciar o formulario com o botao "fazer login" desabilitado', () => {
-
     expect(screen.getByText('fazer login', { exact: false })).toBeDisabled();
   });
 
@@ -23,7 +22,9 @@ describe('Form login component', () => {
     const cpf = screen.getByLabelText(/CPF/i);
     await userEvent.type(cpf, '11111111111{tab}');
 
-    expect(screen.getByText('O CPF digitado não é valido.')).toBeInTheDocument();
+    expect(
+      screen.getByText('O CPF digitado não é valido.'),
+    ).toBeInTheDocument();
     expect(screen.getByText('fazer login', { exact: false })).toBeDisabled();
   });
 

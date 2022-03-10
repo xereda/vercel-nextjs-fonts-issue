@@ -1,10 +1,11 @@
 import propTypes from 'prop-types';
 import { useFormik } from 'formik';
 import { useState } from 'react';
-import { toCPFMask, isValidCPF } from '@/utils/format';
+import { isValidCPF, toCPFMask } from '@/utils/format';
 import Button from '@/components/Button/Button.js';
 import Recaptcha from '@/components/Recaptcha/Recaptcha';
 import style from './Form.style.js';
+import { authenticate } from './services.js';
 
 Form.propTypes = {
   withRecaptcha: propTypes.bool,
@@ -15,25 +16,22 @@ Form.defaultProps = {
 };
 
 export default function Form({ withRecaptcha }) {
-
-  const [isCaptchaVerified, setIsCaptchaVerified] =
-    useState(withRecaptcha ? false : true);
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState(
+    withRecaptcha ? false : true,
+  );
 
   const formik = useFormik({
     initialValues: { cpf: '', password: '' },
-    validate: values => {
+    validate: (values) => {
       const errors = {};
 
       if (!values.cpf) {
-
         errors.cpf = 'Campo obrigatório';
       } else if (!isValidCPF(values.cpf)) {
-
         errors.cpf = 'O CPF digitado não é valido.';
       }
 
       if (!values.password.trim()) {
-
         errors.password = 'Campo obrigatório';
       }
 
@@ -41,10 +39,22 @@ export default function Form({ withRecaptcha }) {
     },
     onSubmit: (values, { setSubmitting }) => {
       setSubmitting(false);
+      console.log(values);
+      handleLogin({ ...values });
     },
   });
 
-  const handleRecaptch = isVerified => {
+  const handleLogin = ({ cpf, password }) => {
+    authenticate({
+      cpf,
+      password,
+      onSuccess: () => console.log('SUCESSOOO!!!'),
+      onError: () => console.log('DEU MERDA!'),
+      onFinally: () => console.log('TERMINOU!'),
+    });
+  };
+
+  const handleRecaptch = (isVerified) => {
     setIsCaptchaVerified(!!isVerified);
 
     isVerified && formik.validateForm();
@@ -75,11 +85,7 @@ export default function Form({ withRecaptcha }) {
   };
 
   const disableSubmitButton = () => {
-
-    return !formik.isValid ||
-      !formik.dirty ||
-      !isCaptchaVerified;
-
+    return !formik.isValid || !formik.dirty || !isCaptchaVerified;
   };
 
   return (
@@ -88,12 +94,12 @@ export default function Form({ withRecaptcha }) {
         <label htmlFor="cpf">CPF</label>
         <input
           required
-          autoComplete='cpf'
+          autoComplete="cpf"
           className={`input-field ${defineClassCpfField()}`}
           type="text"
           name="cpf"
           id="cpf"
-          maxLength='14'
+          maxLength="14"
           value={toCPFMask(formik.values.cpf)}
           placeholder="Digite seu CPF"
           onBlur={formik.handleBlur}
@@ -102,14 +108,14 @@ export default function Form({ withRecaptcha }) {
 
         <span className={`${defineClassCpfField()}-icon`}></span>
 
-        {formik.touched.cpf && formik.errors.cpf &&
+        {formik.touched.cpf && formik.errors.cpf && (
           <span className="error-message">{formik.errors.cpf}</span>
-        }
+        )}
       </div>
       <div className="fieldset">
         <label htmlFor="password">Senha</label>
         <input
-          autoComplete='current-password'
+          autoComplete="current-password"
           className={`input-field ${defineClassPasswordField()}`}
           type="password"
           name="password"
@@ -122,9 +128,9 @@ export default function Form({ withRecaptcha }) {
 
         <span className={`${defineClassPasswordField()}-icon`}></span>
 
-        {formik.touched.password && formik.errors.password &&
+        {formik.touched.password && formik.errors.password && (
           <span className="error-message">{formik.errors.password}</span>
-        }
+        )}
       </div>
 
       {withRecaptcha && <Recaptcha {...{ handleRecaptch }} />}

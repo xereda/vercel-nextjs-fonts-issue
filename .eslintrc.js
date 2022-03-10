@@ -3,6 +3,7 @@ module.exports = {
     jest: true,
     es6: true,
   },
+  plugins: ['unused-imports'],
   extends: [
     'eslint:recommended',
     'next',
@@ -26,11 +27,23 @@ module.exports = {
   rules: {
     'react/prop-types': 'error',
     'react/require-default-props': 'error',
-    'no-unused-vars': [
+    'no-unused-vars': 'off',
+    'unused-imports/no-unused-imports': 'error',
+    'unused-imports/no-unused-vars': [
       'error',
-      { vars: 'all', args: 'after-used', ignoreRestSiblings: false },
+      {
+        vars: 'all',
+        varsIgnorePattern: '^_',
+        args: 'after-used',
+        argsIgnorePattern: '^_',
+      },
     ],
-    'import/no-unused-modules': 'error',
+    'sort-imports': [
+      'error',
+      {
+        ignoreDeclarationSort: true,
+      },
+    ],
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/react-in-jsx-scope': 'off',
     'react/jsx-uses-react': 'error',
