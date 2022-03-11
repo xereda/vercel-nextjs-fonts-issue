@@ -12,8 +12,6 @@ export const authenticate = async ({
 }) => {
   onStart?.();
 
-  console.log({ cpf, password });
-
   const { encrypt, decrypt } = makeKrypton();
   const [apiKey, authorization] = await encrypt(cpf, password);
 

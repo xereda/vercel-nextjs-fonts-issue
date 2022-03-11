@@ -1,6 +1,7 @@
 import propTypes from 'prop-types';
+import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { store } from '@/providers/index';
 import { isValidCPF, toCPFMask } from '@/utils/format';
 import Button from '@/components/Button/Button.js';
@@ -17,9 +18,16 @@ Form.defaultProps = {
 };
 
 export default function Form({ withRecaptcha }) {
+  const router = useRouter();
   const dispatch = store.useDispatch();
   const { loading: fullPageLoading } = store.useStore();
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    dispatch({
+      type: 'RESET_STATE',
+    });
+  }, [dispatch]);
 
   const setLoading = (payload) =>
     dispatch({
@@ -56,7 +64,6 @@ export default function Form({ withRecaptcha }) {
     },
     onSubmit: (values, { setSubmitting }) => {
       setSubmitting(false);
-      console.log(values);
       handleLogin(values);
     },
   });
@@ -69,15 +76,15 @@ export default function Form({ withRecaptcha }) {
         setLoading(true);
         setError('');
       },
-      onSuccess: (session) =>
+      onSuccess: (session) => {
         updateSessionState({
           accessToken: session?.accessToken,
           usuario: session?.usuario,
-        }),
-      onError: (e) => {
-        console.log({ e });
-        setError(e?.response?.data?.error);
+        });
+
+        router.push('/dashboard');
       },
+      onError: (e) => setError(e?.response?.data?.error),
       onFinally: () => setLoading(false),
     });
   };
