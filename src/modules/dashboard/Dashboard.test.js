@@ -7,7 +7,7 @@ import { Providers } from '@/providers/index';
 import Dashboard from './Dashboard';
 
 describe('Dashboard component', () => {
-  test('should render dashboard integrated with mock', async () => {
+  test.only('should render dashboard integrated with mock', async () => {
     render(
       <Providers>
         <Dashboard />

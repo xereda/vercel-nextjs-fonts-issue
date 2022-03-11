@@ -1,6 +1,7 @@
 import propTypes from 'prop-types';
 import { useFormik } from 'formik';
 import { useState } from 'react';
+import { store } from '@/providers/index';
 import { isValidCPF, toCPFMask } from '@/utils/format';
 import Button from '@/components/Button/Button.js';
 import Recaptcha from '@/components/Recaptcha/Recaptcha';
@@ -16,6 +17,22 @@ Form.defaultProps = {
 };
 
 export default function Form({ withRecaptcha }) {
+  const dispatch = store.useDispatch();
+  const { loading: fullPageLoading } = store.useStore();
+  const [error, setError] = useState('');
+
+  const setLoading = (payload) =>
+    dispatch({
+      type: 'SET_LOADING',
+      payload,
+    });
+
+  const updateSessionState = (payload) =>
+    dispatch({
+      type: 'SET_DATA_SESSION',
+      payload,
+    });
+
   const [isCaptchaVerified, setIsCaptchaVerified] = useState(
     withRecaptcha ? false : true,
   );
@@ -40,7 +57,7 @@ export default function Form({ withRecaptcha }) {
     onSubmit: (values, { setSubmitting }) => {
       setSubmitting(false);
       console.log(values);
-      handleLogin({ ...values });
+      handleLogin(values);
     },
   });
 
@@ -48,9 +65,20 @@ export default function Form({ withRecaptcha }) {
     authenticate({
       cpf,
       password,
-      onSuccess: () => console.log('SUCESSOOO!!!'),
-      onError: () => console.log('DEU MERDA!'),
-      onFinally: () => console.log('TERMINOU!'),
+      onStart: () => {
+        setLoading(true);
+        setError('');
+      },
+      onSuccess: (session) =>
+        updateSessionState({
+          accessToken: session?.accessToken,
+          usuario: session?.usuario,
+        }),
+      onError: (e) => {
+        console.log({ e });
+        setError(e?.response?.data?.error);
+      },
+      onFinally: () => setLoading(false),
     });
   };
 
@@ -85,7 +113,9 @@ export default function Form({ withRecaptcha }) {
   };
 
   const disableSubmitButton = () => {
-    return !formik.isValid || !formik.dirty || !isCaptchaVerified;
+    return (
+      fullPageLoading || !formik.isValid || !formik.dirty || !isCaptchaVerified
+    );
   };
 
   return (
@@ -135,11 +165,11 @@ export default function Form({ withRecaptcha }) {
 
       {withRecaptcha && <Recaptcha {...{ handleRecaptch }} />}
 
-      <div>
-        <Button isFullWidth type="submit" disabled={disableSubmitButton()}>
-          Fazer login
-        </Button>
-      </div>
+      <p className="integration-error">{error}</p>
+
+      <Button isFullWidth type="submit" disabled={disableSubmitButton()}>
+        Fazer login
+      </Button>
 
       <div className="password-recovery">
         <button className="forgot-password">Esqueceu sua senha?</button>

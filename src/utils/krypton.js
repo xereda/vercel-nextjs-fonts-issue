@@ -139,19 +139,24 @@ export default class Krypton {
   }
 }
 
-console.log('dentro do modulo krypton: ', process.env.KRYPTON_KEY);
+export const makeKrypton = () => {
+  const kryptonInstance = new Krypton(process.env.NEXT_PUBLIC_KRYPTON_KEY);
 
-const krypto = new Krypton(process.env.KRYPTON_KEY);
+  const getOnlyNumbers = (string = '') => string.replace(/\D/g, '');
 
-export const getOnlyNumbers = (string = '') => string.replace(/\D/g, '');
+  const encrypt = async (cpf, password) => {
+    const { encryptedKey, encryptedData } = await kryptonInstance.encrypt({
+      cpf: getOnlyNumbers(cpf),
+      password,
+    });
 
-export const encrypt = async (cpf, password) => {
-  const { encryptedKey, encryptedData } = await krypto.encrypt({
-    cpf: getOnlyNumbers(cpf),
-    password,
-  });
+    return [encryptedKey, encryptedData];
+  };
 
-  return [encryptedKey, encryptedData];
+  const decrypt = (responseData) => kryptonInstance.decrypt(responseData);
+
+  return {
+    encrypt,
+    decrypt,
+  };
 };
-
-export const decrypt = (responseData) => krypto.decrypt(responseData);

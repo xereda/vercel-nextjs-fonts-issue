@@ -1,10 +1,11 @@
+import { Providers } from '@/providers/index';
 import Aside from './Aside';
 import Content from './Content';
 import Form from './Form';
 
 export default function Login() {
   return (
-    <>
+    <Providers>
       <section className="login-container">
         <Aside />
         <Content>
@@ -17,6 +18,6 @@ export default function Login() {
           display: flex;
         }
       `}</style>
-    </>
+    </Providers>
   );
 }

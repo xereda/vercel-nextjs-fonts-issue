@@ -1,8 +1,15 @@
 import { cleanup, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { Providers } from '@/providers/';
 import Form from './Form';
 
-beforeEach(() => render(<Form withRecaptcha={false} />));
+beforeEach(() =>
+  render(
+    <Providers>
+      <Form withRecaptcha={false} />
+    </Providers>,
+  ),
+);
 
 afterEach(() => cleanup());
 

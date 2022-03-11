@@ -12,19 +12,14 @@ export default function Employees() {
     });
 
   return (
-    <PageContent
-      title="Funcionários"
-      onBack={() => window.history.back()}
-    >
+    <PageContent title="Funcionários" onBack={() => window.history.back()}>
       <h1>employees.js</h1>
-      <h2>{ session.name }</h2>
+      <h2>{session.name}</h2>
       <button onClick={handleResetState}>RESET STATE</button>
     </PageContent>
   );
 }
 
 Employees.getLayout = function getLayout(page) {
-  return (
-    <Layout>{page}</Layout>
-  );
+  return <Layout>{page}</Layout>;
 };

@@ -61,7 +61,7 @@ module.exports = {
     ],
     'comma-dangle': ['error', 'always-multiline'],
     semi: ['error', 'always'],
-    indent: ['error', 2],
+    indent: ['error', 2, { SwitchCase: 1 }],
     'no-trailing-spaces': 'error',
     'react/jsx-indent': [
       2,
