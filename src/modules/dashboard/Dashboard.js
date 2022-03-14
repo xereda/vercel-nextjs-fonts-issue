@@ -5,7 +5,7 @@ import VirtualAccount from '@/components/VirtualAccount/VirtualAccount';
 import PaymentWarning from '@/components/PaymentWarning/PaymentWarning';
 import OrdersList from './OrdersList/OrdersList';
 import FeedbackPlaceholder from '@/components/FeedbackPlaceholder/FeedbackPlaceholder';
-import { store } from '@/providers/index';
+import ProtectedPage from '@/components/ProtectedPage/ProtectedPage';
 import style from './Dashboard.style';
 import { useDashboard } from './services';
 
@@ -16,35 +16,26 @@ export default function Dashboard() {
   const useLimit = data?.useLimit;
   const orders = data?.orders;
 
-  const session = store.useStore().session;
-
   return (
-    <FeedbackPlaceholder {...{ isLoading, hasError, noData }}>
-      <PageContent
-        title="Histórico de pedidos"
-      >
-        {session.name}
-        <div className="account-info">
-          <LimitChart {...useLimit} />
-          <VirtualAccount virtualBalance={virtualBalance} />
-        </div>
+    <ProtectedPage>
+      <FeedbackPlaceholder {...{ isLoading, hasError, noData }}>
+        <PageContent title="Histórico de pedidos">
+          <div className="account-info">
+            <LimitChart {...useLimit} />
+            <VirtualAccount virtualBalance={virtualBalance} />
+          </div>
 
-        <div className="orders-list">
-          <OrdersList {...{ orders }} />
-        </div>
+          <div className="orders-list">
+            <OrdersList {...{ orders }} />
+          </div>
 
-        <style jsx="true">{style}</style>
-      </PageContent>
-    </FeedbackPlaceholder>
+          <style jsx="true">{style}</style>
+        </PageContent>
+      </FeedbackPlaceholder>
+    </ProtectedPage>
   );
 }
 
 Dashboard.getLayout = function getLayout(page) {
-  return (
-    <Layout
-      renderNotice={() => <PaymentWarning />}
-    >
-      {page}
-    </Layout>
-  );
+  return <Layout renderNotice={() => <PaymentWarning />}>{page}</Layout>;
 };
