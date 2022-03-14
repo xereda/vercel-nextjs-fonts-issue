@@ -2,7 +2,11 @@ import propTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
-import { store } from '@/providers/index';
+import {
+  useGlobalDispatch,
+  useGlobalStore,
+  useSessionDispatch,
+} from '@/providers/index';
 import { isValidCPF, toCPFMask } from '@/utils/format';
 import Button from '@/components/Button/Button.js';
 import Recaptcha from '@/components/Recaptcha/Recaptcha';
@@ -19,24 +23,25 @@ Form.defaultProps = {
 
 export default function Form({ withRecaptcha }) {
   const router = useRouter();
-  const dispatch = store.useDispatch();
-  const { loading: fullPageLoading } = store.useStore();
+  const { loading: fullPageLoading } = useGlobalStore();
+  const dispatchSession = useSessionDispatch();
+  const dispatchGlobal = useGlobalDispatch();
   const [error, setError] = useState('');
 
   useEffect(() => {
-    dispatch({
+    dispatchSession({
       type: 'RESET_STATE',
     });
-  }, [dispatch]);
+  }, [dispatchSession]);
 
   const setLoading = (payload) =>
-    dispatch({
+    dispatchGlobal({
       type: 'SET_LOADING',
       payload,
     });
 
   const updateSessionState = (payload) =>
-    dispatch({
+    dispatchSession({
       type: 'SET_DATA_SESSION',
       payload,
     });

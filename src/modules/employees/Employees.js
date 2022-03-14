@@ -1,10 +1,10 @@
 import Layout from '@/components/Layout/Layout';
 import PageContent from '@/components/PageContent/PageContent';
-import { store } from '@/providers/index';
+import { useSessionDispatch, useSessionStore } from '@/providers/index';
 
 export default function Employees() {
-  const dispatch = store.useDispatch();
-  const { session } = store.useStore();
+  const dispatch = useSessionDispatch();
+  const { session } = useSessionStore();
 
   const handleResetState = () =>
     dispatch({
@@ -14,7 +14,7 @@ export default function Employees() {
   return (
     <PageContent title="Funcionários" onBack={() => window.history.back()}>
       <h1>employees.js</h1>
-      <h2>{session.name}</h2>
+      <h2>{JSON.stringify(session)}</h2>
       <button onClick={handleResetState}>RESET STATE</button>
     </PageContent>
   );
