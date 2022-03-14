@@ -92,4 +92,9 @@ export default css`
     text-transform: uppercase;
     font-weight: 700;
   }
+  .integration-error {
+    color: var(--darkRed);
+    text-align: center;
+    font-size: 16px;
+  }
 `;

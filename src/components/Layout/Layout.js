@@ -1,5 +1,4 @@
 import propTypes from 'prop-types';
-import { Providers } from '@/providers/index';
 import Navbar from '../Navbar/Navbar';
 import style from './Layout.style.js';
 
@@ -12,21 +11,16 @@ Layout.defaultProps = {
   renderNotice: () => null,
 };
 
-export default function Layout ({ children, renderNotice }) {
-
+export default function Layout({ children, renderNotice }) {
   return (
-    <Providers>
-      <div className="layout">
-        <Navbar />
+    <div className="layout">
+      <Navbar />
 
-        {renderNotice()}
+      {renderNotice()}
 
-        <div className="container">
-          {children}
-        </div>
+      <div className="container">{children}</div>
 
-        <style jsx="true">{style}</style>
-      </div>
-    </Providers>
+      <style jsx="true">{style}</style>
+    </div>
   );
-};
+}

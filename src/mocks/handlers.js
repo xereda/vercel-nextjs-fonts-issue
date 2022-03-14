@@ -1,8 +1,15 @@
 import { rest } from 'msw';
-import mock from './dashboard-mock';
+import { dataMocks } from './data/index';
 
 export const handlers = [
   rest.get('/api/dashboard', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(mock));
+    return res(ctx.status(200), ctx.json(dataMocks.dashboard), ctx.delay());
+  }),
+  rest.post('/api/login', (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({ mockByPass: true }),
+      ctx.delay(2500),
+    );
   }),
 ];
