@@ -1,4 +1,7 @@
-console.log('### process.env ###: ', process.env.NEXT_PUBLIC_ENVIRONMENT);
+console.log(
+  '### process.env.NEXT_PUBLIC_ENVIRONMENT ###: ',
+  process.env.NEXT_PUBLIC_ENVIRONMENT,
+);
 
 if (
   process.env.NODE_ENV === 'development' &&
