@@ -1,6 +1,8 @@
 import { httpClient } from '@/utils/services';
 
 export default async function handler(req, res) {
+  console.log('DENTRO DA API LOGIN');
+
   try {
     const { apiKey, authorization } = req?.body || {};
     const headers = {
@@ -8,6 +10,14 @@ export default async function handler(req, res) {
       authorization,
       client_id: process.env.HEIMDALL_CLIENT,
     };
+
+    console.log('DADOS DO ENVIADOS - req.body', req.body);
+    console.log('headers', headers);
+
+    console.log(
+      'process.env.AUTHENTICATION_PATH: ',
+      process.env.AUTHENTICATION_PATH,
+    );
 
     const response = await httpClient.post(
       process.env.AUTHENTICATION_PATH,
