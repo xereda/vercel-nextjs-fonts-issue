@@ -1,5 +1,5 @@
 import propTypes from 'prop-types';
-import { createContext, useContext, useEffect, useReducer } from 'react';
+import { createContext, useContext, useReducer } from 'react';
 import { useLocalStorage } from '@/utils/hooks';
 
 SessionProvider.propTypes = {
@@ -11,15 +11,24 @@ const DispatchContext = createContext();
 
 const initialState = { session: { accessToken: '', user: {} } };
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'RESET_STATE':
-      return initialState;
-    case 'SET_DATA_SESSION':
-      return { ...state, session: action.payload };
-    default:
-      throw new Error(`Unknown action: ${action.type}`);
-  }
+const reducer = ({ setStateToLocalStorage }) => {
+  return (state, action) => {
+    switch (action.type) {
+      case 'RESET_STATE': {
+        setStateToLocalStorage(initialState);
+
+        return initialState;
+      }
+      case 'SET_DATA_SESSION': {
+        const updatedState = { ...state, session: action.payload };
+        setStateToLocalStorage(updatedState);
+
+        return updatedState;
+      }
+      default:
+        throw new Error(`Unknown action: ${action.type}`);
+    }
+  };
 };
 
 export function SessionProvider({ children }) {
@@ -28,12 +37,10 @@ export function SessionProvider({ children }) {
     initialState,
   );
 
-  const [state, dispatch] = useReducer(reducer, persistedState);
-
-  useEffect(() => {
-    setStateToLocalStorage(state);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state]);
+  const [state, dispatch] = useReducer(
+    reducer({ setStateToLocalStorage }),
+    persistedState,
+  );
 
   return (
     <DispatchContext.Provider value={dispatch}>
