@@ -2,12 +2,11 @@
   "name": "test-ant",
   "private": true,
   "scripts": {
-    "clean-env": "shx rm -f .env.local",
-    "dev": "yarn clean-env && next dev",
-    "build": "next build && next start",
-    "start": "yarn clean_env && next start",
-    "dev:qa": "shx cp .env.qa .env.local && yarn dev",
-    "build:qa": "shx cp .env.qa .env.local && yarn build",
+    "dev": "shx cp .env .env.local && next dev",
+    "build": "shx cp .env .env.local && next build && next start",
+    "start": "next start",
+    "dev:qa": "shx cp .env.qa .env.local && next dev",
+    "build:qa": "shx cp .env.qa .env.local && next build && next start",
     "lint": "next lint",
     "test": "jest --",
     "test:watch": "jest --watch",
@@ -54,7 +53,8 @@
     "husky": "^7.0.4",
     "jest": "^27.4.7",
     "msw": "^0.36.8",
-    "sass": "^1.45.1"
+    "sass": "^1.45.1",
+    "shx": "^0.3.4"
   },
   "config": {
     "commitizen": {
