@@ -1,11 +1,8 @@
 import { CloseOutlined, WarningOutlined } from '@ant-design/icons';
-import { store } from '@/providers/index';
 import Button from '@/components/Button/Button.js';
 import style from './PaymentWarning.style.js';
 
 export default function PaymentWarning() {
-  const dispatch = store.useDispatch();
-
   const isBoleto = true;
   const idPedido = '9999';
 
@@ -17,19 +14,19 @@ export default function PaymentWarning() {
     Comprovante TED nº XXXX.`;
 
   const noticeBoleto = `O(s) boleto(s) estão disponíveis no menu financeiro, 
-    clique no botão ao lado para visualizá-los. ${store.useStore().session.name}`;
+    clique no botão ao lado para visualizá-los.`;
 
   return (
     <>
       <section className="warning">
         {isBoleto && (
           <div className="close-warning">
-            <CloseOutlined style={{color: '#009cff'}} />
+            <CloseOutlined style={{ color: '#009cff' }} />
           </div>
         )}
 
         <div className="icon-warning">
-          <WarningOutlined style={{color: '#fff', fontSize: '36px'}} />
+          <WarningOutlined style={{ color: '#fff', fontSize: '36px' }} />
         </div>
 
         <div
@@ -42,16 +39,7 @@ export default function PaymentWarning() {
 
         {isBoleto && (
           <div>
-            <Button
-              aria-label="ver-boletos"
-              onClick={() =>
-                dispatch({
-                  type: 'SET_DATA_SESSION',
-                  payload: {
-                    id: '2222',
-                    name: 'Jackson Ricardo Schroeder',
-                  },
-                })}>
+            <Button aria-label="ver-boletos" onClick={() => null}>
               Ver boletos
             </Button>
           </div>
