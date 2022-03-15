@@ -22,6 +22,8 @@ export const authenticate = async ({
         ? dataMocks.session
         : await decrypt(response.data);
 
+      await httpClient.post('/api/set-cookie', decrypted);
+
       onSuccess(decrypted);
     })
     .catch(onError)

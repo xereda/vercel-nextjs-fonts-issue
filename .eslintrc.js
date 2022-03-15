@@ -25,6 +25,7 @@ module.exports = {
     },
   },
   rules: {
+    'import/no-anonymous-default-export': [2, { allowArrowFunction: true }],
     'react/prop-types': 'error',
     'react/require-default-props': 'error',
     'no-unused-vars': 'off',

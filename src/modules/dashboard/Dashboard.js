@@ -9,7 +9,7 @@ import ProtectedPage from '@/components/ProtectedPage/ProtectedPage';
 import style from './Dashboard.style';
 import { useDashboard } from './services';
 
-export default function Dashboard() {
+export default function Dashboard({ session }) {
   const { data, hasError, isLoading, noData } = useDashboard();
 
   const virtualBalance = data?.virtualBalance?.balanceValue;
@@ -19,6 +19,7 @@ export default function Dashboard() {
   return (
     <ProtectedPage>
       <FeedbackPlaceholder {...{ isLoading, hasError, noData }}>
+        {session}
         <PageContent title="Histórico de pedidos">
           <div className="account-info">
             <LimitChart {...useLimit} />
@@ -39,3 +40,25 @@ export default function Dashboard() {
 Dashboard.getLayout = function getLayout(page) {
   return <Layout renderNotice={() => <PaymentWarning />}>{page}</Layout>;
 };
+
+export async function getServerSideProps(context) {
+  // const res = await fetch(`https://.../data`);
+  // const data = await res.json();
+
+  const session = context.req.cookies?.session;
+
+  console.log(session);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
+}
