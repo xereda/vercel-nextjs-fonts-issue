@@ -12,4 +12,7 @@ export const handlers = [
       ctx.delay(2500),
     );
   }),
+  rest.post('/api/permissoes', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(dataMocks.grupoEmpresa), ctx.delay());
+  }),
 ];

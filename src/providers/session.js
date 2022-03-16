@@ -9,7 +9,15 @@ SessionProvider.propTypes = {
 const StateContext = createContext();
 const DispatchContext = createContext();
 
-const initialState = { session: { accessToken: '', user: {} } };
+const initialState = {
+  session: {
+    accessToken: '',
+    credential: '',
+    timestamp: '',
+    grupoEmpresa: {},
+    user: {},
+  },
+};
 
 const reducer = ({ setStateToLocalStorage }) => {
   return (state, action) => {

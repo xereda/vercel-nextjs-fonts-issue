@@ -1,4 +1,4 @@
-const mock = {
+export default {
   useLimit: {
     percentage: 1,
     limiteBalance: 'R$ 99,00',
@@ -25,5 +25,3 @@ const mock = {
     },
   ],
 };
-
-export default mock;

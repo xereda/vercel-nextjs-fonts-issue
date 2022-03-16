@@ -82,10 +82,7 @@ export default function Form({ withRecaptcha }) {
         setError('');
       },
       onSuccess: (session) => {
-        updateSessionState({
-          accessToken: session?.accessToken,
-          usuario: session?.usuario,
-        });
+        updateSessionState(session);
 
         router.push('/dashboard');
       },

@@ -7,6 +7,8 @@
     "start": "next start",
     "dev:qa": "shx cp .env.qa .env.local && next dev",
     "build:qa": "shx cp .env.qa .env.local && next build && next start",
+    "dev:stg": "shx cp .env.stg .env.local && next dev",
+    "build:stg": "shx cp .env.stg .env.local && next build && next start",
     "lint": "next lint",
     "test": "jest --",
     "test:watch": "jest --watch",

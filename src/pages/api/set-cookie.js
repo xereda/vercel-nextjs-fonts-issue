@@ -1,8 +1,6 @@
 import cookie from 'cookie';
 
 export default (req, res) => {
-  console.log('req.body: ', req.body);
-
   const cookieValue = JSON.stringify(req.body);
 
   res.setHeader(
