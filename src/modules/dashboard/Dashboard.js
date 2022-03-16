@@ -1,3 +1,4 @@
+import absoluteUrl from 'next-absolute-url';
 import Layout from '@/components/Layout/Layout';
 import PageContent from '@/components/PageContent/PageContent';
 import LimitChart from '@/components/LimitChart/LimitChart';
@@ -8,6 +9,7 @@ import FeedbackPlaceholder from '@/components/FeedbackPlaceholder/FeedbackPlaceh
 import ProtectedPage from '@/components/ProtectedPage/ProtectedPage';
 import style from './Dashboard.style';
 import { useDashboard } from './services';
+import { httpClient } from '@/utils/services';
 
 export default function Dashboard() {
   const { data, hasError, isLoading, noData } = useDashboard();
@@ -41,21 +43,27 @@ Dashboard.getLayout = function getLayout(page) {
 };
 
 export async function getServerSideProps(context) {
-  // const res = await fetch(`https://.../data`);
-  // const data = await res.json();
+  if (process.env.NEXT_PUBLIC_ENVIRONMENT) {
+    try {
+      const { origin: serverUrl } = absoluteUrl(context.req);
 
-  const session = context.req.cookies?.session;
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    };
+      await httpClient({
+        method: 'get',
+        url: `${serverUrl}/api/parametros`,
+        withCredentials: true,
+        headers: {
+          session: context.req.cookies?.session || '{}',
+        },
+      });
+    } catch (error) {
+      return {
+        redirect: {
+          destination: '/login',
+          permanent: false,
+        },
+      };
+    }
   }
 
-  return {
-    props: {},
-  };
+  return { props: {} };
 }

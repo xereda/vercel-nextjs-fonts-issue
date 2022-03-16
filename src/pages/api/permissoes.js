@@ -2,8 +2,6 @@ import { httpClient } from '@/utils/services';
 
 export default async function handler(req, res) {
   try {
-    console.log('req.body: ', req?.body);
-
     const { accessToken, credential, idUsuario } = req?.body || {};
 
     const headers = {

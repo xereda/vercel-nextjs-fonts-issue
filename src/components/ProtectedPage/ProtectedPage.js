@@ -7,7 +7,7 @@ export default function ProtectedPage({ children }) {
   const session = useSessionStore().session;
 
   useEffect(
-    () => !session.accessToken && router.replace('/login'),
+    () => !session?.accessToken && router.replace('/login'),
     [router, session],
   );
 

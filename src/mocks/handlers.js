@@ -15,4 +15,7 @@ export const handlers = [
   rest.post('/api/permissoes', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(dataMocks.grupoEmpresa), ctx.delay());
   }),
+  rest.post('/api/parametros', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(dataMocks.parametros), ctx.delay());
+  }),
 ];

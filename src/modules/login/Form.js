@@ -29,6 +29,8 @@ export default function Form({ withRecaptcha }) {
   const [error, setError] = useState('');
 
   useEffect(() => {
+    console.log('useEffect: ', new Date().getTime());
+
     dispatchSession({
       type: 'RESET_STATE',
     });
