@@ -36,12 +36,24 @@ export const authenticate = async ({
         data: { accessToken, credential, idUsuario: usuario?.id || '' },
       });
 
+      const responseParametros = await httpClient({
+        method: 'post',
+        url: '/api/parametros',
+        data: {
+          accessToken,
+          credential,
+          idUsuario: usuario?.id || '',
+          idGrupoEmpresa: responseGrupoEmpresa?.data?.id,
+        },
+      });
+
       const session = {
         accessToken,
         timestamp,
         usuario,
         credential,
         grupoEmpresa: responseGrupoEmpresa?.data || {},
+        parametros: responseParametros?.data || {},
       };
 
       await httpClient({

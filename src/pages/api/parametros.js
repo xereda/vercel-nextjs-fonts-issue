@@ -2,25 +2,15 @@ import { httpClient } from '@/utils/services';
 
 export default async function handler(req, res) {
   try {
-    const cookieRaw = req?.headers?.session || req?.cookies?.session || '{}';
-
-    const session = JSON.parse(cookieRaw);
-
-    const accessToken = session?.accessToken;
-    const credential = session?.credential;
-    const client_id = process.env.HEIMDALL_CLIENT_ID;
-    const idGrupoEmpresa = session?.grupoEmpresa?.id;
-    const idUsuario = session?.usuario?.id;
-
-    if (!accessToken || !credential || !idGrupoEmpresa || !idUsuario) {
-      throw 'INVALID_DATA_SESSION';
-    }
+    const { accessToken, credential, idUsuario, idGrupoEmpresa } =
+      req?.body || {};
 
     const headers = {
       authorization: `Bearer ${accessToken}`,
-      client_id,
+      client_id: process.env.HEIMDALL_CLIENT_ID,
       credential,
     };
+
     const url = process.env.PARAMETROS_PATH.replace(
       '[idGrupoEmpresa]',
       idGrupoEmpresa,

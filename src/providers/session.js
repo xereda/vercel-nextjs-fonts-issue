@@ -16,7 +16,8 @@ const initialState = {
     credential: '',
     timestamp: '',
     grupoEmpresa: {},
-    user: {},
+    usuario: {},
+    parametros: {},
   },
 };
 
