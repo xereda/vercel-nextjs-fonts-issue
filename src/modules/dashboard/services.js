@@ -10,7 +10,8 @@ const useDashboard = () => {
     data,
     isLoading: !error && !data,
     hasError: !!error,
-    noData: !error && !data?.virtualBalance,
+    noData: !error && !data?.orders?.[0],
+    // noData: !error && !data?.virtualBalance,
   };
 };
 
