@@ -32,10 +32,6 @@ export default async function handler(req, res) {
       message: e?.response?.data?.messages?.[0] || e?.response?.data?.error,
     };
 
-    if (e === 'INVALID_DATA_SESSION') {
-      error.message = 'Não foi possível obter os dados da sessão (sem cookie)';
-    }
-
     if (e === 'NO_PARAMETERS') {
       error.message = 'Não há parâmetros para o grupo empresa';
     }
