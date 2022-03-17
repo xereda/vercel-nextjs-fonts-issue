@@ -1,7 +1,7 @@
 import propTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   useGlobalDispatch,
   useGlobalStore,
@@ -27,14 +27,6 @@ export default function Form({ withRecaptcha }) {
   const dispatchSession = useSessionDispatch();
   const dispatchGlobal = useGlobalDispatch();
   const [error, setError] = useState('');
-
-  useEffect(() => {
-    console.log('useEffect: ', new Date().getTime());
-
-    dispatchSession({
-      type: 'RESET_STATE',
-    });
-  }, [dispatchSession]);
 
   const setLoading = (payload) =>
     dispatchGlobal({
@@ -83,13 +75,12 @@ export default function Form({ withRecaptcha }) {
         setLoading(true);
         setError('');
       },
-      onSuccess: (session) => {
-        updateSessionState(session);
-
+      onSuccess: updateSessionState,
+      onError: (e) => setError(e?.response?.data?.error),
+      onFinally: () => {
+        setLoading(false);
         router.push('/dashboard');
       },
-      onError: (e) => setError(e?.response?.data?.error),
-      onFinally: () => setLoading(false),
     });
   };
 

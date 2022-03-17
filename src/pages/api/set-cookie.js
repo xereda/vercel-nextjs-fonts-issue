@@ -8,7 +8,7 @@ export default (req, res) => {
     cookie.serialize('session', cookieValue, {
       httpOnly: true,
       secure: process.env.NODE_ENV !== 'development',
-      maxAge: 365 * 24 * 60 * 60,
+      maxAge: 60 * 60 * 150,
       expires: false,
       sameSite: 'strict',
       path: '/',

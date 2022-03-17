@@ -18,4 +18,7 @@ export const handlers = [
   rest.post('/api/parametros', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(dataMocks.parametros), ctx.delay());
   }),
+  rest.get('/api/clean-cookie', (req, res, ctx) => {
+    return res(ctx.cookie('session', '{}'));
+  }),
 ];

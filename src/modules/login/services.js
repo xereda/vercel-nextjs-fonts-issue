@@ -41,7 +41,7 @@ export const authenticate = async ({
         timestamp,
         usuario,
         credential,
-        grupoEmpresa: responseGrupoEmpresa.data,
+        grupoEmpresa: responseGrupoEmpresa?.data || {},
       };
 
       await httpClient({

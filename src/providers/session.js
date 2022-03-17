@@ -26,8 +26,6 @@ const reducer = ({ setStateToLocalStorage, cleanSessionCookie }) => {
       case 'RESET_STATE': {
         setStateToLocalStorage(initialState);
 
-        console.log(new Date().getTime());
-
         cleanSessionCookie();
 
         return initialState;
@@ -52,8 +50,6 @@ export function SessionProvider({ children }) {
 
   const cleanSessionCookie = async () =>
     await httpClient({ method: 'get', url: '/api/clean-cookie' });
-
-  console.log('SessionProvider', new Date().getTime());
 
   const [state, dispatch] = useReducer(
     reducer({ setStateToLocalStorage, cleanSessionCookie }),
