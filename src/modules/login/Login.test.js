@@ -8,7 +8,7 @@ import Login from './Login';
 beforeEach(() =>
   render(
     <Providers>
-      <Login />
+      <Login withRecaptcha={false} />
       <div id="myportal" />
     </Providers>,
   ),
