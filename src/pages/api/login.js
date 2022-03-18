@@ -17,6 +17,8 @@ export default async function handler(req, res) {
 
     res.status(200).json(response?.data || {});
   } catch (e) {
+    console.log(e);
+
     const message =
       e?.response?.data?.messages?.[0] || 'Não foi possível efetuar o login';
     const status = e?.response?.status || 500;

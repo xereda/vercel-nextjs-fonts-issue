@@ -20,6 +20,12 @@
       "@/modules/*": [
         "src/modules/*"
       ],
+      "@/constants/*": [
+        "src/constants/*"
+      ],
+      "@/transform/*": [
+        "src/transform/*"
+      ],
     },
   },
   "exclude": [

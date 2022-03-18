@@ -1,6 +1,7 @@
-import { makeKrypton } from '@/utils/krypton';
+import Krypton from '@/utils/krypton';
 import { httpClient } from '@/utils/services';
 import { dataMocks } from '@/mocks/data/';
+import { getOnlyNumbers } from '@/utils/format';
 
 export const authenticate = async ({
   cpf,
@@ -12,8 +13,11 @@ export const authenticate = async ({
 }) => {
   onStart?.();
 
-  const { encrypt, decrypt, generateHash } = makeKrypton();
-  const [apiKey, authorization] = await encrypt(cpf, password);
+  const krypton = new Krypton(process.env.NEXT_PUBLIC_KRYPTON_KEY);
+  const { encryptedKey: apiKey, encryptedData: authorization } =
+    await krypton.encrypt({ cpf: getOnlyNumbers(cpf), password });
+
+  console.log({ apiKey, authorization });
 
   httpClient({
     method: 'post',
@@ -21,11 +25,13 @@ export const authenticate = async ({
     data: { apiKey, authorization },
   })
     .then(async (response) => {
-      const { accessToken, timestamp, usuario } = response?.data?.mockByPass
+      const { accessToken, usuario } = response?.data?.mockByPass
         ? dataMocks.session
-        : await decrypt(response.data);
+        : await krypton.decrypt(response.data);
 
-      const credential = generateHash(
+      const timestamp = new Date().getTime() + '';
+
+      const credential = krypton.generateHash(
         process.env.NEXT_PUBLIC_KRYPTON_KEY,
         timestamp,
       );
@@ -49,9 +55,7 @@ export const authenticate = async ({
 
       const session = {
         accessToken,
-        timestamp,
         usuario,
-        credential,
         grupoEmpresa: responseGrupoEmpresa?.data || {},
         parametros: responseParametros?.data || {},
       };

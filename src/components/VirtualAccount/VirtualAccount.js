@@ -9,12 +9,11 @@ VirtualAccount.propTypes = {
 };
 
 VirtualAccount.defaultProps = {
-  virtualBalance: 'R$ 1.000,00',
+  virtualBalance: 'R$ 0.000,00',
 };
 
 export default function VirtualAccount({ virtualBalance }) {
-
-  return(
+  return (
     <div className="balance-wrapper">
       <div className="row-title">
         <span className="title">Saldo da Conta Virtual</span>
@@ -26,7 +25,7 @@ export default function VirtualAccount({ virtualBalance }) {
           <InfoCircleOutlined />
         </Tooltip>
       </div>
-      <span id="total-value">{ virtualBalance }</span>
+      <span id="total-value">{virtualBalance}</span>
 
       <section className="extract">
         <span id="extract-message">

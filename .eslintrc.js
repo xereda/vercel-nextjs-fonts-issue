@@ -20,6 +20,7 @@ module.exports = {
           ['@/mocks', './src/mocks'],
           ['@/providers', './src/providers'],
           ['@/modules', './src/modules'],
+          ['@/transform', './src/transform'],
         ],
       },
     },

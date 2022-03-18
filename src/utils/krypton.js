@@ -2,6 +2,9 @@ import CryptoJS, { AES } from 'crypto-js';
 import Utf8 from 'crypto-js/enc-utf8';
 import { Base64 } from 'js-base64';
 import NodeRSA from 'node-rsa';
+import moment from 'moment';
+
+moment.locale('pt-BR');
 
 export default class Krypton {
   /**
@@ -9,8 +12,8 @@ export default class Krypton {
    * The constructors creates the random AES secret to the instance and
    * the needed config AES mode config.
    */
-  constructor(publicKey) {
-    this.publicKey = this.formatPublicKey(publicKey);
+  constructor(pemKey) {
+    this.publicKey = this.formatPublicKey(pemKey);
     this.secret = this.getSecret();
     this.aesConfig = {
       mode: CryptoJS.mode.ECB,
@@ -89,7 +92,9 @@ export default class Krypton {
   /**
    * Returns random Secret needed to generate unique AES key.
    */
-  generateSecret() {
+  generateSecret = () => {
+    console.log('!!! VAI GERAR UM NOVO SECRET !!!');
+
     let keyText = '';
     const possible =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -100,18 +105,31 @@ export default class Krypton {
       timestamp: new Date().getTime(),
     };
     return secret;
-  }
+  };
 
-  /*
-   * Checks if secret exists and if is valid and if not,
-   * generates a new, random one.
+  /**
+   * Validates if secret is valid. The validation is time based.
+   */
+  isValidSecret = (secret) => {
+    const expireLimit = 60; // seconds
+    const now = moment(new Date());
+    const generatedSecret = moment(secret.timestamp);
+    const timeDifference = moment.duration(now.diff(generatedSecret));
+    const seconds = timeDifference.asSeconds();
+    if (seconds > expireLimit) {
+      return false;
+    }
+    return true;
+  };
+
+  /**
+   * Checks if secret exists and if is valid and if not, generates a new, random one.
    */
   getSecret() {
     let { secret } = this;
-    if (!secret) {
+    if (!secret || !this.isValidSecret(secret)) {
       secret = this.generateSecret();
     }
-
     return secret.key;
   }
 
@@ -120,7 +138,7 @@ export default class Krypton {
    * This function replaces the header and footer with a new one with
    * appropriate line breaks.
    */
-  formatPublicKey(pemKey) {
+  formatPublicKey = (pemKey) => {
     const keyHeader = '-----BEGIN PUBLIC KEY-----';
     const keyFooter = '-----END PUBLIC KEY-----';
     const lineBreak = '\r\n';
@@ -128,39 +146,11 @@ export default class Krypton {
       .replace(keyHeader, `${keyHeader}${lineBreak}`)
       .replace(keyFooter, `${lineBreak}${keyFooter}`);
     return formattedKey;
-  }
+  };
 
   /**
    * Removes any kind of line breaking or special character
    * that may cause problems in HTTP header requests.
    */
-  trimBase64(base64) {
-    return base64.replace(/(\r\n\t|\n|\r\t)/gm, '');
-  }
+  trimBase64 = (base64) => base64.replace(/(\r\n\t|\n|\r\t)/gm, '');
 }
-
-export const makeKrypton = () => {
-  const kryptonInstance = new Krypton(process.env.NEXT_PUBLIC_KRYPTON_KEY);
-
-  const getOnlyNumbers = (string = '') => string.replace(/\D/g, '');
-
-  const encrypt = async (cpf, password) => {
-    const { encryptedKey, encryptedData } = await kryptonInstance.encrypt({
-      cpf: getOnlyNumbers(cpf),
-      password,
-    });
-
-    return [encryptedKey, encryptedData];
-  };
-
-  const decrypt = (responseData) => kryptonInstance.decrypt(responseData);
-
-  const generateHash = (kryptonPublicKey, timestamep) =>
-    kryptonInstance.generateHash(kryptonPublicKey, timestamep);
-
-  return {
-    encrypt,
-    decrypt,
-    generateHash,
-  };
-};

@@ -1,30 +1,37 @@
 import { httpClient } from '@/utils/services';
+import { getSessionFromCookie } from '@/utils/session';
+import { transformOrders } from '@/transform/order';
+import { formatMoney } from '@/utils/format';
+// import Krypton from '@/utils/krypton';
 
 export default async function handler(req, res) {
   try {
-    const cookieRaw = req?.headers?.session || req?.cookies?.session || '{}';
+    const {
+      accessToken,
+      client_id,
+      idGrupoEmpresa,
+      idUsuario,
+      isInvalidSession,
+    } = getSessionFromCookie(req);
 
-    const session = JSON.parse(cookieRaw);
+    // const krypton = new Krypton(process.env.NEXT_PUBLIC_KRYPTON_KEY);
 
-    const accessToken = session?.accessToken;
-    const credential = session?.credential;
-    const client_id = process.env.HEIMDALL_CLIENT_ID;
-    const idGrupoEmpresa = session?.grupoEmpresa?.id;
-    const idUsuario = session?.usuario?.id;
+    // const publicKey = krypton.formatPublicKey(
+    //   process.env.NEXT_PUBLIC_KRYPTON_KEY,
+    // );
 
-    if (!accessToken || !credential || !idGrupoEmpresa || !idUsuario) {
+    const timestamp = new Date().getTime();
+
+    // const credential = await krypton.generateHash(publicKey, timestamp);
+
+    if (isInvalidSession) {
       throw 'INVALID_DATA_SESSION';
     }
 
     const headers = {
       authorization: `Bearer ${accessToken}`,
       client_id,
-      credential,
     };
-
-    // ?idUsuario=1952156&idGrupoEmpresa=630587&statusPedido=AGUARDANDO_CONFIRMACAO&paginaAtual=1&tamanhoPagina=10
-
-    const url = `${process.env.RESUMO_PEDIDOS_PATH}`;
 
     const params = {
       idUsuario,
@@ -33,27 +40,45 @@ export default async function handler(req, res) {
       tamanhoPagina: 10,
     };
 
-    const response = await httpClient({ method: 'get', url, headers, params });
+    const responseOrders = await httpClient({
+      method: 'get',
+      url: process.env.RESUMO_PEDIDOS_PATH,
+      headers,
+      params,
+    });
 
-    const ordersRaw = response?.data?.pedidos || [];
+    const orders = transformOrders(responseOrders?.data?.pedidos || []);
 
-    const orders = ordersRaw.map((order) => ({
-      orderId: order.idPedido + '',
-      date: order.dataCriacao,
-      value: (order.valorBeneficio || '0,00') + '',
-      status: {
-        enum: order.statusPedido || 'INDEFINIDO',
-        label: order.statusPedido || '-',
-      },
-      paymentStatus: {
-        enum: order.statusPagamento || 'INDEFINIDO',
-        label: order.statusPagamento || '-',
-      },
-    }));
+    const urlVirualBalance = process.env.SALDO_CONTA_VIRTUAL_PATH.replace(
+      '[idGrupoEmpresa]',
+      idGrupoEmpresa,
+    );
 
-    res.status(200).json({ orders });
+    console.log({
+      urlVirualBalance,
+      headers,
+      idUsuario,
+      idGrupoEmpresa,
+      timestamp,
+    });
+
+    const responseVirtualBalance = await httpClient({
+      method: 'get',
+      url: urlVirualBalance,
+      headers,
+      params: { idUsuario, idGrupoEmpresa },
+    });
+
+    const virtualBalance = {
+      balanceValue: formatMoney(responseVirtualBalance?.data?.saldo),
+    };
+
+    console.log(responseVirtualBalance);
+
+    res.status(200).json({ orders, virtualBalance });
   } catch (e) {
     console.error(e);
+
     const error = {
       status: 500,
       message: e?.response?.data?.messages?.[0] || e?.response?.data?.error,
