@@ -3,8 +3,6 @@ import userEvent from '@testing-library/user-event';
 import { Providers } from '@/providers/';
 import Login from './Login';
 
-//jest.useFakeTimers();
-
 beforeEach(() =>
   render(
     <Providers>
@@ -24,7 +22,9 @@ describe('Form login component', () => {
     await userEvent.type(cpf, '11651232903{tab}');
     await userEvent.type(password, '1{tab}');
 
-    expect(screen.queryByText(/cpf digitado não é valido/i)).toBeNull();
+    expect(
+      screen.queryByText(/cpf digitado não é valido/i),
+    ).not.toBeInTheDocument();
     expect(screen.queryAllByText(/campo obrigatório/i)).toHaveLength(0);
     expect(screen.getByRole('button', { name: 'Fazer login' })).toBeEnabled();
     const button = screen.getByRole('button', { name: 'Fazer login' });

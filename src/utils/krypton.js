@@ -92,9 +92,7 @@ export default class Krypton {
   /**
    * Returns random Secret needed to generate unique AES key.
    */
-  generateSecret = () => {
-    console.log('!!! VAI GERAR UM NOVO SECRET !!!');
-
+  generateSecret = (Utf8) => {
     let keyText = '';
     const possible =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -128,7 +126,7 @@ export default class Krypton {
   getSecret() {
     let { secret } = this;
     if (!secret || !this.isValidSecret(secret)) {
-      secret = this.generateSecret();
+      secret = this.generateSecret(Utf8);
     }
     return secret.key;
   }
