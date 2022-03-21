@@ -1,6 +1,7 @@
 import propTypes from 'prop-types';
 import { createContext, useContext, useReducer } from 'react';
 import { useLocalStorage } from '@/utils/hooks';
+import { httpClient } from '@/utils/services';
 
 SessionProvider.propTypes = {
   children: propTypes.node.isRequired,
@@ -9,13 +10,24 @@ SessionProvider.propTypes = {
 const StateContext = createContext();
 const DispatchContext = createContext();
 
-const initialState = { session: { accessToken: '', user: {} } };
+const initialState = {
+  session: {
+    accessToken: '',
+    credential: '',
+    timestamp: '',
+    grupoEmpresa: {},
+    usuario: {},
+    parametros: {},
+  },
+};
 
-const reducer = ({ setStateToLocalStorage }) => {
+const reducer = ({ setStateToLocalStorage, cleanSessionCookie }) => {
   return (state, action) => {
     switch (action.type) {
       case 'RESET_STATE': {
         setStateToLocalStorage(initialState);
+
+        cleanSessionCookie();
 
         return initialState;
       }
@@ -37,8 +49,11 @@ export function SessionProvider({ children }) {
     initialState,
   );
 
+  const cleanSessionCookie = async () =>
+    await httpClient({ method: 'get', url: '/api/clean-cookie' });
+
   const [state, dispatch] = useReducer(
-    reducer({ setStateToLocalStorage }),
+    reducer({ setStateToLocalStorage, cleanSessionCookie }),
     persistedState,
   );
 

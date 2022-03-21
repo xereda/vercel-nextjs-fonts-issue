@@ -1,5 +1,6 @@
-const mock = {
+export default {
   accessToken: 'xxx',
+  timestamp: '1647429881213',
   usuario: {
     id: 999999,
     email: 'jackson.schroeder@sciensa.com',
@@ -7,5 +8,3 @@ const mock = {
     nome: 'Jackson Ricardo Schroeder',
   },
 };
-
-export default mock;

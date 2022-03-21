@@ -32,7 +32,7 @@ export function GlobalProvider({ children }) {
     <DispatchContext.Provider value={dispatch}>
       <StateContext.Provider value={state}>{children}</StateContext.Provider>
       {state.loading && (
-        <Portal>
+        <Portal selector="#myportal">
           <Loading />
         </Portal>
       )}

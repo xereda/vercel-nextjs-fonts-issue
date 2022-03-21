@@ -6,14 +6,14 @@ export default async function handler(req, res) {
     const headers = {
       apiKey,
       authorization,
-      client_id: process.env.HEIMDALL_CLIENT,
+      client_id: process.env.HEIMDALL_CLIENT_ID,
     };
 
-    const response = await httpClient.post(
-      process.env.AUTHENTICATION_PATH,
-      null,
-      { headers },
-    );
+    const response = await httpClient({
+      method: 'post',
+      url: process.env.AUTHENTICATION_PATH,
+      headers,
+    });
 
     res.status(200).json(response?.data || {});
   } catch (e) {

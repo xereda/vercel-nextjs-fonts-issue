@@ -155,8 +155,12 @@ export const makeKrypton = () => {
 
   const decrypt = (responseData) => kryptonInstance.decrypt(responseData);
 
+  const generateHash = (kryptonPublicKey, timestamp) =>
+    kryptonInstance.generateHash(kryptonPublicKey, timestamp);
+
   return {
     encrypt,
     decrypt,
+    generateHash,
   };
 };

@@ -8,6 +8,7 @@ import FeedbackPlaceholder from '@/components/FeedbackPlaceholder/FeedbackPlaceh
 import ProtectedPage from '@/components/ProtectedPage/ProtectedPage';
 import style from './Dashboard.style';
 import { useDashboard } from './services';
+import { revalidateUserSession } from '@/utils/session';
 
 export default function Dashboard() {
   const { data, hasError, isLoading, noData } = useDashboard();
@@ -39,3 +40,5 @@ export default function Dashboard() {
 Dashboard.getLayout = function getLayout(page) {
   return <Layout renderNotice={() => <PaymentWarning />}>{page}</Layout>;
 };
+
+export const getServerSideProps = (context) => revalidateUserSession(context);

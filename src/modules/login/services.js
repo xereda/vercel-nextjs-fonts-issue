@@ -12,17 +12,57 @@ export const authenticate = async ({
 }) => {
   onStart?.();
 
-  const { encrypt, decrypt } = makeKrypton();
+  const { encrypt, decrypt, generateHash } = makeKrypton();
   const [apiKey, authorization] = await encrypt(cpf, password);
 
-  httpClient
-    .post('/api/login', { apiKey, authorization })
+  httpClient({
+    method: 'post',
+    url: '/api/login',
+    data: { apiKey, authorization },
+  })
     .then(async (response) => {
-      const decrypted = response?.data?.mockByPass
+      const { accessToken, timestamp, usuario } = response?.data?.mockByPass
         ? dataMocks.session
         : await decrypt(response.data);
 
-      onSuccess(decrypted);
+      const credential = generateHash(
+        process.env.NEXT_PUBLIC_KRYPTON_KEY,
+        timestamp,
+      );
+
+      const responseGrupoEmpresa = await httpClient({
+        method: 'post',
+        url: '/api/permissoes',
+        data: { accessToken, credential, idUsuario: usuario?.id || '' },
+      });
+
+      const responseParametros = await httpClient({
+        method: 'post',
+        url: '/api/parametros',
+        data: {
+          accessToken,
+          credential,
+          idUsuario: usuario?.id || '',
+          idGrupoEmpresa: responseGrupoEmpresa?.data?.id,
+        },
+      });
+
+      const session = {
+        accessToken,
+        timestamp,
+        usuario,
+        credential,
+        grupoEmpresa: responseGrupoEmpresa?.data || {},
+        parametros: responseParametros?.data || {},
+      };
+
+      await httpClient({
+        method: 'post',
+        url: '/api/set-cookie',
+        data: session,
+      });
+
+      onSuccess(session);
     })
     .catch(onError)
     .finally(onFinally);
