@@ -22,7 +22,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (!isLoading && loading.value) {
-      loading.set(false);
+      loading?.set(false);
     }
   }, [isLoading, loading]);
 

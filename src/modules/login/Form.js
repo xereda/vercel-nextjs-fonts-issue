@@ -33,7 +33,7 @@ export default function Form({ withRecaptcha }) {
   const updateSessionState = (payload) => {
     console.log(payload);
 
-    session.set(payload);
+    session?.set(payload);
 
     router.push('/dashboard');
   };
@@ -68,8 +68,8 @@ export default function Form({ withRecaptcha }) {
       cpf,
       password,
       onStart: () => {
-        loading.set(true);
-        error.set('');
+        loading?.set(true);
+        error?.set('');
       },
       onSuccess: (session) => {
         console.log('onSuccess login:', { session });
@@ -77,8 +77,8 @@ export default function Form({ withRecaptcha }) {
         updateSessionState(session);
       },
       onError: (e) => {
-        error.set(getErrorMessage(e).message);
-        loading.value(false);
+        error?.set(getErrorMessage(e).message);
+        loading?.set(false);
       },
       onFinally: console.log('FINALLY'),
     });
