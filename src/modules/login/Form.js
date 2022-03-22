@@ -163,7 +163,7 @@ export default function Form({ withRecaptcha }) {
         )}
       </div>
       {withRecaptcha && <Recaptcha {...{ handleRecaptch }} />}
-      <p className="integration-error">{error.value}</p>
+      <p className="integration-error">{error?.value}</p>
       <Button isFullWidth type="submit" disabled={disableSubmitButton()}>
         Fazer login
       </Button>

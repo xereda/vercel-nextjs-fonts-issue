@@ -21,7 +21,7 @@ export default function Dashboard() {
   const loading = useState(loadingStore);
 
   useEffect(() => {
-    if (!isLoading && loading.value) {
+    if (!isLoading && loading?.value) {
       loading?.set(false);
     }
   }, [isLoading, loading]);
