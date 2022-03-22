@@ -1,14 +1,13 @@
 import { cleanup, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Providers } from '@/providers/';
 import Login from './Login';
 
 beforeEach(() =>
   render(
-    <Providers>
+    <div>
       <Login withRecaptcha={false} />
       <div id="myportal" />
-    </Providers>,
+    </div>,
   ),
 );
 

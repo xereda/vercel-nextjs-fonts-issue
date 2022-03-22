@@ -1,18 +1,15 @@
 import propTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
-import { useState } from 'react';
-import {
-  useGlobalDispatch,
-  useGlobalStore,
-  useSessionDispatch,
-} from '@/providers/index';
+import { useState } from '@hookstate/core';
+import globalStore from '@/store/index';
 import { isValidCPF, toCPFMask } from '@/utils/format';
 import Button from '@/components/Button/Button.js';
 import Recaptcha from '@/components/Recaptcha/Recaptcha';
 import style from './Form.style.js';
 import { authenticate } from './services.js';
-import { getErrorMessage } from '@/utils/services.js';
+import { getErrorMessage } from '@/utils/services';
+import Loading from '@/components/Loading/Loading';
 
 Form.propTypes = {
   withRecaptcha: propTypes.bool,
@@ -24,29 +21,20 @@ Form.defaultProps = {
 
 export default function Form({ withRecaptcha }) {
   const router = useRouter();
-  const { loading: fullPageLoading } = useGlobalStore();
-  const dispatchSession = useSessionDispatch();
-  const dispatchGlobal = useGlobalDispatch();
-  const [error, setError] = useState('');
+  const error = useState('');
+  const loading = useState(false);
 
-  const setLoading = (payload) =>
-    dispatchGlobal({
-      type: 'SET_LOADING',
-      payload,
-    });
+  const session = useState(globalStore);
 
   const updateSessionState = (payload) => {
-    dispatchSession({
-      type: 'SET_DATA_SESSION',
-      payload,
-    });
+    console.log(payload);
+
+    session.set(payload);
 
     router.push('/dashboard');
   };
 
-  const [isCaptchaVerified, setIsCaptchaVerified] = useState(
-    withRecaptcha ? false : true,
-  );
+  const recaptchaVerified = useState(withRecaptcha ? false : true);
 
   const formik = useFormik({
     initialValues: { cpf: '', password: '' },
@@ -76,21 +64,23 @@ export default function Form({ withRecaptcha }) {
       cpf,
       password,
       onStart: () => {
-        setLoading(true);
-        setError('');
+        loading.set(true);
+        error.set('');
       },
       onSuccess: (session) => {
+        console.log('onSuccess login:', { session });
+
         updateSessionState(session);
       },
-      onError: (e) => setError(getErrorMessage(e).message),
+      onError: (e) => error.set(getErrorMessage(e).message),
       onFinally: () => {
-        setLoading(false);
+        loading.set(false);
       },
     });
   };
 
   const handleRecaptch = (isVerified) => {
-    setIsCaptchaVerified(!!isVerified);
+    recaptchaVerified.set(!!isVerified);
 
     isVerified && formik.validateForm();
   };
@@ -120,9 +110,7 @@ export default function Form({ withRecaptcha }) {
   };
 
   const disableSubmitButton = () => {
-    return (
-      fullPageLoading || !formik.isValid || !formik.dirty || !isCaptchaVerified
-    );
+    return !formik.isValid || !formik.dirty || !recaptchaVerified.value;
   };
 
   return (
@@ -169,19 +157,15 @@ export default function Form({ withRecaptcha }) {
           <span className="error-message">{formik.errors.password}</span>
         )}
       </div>
-
       {withRecaptcha && <Recaptcha {...{ handleRecaptch }} />}
-
-      <p className="integration-error">{error}</p>
-
+      <p className="integration-error">{error.value}</p>
       <Button isFullWidth type="submit" disabled={disableSubmitButton()}>
         Fazer login
       </Button>
-
       <div className="password-recovery">
         <button className="forgot-password">Esqueceu sua senha?</button>
       </div>
-
+      {loading.value && <Loading />}
       <style jsx="true">{style}</style>
     </form>
   );

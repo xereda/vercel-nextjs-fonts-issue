@@ -3,16 +3,11 @@ import { rest } from 'msw';
 import { server } from '@/mocks/server';
 import { render, screen, waitFor } from '@testing-library/react';
 import RenderWithoutSWRCache from '@/mocks/RenderWithouCache';
-import { Providers } from '@/providers/index';
 import Dashboard from './Dashboard';
 
 describe('Dashboard component', () => {
   test('should render dashboard integrated with mock', async () => {
-    render(
-      <Providers>
-        <Dashboard />
-      </Providers>,
-    );
+    render(<Dashboard />);
 
     expect(screen.getByText('loading...')).toBeInTheDocument();
 
@@ -34,9 +29,7 @@ describe('Dashboard component', () => {
 
     render(
       <RenderWithoutSWRCache>
-        <Providers>
-          <Dashboard />
-        </Providers>
+        <Dashboard />
       </RenderWithoutSWRCache>,
     );
 
@@ -56,9 +49,7 @@ describe('Dashboard component', () => {
 
     render(
       <RenderWithoutSWRCache>
-        <Providers>
-          <Dashboard />
-        </Providers>
+        <Dashboard />
       </RenderWithoutSWRCache>,
     );
 

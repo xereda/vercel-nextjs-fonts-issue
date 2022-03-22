@@ -1,5 +1,5 @@
 import propTypes from 'prop-types';
-import { Providers } from '@/providers/index';
+import '@hookstate/devtools';
 import 'antd/dist/antd.css';
 import '@/styles/globals.css';
 
@@ -14,5 +14,5 @@ export default function MyApp({ Component, pageProps }) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page) => page);
 
-  return <Providers>{getLayout(<Component {...pageProps} />)}</Providers>;
+  return getLayout(<Component {...pageProps} />);
 }
