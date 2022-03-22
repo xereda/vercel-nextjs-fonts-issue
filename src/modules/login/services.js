@@ -24,14 +24,19 @@ export const authenticate = async ({
     data: { apiKey, authorization },
   })
     .then(async (response) => {
-      const { accessToken, usuario, publicKey } = response?.data?.mockByPass
-        ? dataMocks.session
-        : await krypton.decrypt(response.data);
+      const { mockByPass } = response?.data || {};
 
-      const credential = krypton.generateHash(
-        publicKey,
-        new Date().getTime() + '',
-      );
+      const { accessToken, usuario, publicKey } = !mockByPass
+        ? await krypton.decrypt(response.data)
+        : dataMocks.session;
+
+      if (!accessToken || !usuario || !publicKey) {
+        throw 'Não foi possível realizar o login. [E0030]';
+      }
+
+      const credential = !mockByPass
+        ? krypton.generateHash(publicKey, new Date().getTime() + '')
+        : 'credential key';
 
       const responseGrupoEmpresa = await httpClient({
         method: 'post',
@@ -50,22 +55,22 @@ export const authenticate = async ({
         },
       });
 
-      const session = {
-        accessToken,
-        publicKey,
-        credential,
-        usuario,
-        grupoEmpresa: responseGrupoEmpresa?.data || {},
-        parametros: responseParametros?.data || {},
-      };
+      const grupoEmpresa = responseGrupoEmpresa?.data || {};
+      const parametros = responseParametros?.data || {};
 
       await httpClient({
         method: 'post',
         url: '/api/set-cookie',
-        data: session,
+        data: {
+          accessToken,
+          publicKey,
+          usuario,
+          grupoEmpresa,
+          parametros,
+        },
       });
 
-      onSuccess(session);
+      onSuccess({ usuario, grupoEmpresa, parametros });
     })
     .catch(onError)
     .finally(onFinally);

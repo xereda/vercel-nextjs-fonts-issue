@@ -1,6 +1,4 @@
-import { useEffect } from 'react';
 import propTypes from 'prop-types';
-import { useSessionDispatch } from '@/providers/index';
 import Aside from './Aside';
 import Content from './Content';
 import Form from './Form';
@@ -14,14 +12,6 @@ Login.defaultProps = {
 };
 
 export default function Login({ withRecaptcha }) {
-  const dispatchSession = useSessionDispatch();
-
-  useEffect(() => {
-    dispatchSession({
-      type: 'RESET_STATE',
-    });
-  }, [dispatchSession]);
-
   return (
     <>
       <section className="login-container">

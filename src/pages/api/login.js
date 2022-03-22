@@ -1,4 +1,4 @@
-import { httpClient } from '@/utils/services';
+import { getErrorMessage, httpClient } from '@/utils/services';
 
 export default async function handler(req, res) {
   try {
@@ -17,17 +17,8 @@ export default async function handler(req, res) {
 
     res.status(200).json(response?.data || {});
   } catch (e) {
-    console.log(e);
+    const error = getErrorMessage(e, 'Não foi possível efetuar o login');
 
-    const message =
-      e?.response?.data?.messages?.[0] || 'Não foi possível efetuar o login';
-    const status = e?.response?.status || 500;
-
-    const error =
-      status === 401
-        ? 'Seu CPF e/ou senha não foram identificados. Verifique se eles foram preenchidos corretamente'
-        : message;
-
-    res.status(status).json({ error });
+    res.status(error.status).json({ error });
   }
 }

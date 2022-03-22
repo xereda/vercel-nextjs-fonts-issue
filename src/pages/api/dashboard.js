@@ -21,14 +21,14 @@ export default async function handler(req, res) {
 
     const orders = transformOrders(responseOrders?.data?.pedidos || []);
 
-    const urlVirualBalance = process.env.SALDO_CONTA_VIRTUAL_PATH.replace(
+    const urlVirtualBalance = process.env.SALDO_CONTA_VIRTUAL_PATH.replace(
       '[idGrupoEmpresa]',
       idGrupoEmpresa,
     );
 
     const responseVirtualBalance = await httpClient({
       method: 'get',
-      url: urlVirualBalance,
+      url: urlVirtualBalance,
       headers,
       params,
     });

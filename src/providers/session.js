@@ -12,9 +12,6 @@ const DispatchContext = createContext();
 
 const initialState = {
   session: {
-    accessToken: '',
-    credential: '',
-    timestamp: '',
     grupoEmpresa: {},
     usuario: {},
     parametros: {},

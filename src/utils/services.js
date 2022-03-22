@@ -17,11 +17,11 @@ export const getErrorMessage = (e, defaultMessage) => {
   };
 
   if (e === 'INVALID_DATA_SESSION') {
-    error.message = 'Não foi possível obter os dados da sessão';
+    error.message = 'Não foi possível obter os dados da sessão. [E0010]';
   }
 
   if (!error.message) {
-    error.message = defaultMessage;
+    error.message = defaultMessage || `${e} [E0020]`;
   }
 
   return error;
