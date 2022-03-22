@@ -2,14 +2,14 @@ import propTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { useState } from '@hookstate/core';
-import globalStore from '@/store/index';
+import { Persistence } from '@hookstate/persistence';
+import { loadingStore, sessionStore } from '@/store/index';
 import { isValidCPF, toCPFMask } from '@/utils/format';
 import Button from '@/components/Button/Button.js';
 import Recaptcha from '@/components/Recaptcha/Recaptcha';
 import style from './Form.style.js';
 import { authenticate } from './services.js';
 import { getErrorMessage } from '@/utils/services';
-import Loading from '@/components/Loading/Loading';
 
 Form.propTypes = {
   withRecaptcha: propTypes.bool,
@@ -22,9 +22,13 @@ Form.defaultProps = {
 export default function Form({ withRecaptcha }) {
   const router = useRouter();
   const error = useState('');
-  const loading = useState(false);
 
-  const session = useState(globalStore);
+  const session = useState(sessionStore);
+  const loading = useState(loadingStore);
+
+  if (typeof window !== 'undefined') {
+    session.attach(Persistence('session'));
+  }
 
   const updateSessionState = (payload) => {
     console.log(payload);
@@ -72,10 +76,11 @@ export default function Form({ withRecaptcha }) {
 
         updateSessionState(session);
       },
-      onError: (e) => error.set(getErrorMessage(e).message),
-      onFinally: () => {
-        loading.set(false);
+      onError: (e) => {
+        error.set(getErrorMessage(e).message);
+        loading.value(false);
       },
+      onFinally: console.log('FINALLY'),
     });
   };
 
@@ -165,7 +170,6 @@ export default function Form({ withRecaptcha }) {
       <div className="password-recovery">
         <button className="forgot-password">Esqueceu sua senha?</button>
       </div>
-      {loading.value && <Loading />}
       <style jsx="true">{style}</style>
     </form>
   );

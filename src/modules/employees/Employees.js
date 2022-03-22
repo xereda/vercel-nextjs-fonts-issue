@@ -3,12 +3,10 @@ import PageContent from '@/components/PageContent/PageContent';
 
 export default function Employees() {
   return (
-    <PageContent title="Funcionários" onBack={() => window.history.back()}>
-      <h1>employees.js</h1>
-    </PageContent>
+    <Layout>
+      <PageContent title="Funcionários" onBack={() => window.history.back()}>
+        <h1>employees.js</h1>
+      </PageContent>
+    </Layout>
   );
 }
-
-Employees.getLayout = function getLayout(page) {
-  return <Layout>{page}</Layout>;
-};

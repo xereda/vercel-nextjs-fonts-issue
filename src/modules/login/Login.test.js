@@ -1,19 +1,26 @@
 import { cleanup, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Login from './Login';
+import Loading from '@/components/Loading/Loading';
 
-beforeEach(() =>
+beforeEach(() => {
   render(
     <div>
       <Login withRecaptcha={false} />
-      <div id="myportal" />
+      <Loading />
     </div>,
-  ),
-);
+  );
+});
 
 afterEach(() => cleanup());
 
 describe('Form login component', () => {
+  test('inicialmente não deve apresentar o loading', async () => {
+    await waitFor(() =>
+      expect(screen.queryByRole('Loading')).not.toBeInTheDocument(),
+    );
+  });
+
   test('deve apresentar o loading após informar um cpf válido, senha e pressionar o botão Fazer Login ', async () => {
     const cpf = screen.getByLabelText(/CPF/i);
     const password = screen.getByLabelText(/Senha/i);
@@ -29,6 +36,8 @@ describe('Form login component', () => {
     const button = screen.getByRole('button', { name: 'Fazer login' });
     await userEvent.click(button);
 
-    await waitFor(() => expect(screen.getByRole('Loading')).toBeEnabled());
+    await waitFor(() =>
+      expect(screen.queryByRole('Loading')).toBeInTheDocument(),
+    );
   });
 });

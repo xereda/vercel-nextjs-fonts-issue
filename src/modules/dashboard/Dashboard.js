@@ -1,6 +1,6 @@
+import { useEffect } from 'react';
 import { useState } from '@hookstate/core';
-import globalStore from '@/store/index';
-import { Persistence } from '@hookstate/persistence';
+import { loadingStore } from '@/store/index';
 import Layout from '@/components/Layout/Layout';
 import PageContent from '@/components/PageContent/PageContent';
 import LimitChart from '@/components/LimitChart/LimitChart';
@@ -18,31 +18,32 @@ export default function Dashboard() {
   const useLimit = data?.useLimit;
   const orders = data?.orders;
 
-  const session = useState(globalStore);
-  if (typeof window !== 'undefined') {
-    session.attach(Persistence('session'));
-  }
+  const loading = useState(loadingStore);
+
+  useEffect(() => {
+    if (!isLoading && loading.value) {
+      loading.set(false);
+    }
+  }, [isLoading, loading]);
 
   return (
-    <FeedbackPlaceholder {...{ isLoading, hasError, noData }}>
-      <PageContent title="Histórico de pedidos">
-        <div className="account-info">
-          <LimitChart {...useLimit} />
-          <VirtualAccount virtualBalance={virtualBalance} />
-        </div>
+    <Layout renderNotice={() => <PaymentWarning />}>
+      <FeedbackPlaceholder {...{ isLoading, hasError, noData }}>
+        <PageContent title="Histórico de pedidos">
+          <div className="account-info">
+            <LimitChart {...useLimit} />
+            <VirtualAccount virtualBalance={virtualBalance} />
+          </div>
 
-        <div className="orders-list">
-          <OrdersList {...{ orders }} />
-        </div>
+          <div className="orders-list">
+            <OrdersList {...{ orders }} />
+          </div>
 
-        <style jsx="true">{style}</style>
-      </PageContent>
-    </FeedbackPlaceholder>
+          <style jsx="true">{style}</style>
+        </PageContent>
+      </FeedbackPlaceholder>
+    </Layout>
   );
 }
-
-Dashboard.getLayout = function getLayout(page) {
-  return <Layout renderNotice={() => <PaymentWarning />}>{page}</Layout>;
-};
 
 export const getServerSideProps = (context) => revalidateUserSession(context);
