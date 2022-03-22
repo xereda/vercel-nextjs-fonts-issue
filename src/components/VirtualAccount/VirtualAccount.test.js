@@ -5,6 +5,6 @@ describe('VirtualAccount component', () => {
   test('deve renderizar o componente com o valor default da prop', () => {
     render(<VirtualAccount />);
 
-    expect(screen.queryByText('R$ 1.000,00')).toBeInTheDocument();
+    expect(screen.queryByText('R$ 0.000,00')).toBeInTheDocument();
   });
 });

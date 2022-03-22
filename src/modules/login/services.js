@@ -1,6 +1,9 @@
-import { makeKrypton } from '@/utils/krypton';
+import Krypton from '@/utils/krypton';
 import { httpClient } from '@/utils/services';
 import { dataMocks } from '@/mocks/data/';
+import { getOnlyNumbers } from '@/utils/format';
+
+const krypton = new Krypton(process.env.NEXT_PUBLIC_KRYPTON_KEY);
 
 export const authenticate = async ({
   cpf,
@@ -12,8 +15,8 @@ export const authenticate = async ({
 }) => {
   onStart?.();
 
-  const { encrypt, decrypt, generateHash } = makeKrypton();
-  const [apiKey, authorization] = await encrypt(cpf, password);
+  const { encryptedKey: apiKey, encryptedData: authorization } =
+    await krypton.encrypt({ cpf: getOnlyNumbers(cpf), password });
 
   httpClient({
     method: 'post',
@@ -21,14 +24,19 @@ export const authenticate = async ({
     data: { apiKey, authorization },
   })
     .then(async (response) => {
-      const { accessToken, timestamp, usuario } = response?.data?.mockByPass
-        ? dataMocks.session
-        : await decrypt(response.data);
+      const { mockByPass } = response?.data || {};
 
-      const credential = generateHash(
-        process.env.NEXT_PUBLIC_KRYPTON_KEY,
-        timestamp,
-      );
+      const { accessToken, usuario, publicKey } = !mockByPass
+        ? await krypton.decrypt(response.data)
+        : dataMocks.session;
+
+      if (!accessToken || !usuario || !publicKey) {
+        throw 'Não foi possível realizar o login. [E0030]';
+      }
+
+      const credential = !mockByPass
+        ? krypton.generateHash(publicKey, new Date().getTime() + '')
+        : 'credential key';
 
       const responseGrupoEmpresa = await httpClient({
         method: 'post',
@@ -47,22 +55,22 @@ export const authenticate = async ({
         },
       });
 
-      const session = {
-        accessToken,
-        timestamp,
-        usuario,
-        credential,
-        grupoEmpresa: responseGrupoEmpresa?.data || {},
-        parametros: responseParametros?.data || {},
-      };
+      const grupoEmpresa = responseGrupoEmpresa?.data || {};
+      const parametros = responseParametros?.data || {};
 
       await httpClient({
         method: 'post',
         url: '/api/set-cookie',
-        data: session,
+        data: {
+          accessToken,
+          publicKey,
+          usuario,
+          grupoEmpresa,
+          parametros,
+        },
       });
 
-      onSuccess(session);
+      onSuccess({ usuario, grupoEmpresa, parametros });
     })
     .catch(onError)
     .finally(onFinally);

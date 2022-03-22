@@ -12,6 +12,7 @@ import Button from '@/components/Button/Button.js';
 import Recaptcha from '@/components/Recaptcha/Recaptcha';
 import style from './Form.style.js';
 import { authenticate } from './services.js';
+import { getErrorMessage } from '@/utils/services.js';
 
 Form.propTypes = {
   withRecaptcha: propTypes.bool,
@@ -34,11 +35,14 @@ export default function Form({ withRecaptcha }) {
       payload,
     });
 
-  const updateSessionState = (payload) =>
+  const updateSessionState = (payload) => {
     dispatchSession({
       type: 'SET_DATA_SESSION',
       payload,
     });
+
+    router.push('/dashboard');
+  };
 
   const [isCaptchaVerified, setIsCaptchaVerified] = useState(
     withRecaptcha ? false : true,
@@ -75,11 +79,12 @@ export default function Form({ withRecaptcha }) {
         setLoading(true);
         setError('');
       },
-      onSuccess: updateSessionState,
-      onError: (e) => setError(e?.response?.data?.error),
+      onSuccess: (session) => {
+        updateSessionState(session);
+      },
+      onError: (e) => setError(getErrorMessage(e).message),
       onFinally: () => {
         setLoading(false);
-        router.push('/dashboard');
       },
     });
   };

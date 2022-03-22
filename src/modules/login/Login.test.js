@@ -3,8 +3,6 @@ import userEvent from '@testing-library/user-event';
 import { Providers } from '@/providers/';
 import Login from './Login';
 
-//jest.useFakeTimers();
-
 beforeEach(() =>
   render(
     <Providers>
