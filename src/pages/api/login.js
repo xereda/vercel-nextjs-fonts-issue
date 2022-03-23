@@ -19,6 +19,6 @@ export default async function handler(req, res) {
   } catch (e) {
     const error = getErrorMessage(e, 'Não foi possível efetuar o login');
 
-    res.status(error.status).json({ error });
+    res.status(error.status).json(error);
   }
 }

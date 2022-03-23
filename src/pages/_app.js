@@ -1,5 +1,6 @@
 import propTypes from 'prop-types';
-import { Providers } from '@/providers/index';
+import '@hookstate/devtools';
+import Loading from '@/components/Loading/Loading';
 import 'antd/dist/antd.css';
 import '@/styles/globals.css';
 
@@ -11,8 +12,10 @@ MyApp.propTypes = {
 };
 
 export default function MyApp({ Component, pageProps }) {
-  // Use the layout defined at the page level, if available
-  const getLayout = Component.getLayout || ((page) => page);
-
-  return <Providers>{getLayout(<Component {...pageProps} />)}</Providers>;
+  return (
+    <>
+      <Component {...pageProps} />
+      <Loading />
+    </>
+  );
 }

@@ -18,6 +18,9 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@hookstate/core": "^3.0.13",
+    "@hookstate/devtools": "^3.0.1",
+    "@hookstate/persistence": "^3.0.0",
     "antd": "^4.17.3",
     "axios": "^0.25.0",
     "cookie": "^0.4.2",
