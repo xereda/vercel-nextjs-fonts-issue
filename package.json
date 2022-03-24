@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "shx cp .env .env.local && next dev",
-    "build": "shx cp .env .env.local && next build && next start",
+    "build": "shx cp .env .env.local && next build",
     "start": "next start",
     "dev:qa": "shx cp .env.qa .env.local && next dev",
     "build:qa": "shx cp .env.qa .env.local && next build && next start",
