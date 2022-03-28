@@ -10,7 +10,7 @@ export default async function handler(req, res) {
       const responsePostUserStatusTerm = await httpClient({
         method: 'post',
         headers,
-        url: `${process.env.ACEITE_TERMOS_API}`,
+        url: `${process.env.ACEITE_TERMOS_PATH}`,
         data: { cpf, aceite: true, idCanalAtendimento: 4 },
       });
 
@@ -31,7 +31,7 @@ export default async function handler(req, res) {
           client_id: process.env.HEIMDALL_CLIENT_ID,
           credential,
         },
-        url: `${process.env.ACEITE_TERMOS_API}`,
+        url: `${process.env.ACEITE_TERMOS_PATH}`,
         params: { cpf },
       });
 
