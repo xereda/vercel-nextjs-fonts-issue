@@ -1,5 +1,5 @@
+import LayoutLogin from '@/components/LayoutLogin/LayoutLogin';
 import propTypes from 'prop-types';
-import Aside from './Aside';
 import Content from './Content';
 import Form from './Form';
 
@@ -14,12 +14,11 @@ Login.defaultProps = {
 export default function Login({ withRecaptcha }) {
   return (
     <>
-      <section className="login-container">
-        <Aside />
+      <LayoutLogin>
         <Content>
           <Form {...{ withRecaptcha }} />
         </Content>
-      </section>
+      </LayoutLogin>
 
       <style jsx="true">{`
         .login-container {

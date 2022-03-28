@@ -55,6 +55,15 @@ export const authenticate = async ({
         },
       });
 
+      const responseAceiteTermos = await httpClient({
+        method: 'post',
+        url: '/api/aceite-termos',
+        data: {
+          accessToken, credential, cpf: usuario?.cpf?.trim(),
+        },
+      });
+
+      const usuarioAceitouTermos = responseAceiteTermos?.data || false;
       const grupoEmpresa = responseGrupoEmpresa?.data || {};
       const parametros = responseParametros?.data || {};
 
@@ -64,13 +73,13 @@ export const authenticate = async ({
         data: {
           accessToken,
           publicKey,
-          usuario,
+          usuario, // esse cara deve receber tambem as propriedades vindas de user-status
           grupoEmpresa,
           parametros,
         },
       });
 
-      onSuccess({ usuario, grupoEmpresa, parametros });
+      onSuccess({ usuario, grupoEmpresa, parametros, usuarioAceitouTermos });
     })
     .catch(onError)
     .finally(onFinally);

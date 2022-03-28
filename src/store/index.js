@@ -5,6 +5,7 @@ export const sessionStore = createState({
     usuario: {},
     grupoEmpresa: {},
     parametros: {},
+    usuarioAceitouTermos: {},
   },
 });
 

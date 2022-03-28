@@ -32,10 +32,7 @@ export default function Form({ withRecaptcha }) {
 
   const updateSessionState = (payload) => {
     console.log(payload);
-
     session?.set(payload);
-
-    router.push('/dashboard');
   };
 
   const recaptchaVerified = useState(withRecaptcha ? false : true);
@@ -73,14 +70,18 @@ export default function Form({ withRecaptcha }) {
       },
       onSuccess: (session) => {
         console.log('onSuccess login:', { session });
-
         updateSessionState(session);
+        if (session.usuarioAceitouTermos) {
+          router.push('/dashboard');
+        } else {
+          router.push('/termo-privacidade');
+        }
       },
       onError: (e) => {
         error?.set(getErrorMessage(e).message);
         loading?.set(false);
       },
-      onFinally: console.log('FINALLY'),
+      onFinally: () => loading?.set(false),
     });
   };
 
