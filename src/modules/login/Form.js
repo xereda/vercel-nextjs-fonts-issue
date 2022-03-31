@@ -71,8 +71,17 @@ export default function Form({ withRecaptcha }) {
       onSuccess: (session) => {
         console.log('onSuccess login:', { session });
         updateSessionState(session);
+
         if (session.usuarioAceitouTermos) {
-          router.push('/dashboard');
+          if (
+            session.usuario.dataNascimento &&
+            session.usuario.telefone &&
+            session.usuario.nomeMae
+          ) {
+            router.push('/dashboard');
+          } else {
+            router.push('/atualizar-usuario');
+          }
         } else {
           router.push('/termo-privacidade');
         }

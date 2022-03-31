@@ -10,7 +10,6 @@ import OrdersList from './OrdersList/OrdersList';
 import FeedbackPlaceholder from '@/components/FeedbackPlaceholder/FeedbackPlaceholder';
 import style from './Dashboard.style';
 import { useDashboard } from './services';
-import { revalidateUserSession } from '@/utils/session';
 
 export default function Dashboard() {
   const { data, hasError, isLoading, noData } = useDashboard();
@@ -45,5 +44,3 @@ export default function Dashboard() {
     </Layout>
   );
 }
-
-export const getServerSideProps = (context) => revalidateUserSession(context);

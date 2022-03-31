@@ -16,8 +16,8 @@ export default function TermPrivacy() {
 
   const handleScroll = (e) => {
     const isBottom =
-      Math.floor(
-        e.target.scrollHeight - e.target.scrollTop) === e.target.clientHeight;
+      Math.floor(e.target.scrollHeight - e.target.scrollTop) ===
+      e.target.clientHeight;
 
     enableButton?.set(isBottom);
   };
@@ -29,7 +29,7 @@ export default function TermPrivacy() {
         error?.set('');
       },
       onSuccess: () => {
-        router.push('/dashboard');
+        router.push('/atualizar-usuario');
       },
       onError: (e) => {
         error?.set(getErrorMessage(e).message);
@@ -42,7 +42,9 @@ export default function TermPrivacy() {
   return (
     <LayoutLogin>
       <header className="header">
-        <h1 className="title">olá! atualizamos nossa política de privacidade</h1>
+        <h1 className="title">
+          olá! atualizamos nossa política de privacidade
+        </h1>
         <p className="label">
           Leia o termo abaixo para aceitar e continuar com seu portal RH
         </p>
@@ -53,10 +55,7 @@ export default function TermPrivacy() {
       </div>
 
       <div className="term-footer">
-        <button
-          className="cancel"
-          onClick={() => router.push('/login')}
-        >
+        <button className="cancel" onClick={() => router.push('/login')}>
           Cancelar
         </button>
 
@@ -75,7 +74,6 @@ export default function TermPrivacy() {
             Você precisa ler o termo antes de continuar.
           </ReactTooltip>
         )}
-
       </div>
 
       <p className="error">{error?.value}</p>

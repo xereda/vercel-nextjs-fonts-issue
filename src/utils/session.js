@@ -25,8 +25,9 @@ export const makeSessionHeaders = (req = {}) => {
   const timestamp = session?.timestamp;
   const client_id = process.env.HEIMDALL_CLIENT_ID;
   const idGrupoEmpresa = session?.grupoEmpresa?.id;
+  const usuario = session?.usuario;
   const idUsuario = session?.usuario?.id;
-  const cpf = session?.usuario?.cpf?.trim();
+  const cpf = session?.usuario?.cpf;
   const isInvalidSession = !accessToken || !idGrupoEmpresa || !idUsuario;
 
   const params = { idUsuario, idGrupoEmpresa };
@@ -47,6 +48,7 @@ export const makeSessionHeaders = (req = {}) => {
     timestamp,
     client_id,
     idGrupoEmpresa,
+    usuario,
     idUsuario,
     cpf,
     params,

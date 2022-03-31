@@ -1,6 +1,6 @@
-import TermoPrivacidade from '@/modules/termo-privacidade/TermoPrivacidade.js';
+import AtualizarUsuario from '@/modules/atualizar-usuario/AtualizarUsuario';
 import { revalidateUserSession } from '@/utils/session';
 
-export default TermoPrivacidade;
+export default AtualizarUsuario;
 
 export const getServerSideProps = (context) => revalidateUserSession(context);

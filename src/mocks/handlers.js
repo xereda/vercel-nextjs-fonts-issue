@@ -18,6 +18,22 @@ export const handlers = [
   rest.post('/api/parametros', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(dataMocks.parametros), ctx.delay());
   }),
+  rest.post('/api/aceite-termos', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(
+      req.body.shouldPersist ? dataMocks.aceiteTermos : false ), ctx.delay());
+  }),
+  rest.post('/api/user-status', (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json(dataMocks.session.usuario),
+      ctx.delay());
+  }),
+  rest.put('/api/user-status', (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json(dataMocks.session.usuario),
+      ctx.delay());
+  }),
   rest.get('/api/clean-cookie', (req, res, ctx) => {
     return res(ctx.cookie('session', '{}'));
   }),

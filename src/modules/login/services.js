@@ -6,7 +6,7 @@ import { getOnlyNumbers } from '@/utils/format';
 const krypton = new Krypton(process.env.NEXT_PUBLIC_KRYPTON_KEY);
 
 export const authenticate = async ({
-  cpf,
+  cpf: cpfWithMask,
   password,
   onStart,
   onSuccess,
@@ -15,8 +15,10 @@ export const authenticate = async ({
 }) => {
   onStart?.();
 
+  const cpf = getOnlyNumbers(cpfWithMask);
+
   const { encryptedKey: apiKey, encryptedData: authorization } =
-    await krypton.encrypt({ cpf: getOnlyNumbers(cpf), password });
+    await krypton.encrypt({ cpf, password });
 
   httpClient({
     method: 'post',
@@ -55,17 +57,22 @@ export const authenticate = async ({
         },
       });
 
+      const responseStatusUsuario = await httpClient({
+        method: 'post',
+        url: '/api/user-status',
+        data: { accessToken, credential, cpf, idUsuario: usuario?.id },
+      });
+
       const responseAceiteTermos = await httpClient({
         method: 'post',
         url: '/api/aceite-termos',
-        data: {
-          accessToken, credential, cpf: usuario?.cpf?.trim(),
-        },
+        data: { accessToken, credential, cpf },
       });
 
       const usuarioAceitouTermos = responseAceiteTermos?.data || false;
       const grupoEmpresa = responseGrupoEmpresa?.data || {};
       const parametros = responseParametros?.data || {};
+      const statusUsuario = responseStatusUsuario?.data || {};
 
       await httpClient({
         method: 'post',
@@ -73,13 +80,18 @@ export const authenticate = async ({
         data: {
           accessToken,
           publicKey,
-          usuario, // esse cara deve receber tambem as propriedades vindas de user-status
+          usuario: {...usuario, ...statusUsuario },
           grupoEmpresa,
           parametros,
         },
       });
 
-      onSuccess({ usuario, grupoEmpresa, parametros, usuarioAceitouTermos });
+      onSuccess({
+        usuario: {...usuario, ...statusUsuario },
+        grupoEmpresa,
+        parametros,
+        usuarioAceitouTermos,
+      });
     })
     .catch(onError)
     .finally(onFinally);
