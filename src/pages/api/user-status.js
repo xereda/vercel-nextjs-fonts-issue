@@ -42,9 +42,17 @@ export default async function handler(req, res) {
         params: { cpf },
       });
 
-      const getUserStatus = responseGetUserStatus?.data || {};
+      const userStatus = responseGetUserStatus?.data || {};
 
-      res.status(200).json(getUserStatus);
+      if (userStatus.status === 'INATIVO') {
+        throw new Error('O usuário está inativo. Por favor, entre em contato com o administrador da conta');
+      }
+
+      if (userStatus.anonimizado === true) {
+        throw new Error('Usuário não existe');
+      }
+
+      res.status(200).json(userStatus);
     } catch (e) {
       const error = getErrorMessage(e, 'Não foi possível obter o status');
       res.status(error.status).json(error);

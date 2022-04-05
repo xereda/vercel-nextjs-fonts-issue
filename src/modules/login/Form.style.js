@@ -95,6 +95,6 @@ export default css`
   .integration-error {
     color: var(--darkRed);
     text-align: center;
-    font-size: 16px;
+    font-size: 15px;
   }
 `;

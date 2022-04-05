@@ -46,17 +46,6 @@ export const authenticate = async ({
         data: { accessToken, credential, idUsuario: usuario?.id || '' },
       });
 
-      const responseParametros = await httpClient({
-        method: 'post',
-        url: '/api/parametros',
-        data: {
-          accessToken,
-          credential,
-          idUsuario: usuario?.id || '',
-          idGrupoEmpresa: responseGrupoEmpresa?.data?.id,
-        },
-      });
-
       const responseStatusUsuario = await httpClient({
         method: 'post',
         url: '/api/user-status',
@@ -67,6 +56,17 @@ export const authenticate = async ({
         method: 'post',
         url: '/api/aceite-termos',
         data: { accessToken, credential, cpf },
+      });
+
+      const responseParametros = await httpClient({
+        method: 'post',
+        url: '/api/parametros',
+        data: {
+          accessToken,
+          credential,
+          idUsuario: usuario?.id || '',
+          idGrupoEmpresa: responseGrupoEmpresa?.data?.id,
+        },
       });
 
       const usuarioAceitouTermos = responseAceiteTermos?.data || false;
