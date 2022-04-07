@@ -27,7 +27,9 @@ export default function Dashboard() {
 
   return (
     <Layout renderNotice={() => <PaymentWarning />}>
-      <FeedbackPlaceholder {...{ isLoading, hasError, noData }}>
+      <FeedbackPlaceholder
+        {...{ isLoading, hasError, noData, minHeight: '400px' }}
+      >
         <PageContent title="Histórico de pedidos">
           <div className="account-info">
             <LimitChart {...useLimit} />

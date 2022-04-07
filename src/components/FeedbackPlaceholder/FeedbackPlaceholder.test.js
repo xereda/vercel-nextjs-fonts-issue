@@ -21,7 +21,7 @@ describe('FeedbackPlaceholder component', () => {
       </FeedbackPlaceholder>,
     );
 
-    expect(screen.getByText('loading...')).toBeInTheDocument();
+    expect(screen.getByRole('Loading')).toBeInTheDocument();
   });
 
   test('deve renderizar o componente de erro', () => {

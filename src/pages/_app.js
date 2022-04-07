@@ -1,5 +1,5 @@
-import propTypes from 'prop-types';
 import '@hookstate/devtools';
+import propTypes from 'prop-types';
 import Loading from '@/components/Loading/Loading';
 import 'antd/dist/antd.css';
 import '@/styles/globals.css';

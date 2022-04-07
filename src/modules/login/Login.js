@@ -1,22 +1,13 @@
 import LayoutLogin from '@/components/LayoutLogin/LayoutLogin';
-import propTypes from 'prop-types';
 import Content from './Content';
 import Form from './Form';
 
-Login.propTypes = {
-  withRecaptcha: propTypes.bool,
-};
-
-Login.defaultProps = {
-  withRecaptcha: true,
-};
-
-export default function Login({ withRecaptcha }) {
+export default function Login() {
   return (
     <>
       <LayoutLogin>
         <Content>
-          <Form {...{ withRecaptcha }} />
+          <Form />
         </Content>
       </LayoutLogin>
 

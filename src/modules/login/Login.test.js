@@ -6,7 +6,7 @@ import Loading from '@/components/Loading/Loading';
 beforeEach(() => {
   render(
     <div>
-      <Login withRecaptcha={false} />
+      <Login />
       <Loading />
     </div>,
   );

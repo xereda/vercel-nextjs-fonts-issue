@@ -21,6 +21,7 @@ export default css`
     background-color: var(--white);
     border-radius: 6px;
     overflow: hidden;
+    height: 100%;
   }
   .wrapper-header {
     display: flex;

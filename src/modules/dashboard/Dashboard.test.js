@@ -9,7 +9,7 @@ describe('Dashboard component', () => {
   test('should render dashboard integrated with mock', async () => {
     render(<Dashboard />);
 
-    expect(screen.getByText('loading...')).toBeInTheDocument();
+    expect(screen.getByRole('Loading')).toBeInTheDocument();
 
     await waitFor(() => {
       expect(screen.getByText(/1111/)).toBeInTheDocument();
@@ -33,7 +33,7 @@ describe('Dashboard component', () => {
       </RenderWithoutSWRCache>,
     );
 
-    expect(screen.getByText('loading...')).toBeInTheDocument();
+    expect(screen.getByRole('Loading')).toBeInTheDocument();
 
     await waitFor(() => {
       expect(screen.getByText('error')).toBeInTheDocument();
@@ -53,7 +53,7 @@ describe('Dashboard component', () => {
       </RenderWithoutSWRCache>,
     );
 
-    expect(screen.getByText('loading...')).toBeInTheDocument();
+    expect(screen.getByRole('Loading')).toBeInTheDocument();
 
     await waitFor(() => {
       expect(screen.getByText('no data')).toBeInTheDocument();

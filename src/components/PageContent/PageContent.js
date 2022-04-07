@@ -12,19 +12,13 @@ PageContent.defaultProps = {
   onBack: null,
 };
 
-export default function PageContent({title, onBack, children}) {
+export default function PageContent({ title, onBack, children }) {
   return (
     <div className="page-content">
       <header className="header-wrapper">
-        <PageHeader
-          className="page-header"
-          onBack={onBack}
-          title={title}
-        />
+        <PageHeader className="page-header" onBack={onBack} title={title} />
       </header>
-      <div className="content-wrapper">
-        {children}
-      </div>
+      <div className="content-wrapper">{children}</div>
 
       <style jsx="true">{style}</style>
     </div>

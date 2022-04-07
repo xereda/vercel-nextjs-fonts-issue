@@ -16,7 +16,7 @@ Form.propTypes = {
 };
 
 Form.defaultProps = {
-  withRecaptcha: true,
+  withRecaptcha: process.env.NODE_ENV === 'production',
 };
 
 export default function Form({ withRecaptcha }) {
