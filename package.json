@@ -2,7 +2,7 @@
   "name": "test-ant",
   "private": true,
   "scripts": {
-    "prepare-envs": "shx cp .env.production .env.master && shx rm -f .env.local",
+    "prepare-envs": "shx rm -f .env.local",
     "dev": "shx cp .env .env.local && next dev",
     "build": "branch=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD) && yarn prepare-envs; shx cat .env.$branch .env.generic-vars > .env.local && next build",
     "start": "next start",
