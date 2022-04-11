@@ -9,6 +9,10 @@ export default async function handler(req, res) {
       client_id: process.env.HEIMDALL_CLIENT_ID,
     };
 
+    console.warn('========================');
+    console.warn({ headers, url: process.env.AUTHENTICATION_PATH });
+    console.warn('========================');
+
     const response = await httpClient({
       method: 'post',
       url: process.env.AUTHENTICATION_PATH,
