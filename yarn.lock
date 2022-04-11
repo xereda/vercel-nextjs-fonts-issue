@@ -940,10 +940,10 @@
     "@babel/runtime" "^7.12.5"
     "@testing-library/dom" "^8.0.0"
 
-"@testing-library/user-event@^14.0.0-beta.14":
-  version "14.0.0-beta.14"
-  resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-14.0.0-beta.14.tgz#b0e58def778d3e3ce80135f9a7c1fa3fc0a5b08e"
-  integrity sha512-0uAqKv9loReQXQDDGdrMYIKuYC/wBWpmn1186750pddbIs0mDYJ3MlzIqCj1nP6ALfd5MIMovyNBiLbXXjyNLA==
+"@testing-library/user-event@14.0.4":
+  version "14.0.4"
+  resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-14.0.4.tgz#5b430a9c27f25078bff4471661b755115d0db9d4"
+  integrity sha512-VBZe5lcUsmrQyOwIFvqOxLBoaTw1/Qy4Ek+VgmFYs719bs2SxUp42vbsb7ATlQDkHdj4OIQlucfpwxe5WoG1jA==
 
 "@tootallnate/once@1":
   version "1.1.2"

@@ -27,9 +27,9 @@ export default function UpdateUser() {
 
   const formik = useFormik({
     initialValues: {
-      birthdate: parseToBrazilianDate(usuario?.dataNascimento),
-      phone: usuario?.ddd + usuario?.telefone,
-      motherName: usuario?.nomeMae,
+      birthdate: `${parseToBrazilianDate(usuario?.dataNascimento)}`,
+      phone: `${usuario?.ddd}${usuario?.telefone}`,
+      motherName: `${usuario?.nomeMae}`,
     },
     validate: (values) => {
       const errors = {};
@@ -46,7 +46,7 @@ export default function UpdateUser() {
 
       if (!values.phone) {
         errors.phone = 'Campo obrigatório';
-      } else if (isValidPhone(values.phone)) {
+      } else if (!isValidPhone(values.phone)) {
         errors.phone = 'Telefone inválido';
       }
 
@@ -135,7 +135,7 @@ export default function UpdateUser() {
 
       <form className="update-form" onSubmit={formik.handleSubmit}>
         <div className="fieldset">
-          <label htmlFor="birthdate">Data de Nascimento</label>
+          <label htmlFor="birthdate">Data de nascimento</label>
           <input
             required
             autoComplete="birthdate"
@@ -179,8 +179,9 @@ export default function UpdateUser() {
           )}
         </div>
         <div className="fieldset last-field">
-          <label htmlFor="motherName">Nome da Mãe</label>
+          <label htmlFor="motherName">Nome da mãe</label>
           <input
+            required
             autoComplete="motherName"
             className={`input-field ${defineClassMotherField()}`}
             type="motherName"
@@ -204,7 +205,7 @@ export default function UpdateUser() {
         </Button>
       </form>
 
-      <p className="error">{error?.value}</p>
+      <p className="error" role="error">{error?.value}</p>
 
       <style jsx="true">{style}</style>
     </LayoutLogin>

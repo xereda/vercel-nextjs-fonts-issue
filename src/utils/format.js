@@ -68,4 +68,11 @@ export const toPhoneMask = (value = '') => {
   return '';
 };
 
-export const isValidPhone = (value = '') => getOnlyNumbers(value).length < 10;
+export const isValidPhone = (value = '') => {
+  const phoneLength = getOnlyNumbers(value).length;
+  if (phoneLength === 10 || phoneLength === 11) {
+    return true;
+  }
+
+  return false;
+}

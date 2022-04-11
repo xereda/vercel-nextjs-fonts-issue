@@ -50,7 +50,8 @@ export default function TermPrivacy() {
         </p>
       </header>
 
-      <div className="term-content" onScroll={handleScroll}>
+      <div
+        className="term-content" role="term" onScroll={handleScroll}>
         <TermoContent />
       </div>
 
@@ -61,7 +62,7 @@ export default function TermPrivacy() {
 
         <div data-tip data-for="read-terms">
           <button
-            disabled={!enableButton.get()}
+            disabled={!enableButton.value}
             className="accept-term"
             onClick={handleSubmit}
           >
