@@ -10,6 +10,9 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <title>Ben - Portal RH</title>
+          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+          <link rel="icon" type="image/svg" href="/svg/icon-ben.svg" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
             rel="preconnect"
