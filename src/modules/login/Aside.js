@@ -14,29 +14,31 @@ export default function Aside() {
             />
           </a>
         </div>
-        <div className="">
+        <div>
           <Image
-            src="/png/homebackground.png"
+            src="/png/avatar-home.png"
             alt="Ben Visa Vale"
-            width={410}
-            height={550}
+            width={420}
+            height={380}
           />
         </div>
       </aside>
 
       <style jsx="true">{`
         .aside-bg {
-          background: #4e2789;
+          background: var(--avatarBlue);
           display: flex;
           flex-direction: column;
-          justify-content: space-between;
+          justify-content: center;
           align-items: center;
           min-height: -webkit-fill-available;
           position: fixed;
           width: 40vw;
         }
         .logo {
-          padding: 3rem 0;
+          position: absolute;
+          top: 0;
+          padding-top: 2.5rem;
         }
       `}</style>
     </>
