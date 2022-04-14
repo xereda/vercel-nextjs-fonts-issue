@@ -14,20 +14,51 @@ describe('User update page', () => {
     expect(screen.getByText('Atualizar')).toBeDisabled();
   });
 
-  test('deve apresentar mensagem de erro ao informar data ou telefone invalidos', async () => {
+  test('deve renderizar o form integrado ao mock com mascara aplicada', async () => {
+    renderHook(() => {
+      const session = useState(sessionStore);
+      session.set({
+        usuario: {
+          id: 999999,
+          email: 'jackson.schroeder@sciensa.com',
+          cpf: '11651232903',
+          nome: 'Jackson Ricardo Schroeder',
+          anonimizado: false,
+          dataNascimento: '1976-12-18',
+          ddd: '11',
+          nomeMae: '',
+          status: 'ATIVO',
+          telefone: '995674852',
+        },
+      });
+    });
+
     render(<AtualizarUsuario />);
 
-    const user = userEvent.setup();
+    const birthdate = screen.getByLabelText(/Data de nascimento/i);
+    const phone = screen.getByLabelText(/Telefone/i);
+    const motherName = screen.getByLabelText(/Nome da mãe/i);
+
+    await waitFor(() => {
+      expect(birthdate).toHaveValue('18/12/1976');
+      expect(phone).toHaveValue('(11) 99567-4852');
+      expect(motherName).toHaveValue('');
+    });
+  });
+  test('deve apresentar mensagem de erro ao informar data ou telefone invalidos', async () => {
+    render(<AtualizarUsuario />);
     const birthdate = screen.getByLabelText(/Data de nascimento/i);
     const phone = screen.getByLabelText(/Telefone/i);
 
-    await user.type(birthdate, '99999999{tab}');
-    await user.type(phone, '999999{tab}');
+    await userEvent.clear(birthdate);
+    await userEvent.type(birthdate, '99999999{tab}');
+    await userEvent.clear(phone);
+    await userEvent.type(phone, '999999{tab}');
 
     await waitFor(() => {
       expect(screen.getByText('Data inválida')).toBeInTheDocument();
       expect(screen.getByText('Telefone inválido')).toBeInTheDocument();
-      expect(screen.getByRole('button', {name: 'Atualizar'})).toBeDisabled();
+      expect(screen.getByRole('button', { name: 'Atualizar' })).toBeDisabled();
     });
   });
 
@@ -79,38 +110,6 @@ describe('User update page', () => {
 
     await waitFor(() => {
       expect(screen.getByRole('error')).toBeInTheDocument();
-    });
-  });
-
-  test('deve renderizar o form integrado ao mock com mascara aplicada', async () => {
-    renderHook(() => {
-      const session = useState(sessionStore);
-      session.set({
-        usuario: {
-          id: 999999,
-          email: 'jackson.schroeder@sciensa.com',
-          cpf: '11651232903',
-          nome: 'Jackson Ricardo Schroeder',
-          anonimizado: false,
-          dataNascimento: '1976-12-18',
-          ddd: '11',
-          nomeMae: '',
-          status: 'ATIVO',
-          telefone: '995674852',
-        },
-      });
-    });
-
-    render(<AtualizarUsuario />);
-
-    const birthdate = screen.getByLabelText(/Data de nascimento/i);
-    const phone = screen.getByLabelText(/Telefone/i);
-    const motherName = screen.getByLabelText(/Nome da mãe/i);
-
-    await waitFor(() => {
-      expect(birthdate).toHaveValue('18/12/1976');
-      expect(phone).toHaveValue('(11) 99567-4852');
-      expect(motherName).toHaveValue('');
     });
   });
 });
