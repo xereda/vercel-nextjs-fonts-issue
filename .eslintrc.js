@@ -62,6 +62,7 @@ module.exports = {
         ignoreStrings: true,
         ignoreComments: true,
         ignoreTemplateLiterals: true,
+        ignoreRegExpLiterals: true,
       },
     ],
     'comma-dangle': ['error', 'always-multiline'],

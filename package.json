@@ -51,7 +51,7 @@
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
     "@testing-library/react-hooks": "^7.0.2",
-    "@testing-library/user-event": "^14.1.0",
+    "@testing-library/user-event": "^14.1.1",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "3.3.0",
     "env-cmd": "^10.1.0",
