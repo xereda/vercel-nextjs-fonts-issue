@@ -59,7 +59,7 @@ export default css`
     cursor: not-allowed;
   }   
   .error {
-    color: var(--darkRed);
+    color: var(--dark-red);
     text-align: center;
     font-size: 16px;
   }

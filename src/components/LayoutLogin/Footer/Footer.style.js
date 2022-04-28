@@ -5,7 +5,7 @@ export default css`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid var(--ligthGrey);
+    border-top: 1px solid var(--ligth-grey);
     padding-top: 16px;
     max-width: 550px;
     margin-left: 45vw;

@@ -6,23 +6,50 @@ export default css`
   }
   .title {
     font-weight: bold;
-    font-size: 46px;
+    font-size: 56px;
     text-transform: lowercase;
-    line-height: normal;
+    line-height: 1;
+  }
+  .subtitle {
+    font-weight: 300;
+    font-size: 32px;
+    letter-spacing: 0.3px;
+    text-transform: lowercase;
+    color: var(--green);
+    padding: 0;
+    margin: 0 0 40px 0px;
   }
   .label {
-    font-weight: 300;
-    font-size: 27px;
+    font-weight: 400;
+    font-size: 17px;
     color: #666666;
     line-height: normal;
   }
-  .update-form {
+  .password-tips {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+  .form-title {
+    font-size: 16px;
+  }
+  .tip {
+    margin: 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    white-space: nowrap;
+    line-height: 22px;
+  }
+  .create-password-form {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
     width: 400px;
     margin-bottom: 4rem;
     padding-left: 5.5rem;
+    margin-top: 3rem;
   }
   .fieldset {
     display: flex;
@@ -67,9 +94,9 @@ export default css`
   }
   .error-input-icon:after {
     position: absolute;
-    left: 90%;
+    left: 85%;
     right: 0;
-    bottom: 10px;
+    bottom: 30px;
     content: "\d7";
     font-size: 12px;
     color: var(--red);
@@ -84,9 +111,9 @@ export default css`
   }
   .success-input-icon:after {
     position: absolute;
-    left: 90%;
+    left: 85%;
     right: 0;
-    bottom: 10px;
+    bottom: 30px;
     content: "\2713";
     font-size: 12px;
     color: var(--green);
@@ -96,11 +123,16 @@ export default css`
   .error-message {
     color: var(--red);
     font-size: 13px;
-    padding-top: 10px;
+    margin-top: -10px;
   }
   .error {
     color: var(--dark-red);
     text-align: center;
     font-size: 16px;
+  }
+  .eye {
+    position: relative;
+    bottom: 28px;
+    left: 285px;
   }
 `;

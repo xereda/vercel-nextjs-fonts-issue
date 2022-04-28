@@ -26,7 +26,7 @@ export default function Aside() {
 
       <style jsx="true">{`
         .aside-bg {
-          background: var(--avatarBlue);
+          background: var(--avatar-blue);
           display: flex;
           flex-direction: column;
           justify-content: center;

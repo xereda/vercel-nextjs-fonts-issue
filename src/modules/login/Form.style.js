@@ -23,7 +23,7 @@ export default css`
   }
   .input-field {
     border-radius: 8px;
-    border: 1px solid var(--dustyGrey);
+    border: 1px solid var(--dusty-grey);
     border-spacing: 0;
     border-collapse: separate;
     color: #333333;
@@ -38,7 +38,7 @@ export default css`
     width: 100%;
   }
   .input-field::placeholder {
-    color: var(--mediumGrey);
+    color: var(--medium-grey);
   }
   .error-input {
     border: 1px solid var(--red);
@@ -93,7 +93,7 @@ export default css`
     font-weight: 700;
   }
   .integration-error {
-    color: var(--darkRed);
+    color: var(--dark-red);
     text-align: center;
     font-size: 15px;
   }

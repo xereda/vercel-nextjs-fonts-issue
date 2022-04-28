@@ -51,21 +51,21 @@ export default css`
     font-size: 32px;
     line-height: 40px;
     letter-spacing: 0.3px;
-    color: (--lighterBlack);
+    color: (--lighter-black);
   }
   #chart-desc {
     font-weight: bold;
     font-size: 12px;
     line-height: 18px;
     letter-spacing: 0.1px;
-    color: var(--dustyGrey);
+    color: var(--dusty-grey);
   }
   #used-value {
     font-weight: bold;
     font-size: 12px;
     line-height: 18px;
     letter-spacing: 0.1px;
-    color: var(--darkGreen);
+    color: var(--dark-green);
   }
   #total {
     color: var(--black);

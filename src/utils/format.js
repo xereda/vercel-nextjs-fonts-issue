@@ -145,3 +145,9 @@ export const isValidPhone = (value = '') => {
 
   return false;
 };
+
+export const isStrongPassword = (value) => {
+  const result = RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,15}$/).test(value);
+
+  return result;
+};

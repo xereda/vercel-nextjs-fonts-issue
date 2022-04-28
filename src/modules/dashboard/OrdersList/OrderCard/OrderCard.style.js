@@ -8,7 +8,7 @@ export default css`
     grid-template-columns: 130px 200px 150px 215px 250px 130px;
     justify-content: space-around;
     padding: 16px 8px;
-    background: var(--whiteF2);
+    background: var(--white-f2);
     border-radius: 4px;
     position: relative;
   }
@@ -27,6 +27,6 @@ export default css`
     overflow: hidden;
   }
   a, a:hover {
-    color: var(--lightBlack);
+    color: var(--light-black);
   }
 `;

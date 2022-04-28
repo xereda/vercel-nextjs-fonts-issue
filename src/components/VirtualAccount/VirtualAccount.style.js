@@ -18,7 +18,7 @@ export default css`
     font-size: 16px;
     line-height: 26px;
     margin-right: 10px;
-    color: (--lighterBlack);
+    color: (--lighter-black);
   }
   #total-value {
     font-family: Barlow;

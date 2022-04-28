@@ -16,7 +16,7 @@ export const dropdownNotificationStyle = css`
 
 export default css`
   .navbar {
-    background-color: var(--navBarGrey);
+    background-color: var(--navbar-grey);
     height: 98px;
     position: sticky;
     top: 0;
@@ -31,7 +31,7 @@ export default css`
     margin: 0 auto;
   }
   .menu {
-    background-color: var(--navBarGrey);
+    background-color: var(--navbar-grey);
     border: none;
   }
   .nav-links {

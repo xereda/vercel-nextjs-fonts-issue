@@ -2,7 +2,7 @@ import css from 'styled-jsx/css';
 
 export default css`
   a, a:hover {
-    color: var(--lightBlack);
+    color: var(--light-black);
   }
   .warning-icon {
     margin: 30px 0;

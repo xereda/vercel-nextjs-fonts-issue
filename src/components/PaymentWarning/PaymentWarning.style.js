@@ -39,7 +39,7 @@ export default css`
   }
   .notice {
     font-size: 16px;
-    color: var(--darkGrey);
+    color: var(--dark-grey);
     margin-left: 26px;
     margin-right: 45px;
     

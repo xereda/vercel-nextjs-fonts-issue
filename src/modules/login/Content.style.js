@@ -39,7 +39,7 @@ export default css`
   .establishment-area {
     text-align: right;
     padding-right: 2rem;
-    border-right: 1px solid var(--ligthGrey);
+    border-right: 1px solid var(--ligth-grey);
   }
   .establishment-area h1, .costumer-area h1 {
     font-weight: 300;

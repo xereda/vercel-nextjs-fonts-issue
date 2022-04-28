@@ -46,10 +46,10 @@ export default function Button({ children, ...props }) {
         }
 
         .primary-btn:disabled {
-          background-color: var(--mediumGrey);
-          color: var(--dustyGrey);
+          background-color: var(--medium-grey);
+          color: var(--dusty-grey);
           cursor: not-allowed;
-          border: 2px solid var(--mediumGrey);
+          border: 2px solid var(--medium-grey);
         }
       `}</style>
     </>
