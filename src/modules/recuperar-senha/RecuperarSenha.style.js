@@ -25,14 +25,15 @@ export default css`
     color: #666666;
     line-height: normal;
   }
-  .create-password-form {
+  .recover-password-form {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    width: 400px;
+    width: 300px;
     margin-bottom: 4rem;
-    padding-left: 5.5rem;
+    margin: 0 auto;
     margin-top: 3rem;
+    margin-bottom: 3rem;
   }
   .fieldset {
     display: flex;
@@ -77,9 +78,9 @@ export default css`
   }
   .error-input-icon:after {
     position: absolute;
-    left: 85%;
+    left: 90%;
     right: 0;
-    bottom: 30px;
+    bottom: 10px;
     content: "\d7";
     font-size: 12px;
     color: var(--red);
@@ -94,9 +95,9 @@ export default css`
   }
   .success-input-icon:after {
     position: absolute;
-    left: 85%;
+    left: 90%;
     right: 0;
-    bottom: 30px;
+    bottom: 10px;
     content: "\2713";
     font-size: 12px;
     color: var(--green);
@@ -106,16 +107,55 @@ export default css`
   .error-message {
     color: var(--red);
     font-size: 13px;
-    margin-top: -10px;
+    padding-top: 10px;
   }
   .error {
     color: var(--dark-red);
     text-align: center;
     font-size: 16px;
   }
-  .eye {
-    position: relative;
-    bottom: 28px;
-    left: 285px;
+  .feedback-success {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    max-width: 280px;
+    margin: 0 auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  .message {
+    display: flex;
+    justify-content: center;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 30px;
+    color: var(--grey);
+  }
+  .divider {
+    background: var(--ligth-grey);
+    height: 2px;
+    border-radius: 1px;
+    margin: 26px auto 52px;
+    width: 80px;
+  }
+  .disclaimer {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 26px;
+    letter-spacing: 0.45px;
+    margin-bottom: 5rem;
+  }
+
+  .back-to-login {
+    font-size: 16px;
+    color: var(--red);
+    cursor: pointer;
+    background: none;
+    border: 2px solid var(--white);
+    text-transform: uppercase;
+    font-weight: 700;
   }
 `;

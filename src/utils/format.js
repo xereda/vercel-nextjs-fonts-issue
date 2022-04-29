@@ -151,3 +151,11 @@ export const isStrongPassword = (value) => {
 
   return result;
 };
+
+export const isValidEmail = (email) => {
+  if (email) {
+    return /\S+@\S+\.\S+/.test(email);
+  }
+
+  return false;
+};

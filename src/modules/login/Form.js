@@ -1,15 +1,16 @@
 import propTypes from 'prop-types';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { useState } from '@hookstate/core';
 import { Persistence } from '@hookstate/persistence';
 import { loadingStore, sessionStore } from '@/store/index';
 import { isValidCPF, toCPFMask } from '@/utils/format';
-import Button from '@/components/Button/Button.js';
-import Recaptcha from '@/components/Recaptcha/Recaptcha';
-import style from './Form.style.js';
 import { authenticate } from './services.js';
 import { getErrorMessage } from '@/utils/services';
+import Recaptcha from '@/components/Recaptcha/Recaptcha';
+import style from './Form.style.js';
+import Button from '@/components/Button/Button.js';
 
 Form.propTypes = {
   withRecaptcha: propTypes.bool,
@@ -178,7 +179,9 @@ export default function Form({ withRecaptcha }) {
         Fazer login
       </Button>
       <div className="password-recovery">
-        <button className="forgot-password">Esqueceu sua senha?</button>
+        <Link href="/recuperar-senha">
+          <a className="forgot-password">Esqueceu sua senha?</a>
+        </Link>
       </div>
       <style jsx="true">{style}</style>
     </form>
