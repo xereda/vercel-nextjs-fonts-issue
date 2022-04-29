@@ -1,4 +1,5 @@
 import Krypton from '@/utils/krypton';
+import { httpClient } from './services';
 
 const krypton = new Krypton(process.env.NEXT_PUBLIC_KRYPTON_KEY);
 
@@ -53,5 +54,53 @@ export const makeSessionHeaders = (req = {}) => {
     cpf,
     params,
     isInvalidSession,
+  };
+};
+
+export const getTempSessionData = async () => {
+  const response = await httpClient({
+    method: 'post',
+    url: process.env.HASH_CODE_TEMPORARIO_PATH,
+    headers: {
+      client_id: process.env.HEIMDALL_CLIENT_ID,
+    },
+  });
+
+  const code = response?.data?.code;
+
+  if (!code) {
+    throw new Error('Não foi possível obter o hash code temporário');
+  }
+
+  const { encryptedKey, encryptedData } = await krypton.encrypt(code);
+
+  console.log({ encryptedKey, encryptedData });
+
+  const responseToken = await httpClient({
+    method: 'post',
+    url: process.env.TOKEN_TEMPORARIO_PATH,
+    headers: {
+      client_id: process.env.HEIMDALL_CLIENT_ID,
+      apikey: encryptedKey,
+      code: encryptedData,
+    },
+  });
+
+  const session = await krypton.decrypt(responseToken?.data || '');
+  const { accessToken, publicKey, timestamp } = session || {};
+
+  if (!accessToken || !publicKey || !timestamp) {
+    throw new Error(
+      'Não foi possível obter o token para efetivar a alteração de senha',
+    );
+  }
+
+  const credential = krypton.generateHash(publicKey, new Date().getTime() + '');
+
+  return {
+    client_id: process.env.HEIMDALL_CLIENT_ID,
+    authorization: `Bearer ${accessToken}`,
+    credential,
+    timestamp,
   };
 };
