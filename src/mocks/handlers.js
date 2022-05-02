@@ -9,7 +9,10 @@ export const handlers = [
       ctx.delay(2000),
     );
   }),
-  rest.post('/api/criar-senha', (req, res, ctx) => {
+  rest.put('/api/recuperar-senha', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({ success: true }), ctx.delay());
+  }),
+  rest.put('/api/criar-senha', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json({ success: true }), ctx.delay());
   }),
   rest.get('/api/dashboard', (req, res, ctx) => {

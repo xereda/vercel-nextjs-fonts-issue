@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     const headers = await getTempSessionData();
     const { cpf, email, plataforma } = req?.body || {};
 
-    const responseForgotPassword = await httpClient({
+    await httpClient({
       method: 'put',
       headers,
       url: `${process.env.ALTERACAO_SENHA_PATH}`,
@@ -14,9 +14,7 @@ export default async function handler(req, res) {
       data: { cpf, email, plataforma },
     });
 
-    const recuperaSenha = responseForgotPassword?.data || {};
-
-    res.status(200).json(recuperaSenha);
+    res.status(200).json({ success: true });
   } catch (e) {
     const error = getErrorMessage(e, 'Não foi possível recuperar a senha');
     res.status(error.status).json(error);

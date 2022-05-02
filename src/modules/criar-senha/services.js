@@ -11,7 +11,7 @@ export const createPassword = async ({
   onStart?.();
 
   await httpClient({
-    method: 'post',
+    method: 'put',
     url: '/api/criar-senha',
     data: { novaSenha: password, token },
   })

@@ -17,7 +17,7 @@ export default function FeedbackSuccess() {
         que o <strong>Ben</strong> tem para gerenciar suas vendas
       </span>
 
-      <Link href="/">
+      <Link href="/login">
         <a className="back-to-login">Fazer login</a>
       </Link>
 

@@ -16,7 +16,7 @@ export default function FeedbackSuccess() {
         usuário administrador da sua empresa.
       </span>
 
-      <Link href="/">
+      <Link href="/login">
         <a className="back-to-login">Voltar</a>
       </Link>
 

@@ -11,7 +11,7 @@ export const recoverPassword = async ({
 }) => {
   onStart?.();
 
-  httpClient({
+  await httpClient({
     method: 'put',
     url: '/api/recuperar-senha',
     data: {
