@@ -16,7 +16,7 @@ RecuperarSenha.propTypes = {
 };
 
 RecuperarSenha.defaultProps = {
-  withRecaptcha: process.env.NODE_ENV !== 'development',
+  withRecaptcha: process.env.NODE_ENV === 'production',
 };
 
 export default function RecuperarSenha({ withRecaptcha }) {
@@ -108,10 +108,9 @@ export default function RecuperarSenha({ withRecaptcha }) {
         <h1 className="title">recuperar senha</h1>
         <h2 className="subtitle">Para recursos humanos</h2>
         <p className="label">
-          Para que você possa acessar seus <b>pedidos</b>,
-          gerenciar seus <b>funcionários</b>, <b>notas fiscais</b>{' '}
-          e muito <b>mais serviços</b> Ben Visa Vale,
-          nós precisamos do seu CPF e e-mail cadastrado.
+          Para que você possa acessar seus <b>pedidos</b>, gerenciar seus{' '}
+          <b>funcionários</b>, <b>notas fiscais</b> e muito <b>mais serviços</b>{' '}
+          Ben Visa Vale, nós precisamos do seu CPF e e-mail cadastrado.
         </p>
       </header>
 
@@ -163,7 +162,9 @@ export default function RecuperarSenha({ withRecaptcha }) {
 
           {withRecaptcha && <Recaptcha {...{ handleRecaptch }} />}
 
-          <p className="error" role="error">{error?.value}</p>
+          <p className="error" role="error">
+            {error?.value}
+          </p>
 
           <Button isFullWidth type="submit" disabled={disableButton()}>
             Continuar
