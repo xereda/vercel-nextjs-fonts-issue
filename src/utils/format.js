@@ -147,13 +147,16 @@ export const isValidPhone = (value = '') => {
 };
 
 export const isStrongPassword = (value) => {
-  const result = RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,15}$/).test(value);
+  if (value && typeof value === 'string') {
+    const result = RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,15}$/).test(value);
+    return result;
+  }
 
-  return result;
+  return false;
 };
 
 export const isValidEmail = (email) => {
-  if (email) {
+  if (email && typeof email === 'string') {
     return /\S+@\S+\.\S+/.test(email);
   }
 

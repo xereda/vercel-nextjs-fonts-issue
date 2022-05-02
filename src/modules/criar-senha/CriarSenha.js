@@ -93,8 +93,6 @@ export default function CreatePassword({ withRecaptcha }) {
   };
 
   const handleSubmit = async ({ password }) => {
-    console.log('clicou');
-
     createPassword({
       password,
       token,

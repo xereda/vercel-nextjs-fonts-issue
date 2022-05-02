@@ -3,7 +3,9 @@ import {
   formatMoney,
   getOnlyNumbers,
   isDateInFuture,
+  isStrongPassword,
   isValidDate,
+  isValidEmail,
   isValidPhone,
   parseToBrazilianDate,
   parseToDefaultDate,
@@ -212,5 +214,41 @@ describe('isValidPhone', () => {
     expect(isValidPhone({ value: 1 })).toBe(false);
     expect(isValidPhone(null)).toBe(false);
     expect(isValidPhone(undefined)).toBe(false);
+  });
+});
+
+describe('isStrongPassword', () => {
+  test('deve retornar true quando receber senha forte', () => {
+    const result = isStrongPassword('1Aa@1234');
+    expect(result).toBe(true);
+  });
+
+  test('deve retornar false quando receber um argumento inválido', () => {
+    expect(isStrongPassword('12345')).toBe(false);
+    expect(isStrongPassword('string')).toBe(false);
+    expect(isStrongPassword(123)).toBe(false);
+    expect(isStrongPassword(false)).toBe(false);
+    expect(isStrongPassword([1, 2, 3])).toBe(false);
+    expect(isStrongPassword({ value: 1 })).toBe(false);
+    expect(isStrongPassword(null)).toBe(false);
+    expect(isStrongPassword(undefined)).toBe(false);
+  });
+});
+
+describe('isValidEmail', () => {
+  test('deve retornar true quando receber email válido', () => {
+    const result = isValidEmail('teste@email.com');
+    expect(result).toBe(true);
+  });
+
+  test.only('deve retornar false quando receber um argumento inválido', () => {
+    expect(isValidEmail('teste@email')).toBe(false);
+    expect(isValidEmail('string')).toBe(false);
+    expect(isValidEmail(123)).toBe(false);
+    expect(isValidEmail(false)).toBe(false);
+    expect(isValidEmail([1, 2, 3])).toBe(false);
+    expect(isValidEmail({ value: 1 })).toBe(false);
+    expect(isValidEmail(null)).toBe(false);
+    expect(isValidEmail(undefined)).toBe(false);
   });
 });
