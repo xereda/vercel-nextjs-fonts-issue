@@ -13,7 +13,19 @@ export const handlers = [
     return res(ctx.status(200), ctx.json({ success: true }), ctx.delay());
   }),
   rest.put('/api/criar-senha', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ success: true }), ctx.delay());
+    if (!req.body.token) {
+      return res(
+        ctx.status(500),
+        ctx.json({ error: 'Token não informado' }),
+        ctx.delay(),
+      );
+    }
+
+    return res(
+      ctx.status(200),
+      ctx.json({ success: true }),
+      ctx.delay(),
+    );
   }),
   rest.get('/api/dashboard', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(dataMocks.dashboard), ctx.delay());

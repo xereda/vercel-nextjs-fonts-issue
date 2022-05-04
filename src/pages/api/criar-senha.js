@@ -7,6 +7,10 @@ export default async function handler(req, res) {
 
     const { novaSenha, token } = req?.body || {};
 
+    if (!token) {
+      throw new Error('Token não informado');
+    }
+
     await httpClient({
       method: 'put',
       url: `${process.env.ALTERACAO_SENHA_PATH}/${token}`,

@@ -18,6 +18,7 @@ export default function LayoutLogin({ children }) {
           padding: 65px 45px 0 45px;
           max-width: 640px;
           margin-left: 42vw;
+          min-height: 85vh;
         }
       `}</style>
     </div>

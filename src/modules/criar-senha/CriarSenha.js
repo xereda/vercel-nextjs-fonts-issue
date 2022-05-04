@@ -19,7 +19,7 @@ CreatePassword.propTypes = {
 };
 
 CreatePassword.defaultProps = {
-  withRecaptcha: process.env.NODE_ENV !== 'development',
+  withRecaptcha: process.env.NODE_ENV === 'production',
 };
 
 export default function CreatePassword({ withRecaptcha }) {
@@ -123,7 +123,7 @@ export default function CreatePassword({ withRecaptcha }) {
       <header className="header">
         <h1 className="title">criar nova senha</h1>
         <h2 className="subtitle">Para recursos humanos</h2>
-        {!hasSuccess.value && (
+        {!hasSuccess.value && token && (
           <p className="label">
             Para continuar, crie uma nova senha seguindo as orientações abaixo:
           </p>
@@ -132,96 +132,106 @@ export default function CreatePassword({ withRecaptcha }) {
 
       {!hasSuccess.value ? (
         <>
-          <PasswordRule
-            value={formik.values.password}
-            error={formik.errors.password && formik.touched.password}
-          />
-          <form className="create-password-form" onSubmit={formik.handleSubmit}>
-            <div className="fieldset">
-              <label htmlFor="password">Criar uma senha</label>
-              <input
-                required
-                autoComplete="password"
-                className={`input-field ${defineClassPasswordField()}`}
-                type={showPassword.value ? 'password' : 'text'}
-                name="password"
-                id="password"
-                maxLength="15"
+          {token ? (
+            <>
+              <PasswordRule
                 value={formik.values.password}
-                placeholder="Insira aqui sua senha"
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
+                error={formik.errors.password && formik.touched.password}
               />
-
-              <div className="eye">
-                {showPassword.value ? (
-                  <EyeOutlined
-                    onClick={handlePasswordVisibility}
-                    style={{ color: 'var(--ligth-grey)' }}
+              <form className="create-password-form" onSubmit={formik.handleSubmit}>
+                <div className="fieldset">
+                  <label htmlFor="password">Criar uma senha</label>
+                  <input
+                    required
+                    autoComplete="password"
+                    className={`input-field ${defineClassPasswordField()}`}
+                    type={showPassword.value ? 'password' : 'text'}
+                    name="password"
+                    id="password"
+                    maxLength="15"
+                    value={formik.values.password}
+                    placeholder="Insira aqui sua senha"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
                   />
-                ) : (
-                  <EyeInvisibleOutlined
-                    onClick={handlePasswordVisibility}
-                    style={{ color: 'var(--ligth-grey)' }}
+
+                  <div className="eye">
+                    {showPassword.value ? (
+                      <EyeOutlined
+                        onClick={handlePasswordVisibility}
+                        style={{ color: 'var(--ligth-grey)' }}
+                      />
+                    ) : (
+                      <EyeInvisibleOutlined
+                        onClick={handlePasswordVisibility}
+                        style={{ color: 'var(--ligth-grey)' }}
+                      />
+                    )}
+                  </div>
+
+                  <span className={`${defineClassPasswordField()}-icon`}></span>
+
+                  {showErrorsPassword() && (
+                    <span className="error-message">{formik.errors.password}</span>
+                  )}
+                </div>
+                <div className="fieldset">
+                  <label htmlFor="confirmPassword">Confirmar senha</label>
+                  <input
+                    required
+                    autoComplete="confirmPassword"
+                    className={`input-field ${defineClassConfirmPasswordField()}`}
+                    type={showPassword.value ? 'password' : 'text'}
+                    name="confirmPassword"
+                    id="confirmPassword"
+                    maxLength="15"
+                    value={formik.values.confirmPassword}
+                    placeholder="Repita a sua senha"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
                   />
-                )}
-              </div>
 
-              <span className={`${defineClassPasswordField()}-icon`}></span>
+                  <div className="eye">
+                    {showPassword.value ? (
+                      <EyeOutlined
+                        onClick={handlePasswordVisibility}
+                        style={{ color: 'var(--ligth-grey)' }}
+                      />
+                    ) : (
+                      <EyeInvisibleOutlined
+                        onClick={handlePasswordVisibility}
+                        style={{ color: 'var(--ligth-grey)' }}
+                      />
+                    )}
+                  </div>
 
-              {showErrorsPassword() && (
-                <span className="error-message">{formik.errors.password}</span>
-              )}
+                  <span
+                    className={`${defineClassConfirmPasswordField()}-icon`}
+                  ></span>
+
+                  {showErrorsConfirmPassword() && (
+                    <span className="error-message">
+                      {formik.errors.confirmPassword}
+                    </span>
+                  )}
+                </div>
+
+                {withRecaptcha && <Recaptcha {...{ handleRecaptch }} />}
+
+                {error.value &&
+                  <p className="error" role="error">{error.value}</p>
+                }
+
+                <Button isFullWidth type="submit" disabled={disableButton()}>
+                  Continuar
+                </Button>
+              </form>
+            </>
+          ) : (
+            <div className="invalid-token">
+              <p className="error">Token de validação não informado</p>
             </div>
-            <div className="fieldset">
-              <label htmlFor="confirmPassword">Confirmar senha</label>
-              <input
-                required
-                autoComplete="confirmPassword"
-                className={`input-field ${defineClassConfirmPasswordField()}`}
-                type={showPassword.value ? 'password' : 'text'}
-                name="confirmPassword"
-                id="confirmPassword"
-                maxLength="15"
-                value={formik.values.confirmPassword}
-                placeholder="Repita a sua senha"
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-              />
-
-              <div className="eye">
-                {showPassword.value ? (
-                  <EyeOutlined
-                    onClick={handlePasswordVisibility}
-                    style={{ color: 'var(--ligth-grey)' }}
-                  />
-                ) : (
-                  <EyeInvisibleOutlined
-                    onClick={handlePasswordVisibility}
-                    style={{ color: 'var(--ligth-grey)' }}
-                  />
-                )}
-              </div>
-
-              <span
-                className={`${defineClassConfirmPasswordField()}-icon`}
-              ></span>
-
-              {showErrorsConfirmPassword() && (
-                <span className="error-message">
-                  {formik.errors.confirmPassword}
-                </span>
-              )}
-            </div>
-
-            {withRecaptcha && <Recaptcha {...{ handleRecaptch }} />}
-
-            {error.value && <p className="error">{error.value}</p>}
-
-            <Button isFullWidth type="submit" disabled={disableButton()}>
-              Continuar
-            </Button>
-          </form>
+          )}
         </>
       ) : (
         <FeedbackSuccess />

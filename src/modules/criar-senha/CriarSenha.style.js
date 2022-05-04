@@ -118,4 +118,7 @@ export default css`
     bottom: 28px;
     left: 285px;
   }
+  .invalid-token {
+    padding-top: 5rem;
+  }
 `;
