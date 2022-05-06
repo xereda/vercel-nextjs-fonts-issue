@@ -241,7 +241,7 @@ describe('isValidEmail', () => {
     expect(result).toBe(true);
   });
 
-  test.only('deve retornar false quando receber um argumento inválido', () => {
+  test('deve retornar false quando receber um argumento inválido', () => {
     expect(isValidEmail('teste@email')).toBe(false);
     expect(isValidEmail('string')).toBe(false);
     expect(isValidEmail(123)).toBe(false);

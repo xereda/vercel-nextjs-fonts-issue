@@ -37,7 +37,7 @@ describe('Form login component', () => {
     await userEvent.clear(cpf);
     await userEvent.clear(password);
 
-    expect(screen.getAllByText('Campo obrigatório')).toHaveLength(2);
+    expect(await screen.findAllByText('Campo obrigatório')).toHaveLength(2);
     expect(screen.getByText('fazer login', { exact: false })).toBeDisabled();
   });
 

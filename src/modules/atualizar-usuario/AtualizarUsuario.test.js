@@ -1,9 +1,8 @@
 import userEvent from '@testing-library/user-event';
-import { renderHook } from '@testing-library/react-hooks';
 import { useState } from '@hookstate/core';
 import { rest } from 'msw';
 import { server } from '@/mocks/server';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, renderHook, screen, waitFor } from '@testing-library/react';
 import { sessionStore } from '@/store/index';
 import AtualizarUsuario from './AtualizarUsuario';
 
@@ -76,7 +75,7 @@ describe('User update page', () => {
     await userEvent.clear(phone);
     await userEvent.clear(mother);
 
-    expect(screen.getAllByText('Campo obrigatório')).toHaveLength(3);
+    expect(await screen.findAllByText('Campo obrigatório')).toHaveLength(3);
     expect(screen.getByText('atualizar', { exact: false })).toBeDisabled();
   });
 

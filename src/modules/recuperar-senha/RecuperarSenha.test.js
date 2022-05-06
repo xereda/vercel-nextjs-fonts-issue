@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import RecuperarSenha from './RecuperarSenha';
 
@@ -51,7 +51,7 @@ describe('RecuperarSenha Page', () => {
 
     await userEvent.type(cpf, '11651232903{tab}');
     await userEvent.type(email, 'x@x.com{tab}');
-    await userEvent.click(button);
+    await waitFor(() => userEvent.click(button));
 
     expect(
       await screen.findByText(/Enviamos um e-mail para/i),

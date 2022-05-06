@@ -63,7 +63,7 @@ describe('CriarSenha Page', () => {
 
     await userEvent.type(password, 'Teste@123{tab}');
     await userEvent.type(confirmPassword, 'Teste@123{tab}');
-    await userEvent.click(button);
+    await waitFor(() => userEvent.click(button));
 
     expect(
       await screen.findByText(/Senha foi criada com sucesso!/i),

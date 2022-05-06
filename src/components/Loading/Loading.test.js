@@ -1,5 +1,4 @@
-import { render, screen } from '@testing-library/react';
-import { renderHook } from '@testing-library/react-hooks';
+import { render, renderHook, screen } from '@testing-library/react';
 import { useState } from '@hookstate/core';
 import { loadingStore } from '@/store/index';
 import Loading from './Loading';
