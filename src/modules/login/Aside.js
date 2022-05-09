@@ -11,6 +11,7 @@ export default function Aside() {
               alt="Ben Visa Vale"
               width={70}
               height={70}
+              priority
             />
           </a>
         </div>
@@ -20,6 +21,7 @@ export default function Aside() {
             alt="Ben Visa Vale"
             width={420}
             height={380}
+            priority
           />
         </div>
       </aside>
