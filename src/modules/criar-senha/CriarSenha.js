@@ -138,7 +138,10 @@ export default function CreatePassword({ withRecaptcha }) {
                 value={formik.values.password}
                 error={formik.errors.password && formik.touched.password}
               />
-              <form className="create-password-form" onSubmit={formik.handleSubmit}>
+              <form
+                className="create-password-form"
+                onSubmit={formik.handleSubmit}
+              >
                 <div className="fieldset">
                   <label htmlFor="password">Criar uma senha</label>
                   <input
@@ -159,12 +162,12 @@ export default function CreatePassword({ withRecaptcha }) {
                     {showPassword.value ? (
                       <EyeOutlined
                         onClick={handlePasswordVisibility}
-                        style={{ color: 'var(--ligth-grey)' }}
+                        style={{ color: 'var(--bds-color-gray-light)' }}
                       />
                     ) : (
                       <EyeInvisibleOutlined
                         onClick={handlePasswordVisibility}
-                        style={{ color: 'var(--ligth-grey)' }}
+                        style={{ color: 'var(--bds-color-gray-light)' }}
                       />
                     )}
                   </div>
@@ -172,7 +175,9 @@ export default function CreatePassword({ withRecaptcha }) {
                   <span className={`${defineClassPasswordField()}-icon`}></span>
 
                   {showErrorsPassword() && (
-                    <span className="error-message">{formik.errors.password}</span>
+                    <span className="error-message">
+                      {formik.errors.password}
+                    </span>
                   )}
                 </div>
                 <div className="fieldset">
@@ -195,12 +200,12 @@ export default function CreatePassword({ withRecaptcha }) {
                     {showPassword.value ? (
                       <EyeOutlined
                         onClick={handlePasswordVisibility}
-                        style={{ color: 'var(--ligth-grey)' }}
+                        style={{ color: 'var(--bds-color-gray-light)' }}
                       />
                     ) : (
                       <EyeInvisibleOutlined
                         onClick={handlePasswordVisibility}
-                        style={{ color: 'var(--ligth-grey)' }}
+                        style={{ color: 'var(--bds-color-gray-light)' }}
                       />
                     )}
                   </div>
@@ -218,9 +223,11 @@ export default function CreatePassword({ withRecaptcha }) {
 
                 {withRecaptcha && <Recaptcha {...{ handleRecaptch }} />}
 
-                {error.value &&
-                  <p className="error" role="error">{error.value}</p>
-                }
+                {error.value && (
+                  <p className="error" role="error">
+                    {error.value}
+                  </p>
+                )}
 
                 <Button isFullWidth type="submit" disabled={disableButton()}>
                   Continuar

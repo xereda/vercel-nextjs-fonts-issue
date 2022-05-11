@@ -25,15 +25,15 @@ export default css`
     display: flex;
     justify-content: center;
     gap: 4rem;
-    border-top: 1px solid rgba(155,155,155,0.3);
+    border-top: 1px solid rgba(155, 155, 155, 0.3);
     padding: 32px 0 32px 0;
   }
   .cancel {
     font-size: 16px;
-    color: var(--red);
+    color: var(--bds-color-red);
     cursor: pointer;
     background: none;
-    border: 2px solid var(--white);
+    border: 2px solid var(--bds-color-white);
     text-transform: uppercase;
     font-weight: 700;
   }
@@ -48,18 +48,18 @@ export default css`
     font-weight: bold;
     letter-spacing: 1px;
     text-transform: uppercase;
-    border: 2px solid var(--red);
-    color: var(--white);
-    background-color: var(--red);
-  }    
+    border: 2px solid var(--bds-color-red);
+    color: var(--bds-color-white);
+    background-color: var(--bds-color-red);
+  }
   .accept-term:disabled {
     border: transparent;
-    color: #A6A6A6;
-    background-color: #E1E1E1;
+    color: #a6a6a6;
+    background-color: #e1e1e1;
     cursor: not-allowed;
-  }   
+  }
   .error {
-    color: var(--dark-red);
+    color: var(--bds-color-red-error-text);
     text-align: center;
     font-size: 16px;
   }

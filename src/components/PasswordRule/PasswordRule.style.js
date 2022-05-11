@@ -1,7 +1,9 @@
 import css from 'styled-jsx/css';
 
 export default css`
-  .label, .success-label, .error-label {
+  .label,
+  .success-label,
+  .error-label {
     margin-right: 35px;
     line-height: 22px;
     font-size: 14px;
@@ -27,12 +29,12 @@ export default css`
     line-height: 22px;
   }
   .label {
-    color: var(--ligth-grey);
+    color: var(--bds-color-gray-light);
   }
   .error-label {
-    color: var(--red);
+    color: var(--bds-color-red);
   }
   .success-label {
-    color: var(--green);
+    color: var(--bds-color-green);
   }
 `;

@@ -1,8 +1,9 @@
 import css from 'styled-jsx/css';
 
 export default css`
-  a, a:hover {
-    color: var(--light-black);
+  a,
+  a:hover {
+    color: var(--bds-color-black-light);
   }
   .warning-icon {
     margin: 30px 0;
@@ -14,7 +15,7 @@ export default css`
     font-weight: 600;
     line-height: 26px;
     font-size: 16px;
-    text-align: center
+    text-align: center;
   }
   .modal-content {
     font-size: 12px;

@@ -13,7 +13,11 @@ describe('session utils functions', () => {
   test('deve retonar um objeto contendo apenas a propriedade props, permitindo assim, acesso a rota ', async () => {
     expect(
       await revalidateUserSession({
-        req: { cookies: { session: 'cookie-value' } },
+        req: {
+          cookies: {
+            session: '{ "grupoEmpresa": { "id": 1 }, "usuario": { "id": 1 } }',
+          },
+        },
       }),
     ).toEqual({
       props: {},

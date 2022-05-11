@@ -41,7 +41,7 @@ export default css`
   }
   .input-field {
     border-radius: 8px;
-    border: 1px solid var(--dusty-grey);
+    border: 1px solid var(--bds-color-gray-medium);
     border-spacing: 0;
     border-collapse: separate;
     color: #333333;
@@ -56,10 +56,10 @@ export default css`
     width: 100%;
   }
   .input-field::placeholder {
-    color: var(--medium-grey);
+    color: var(--bds-color-gray-lighter);
   }
   .error-input {
-    border: 1px solid var(--red);
+    border: 1px solid var(--bds-color-red);
     position: relative;
   }
   .error-input-icon {
@@ -72,12 +72,12 @@ export default css`
     bottom: 10px;
     content: "\d7";
     font-size: 12px;
-    color: var(--red);
+    color: var(--bds-color-red);
     text-align: center;
     width: 20px;
   }
   .success-input {
-    border: 1px solid var(--green);
+    border: 1px solid var(--bds-color-green);
   }
   .success-input-icon {
     position: relative;
@@ -89,17 +89,17 @@ export default css`
     bottom: 10px;
     content: "\2713";
     font-size: 12px;
-    color: var(--green);
+    color: var(--bds-color-green);
     text-align: center;
     width: 20px;
   }
   .error-message {
-    color: var(--red);
+    color: var(--bds-color-red);
     font-size: 13px;
     padding-top: 10px;
   }
   .error {
-    color: var(--dark-red);
+    color: var(--bds-color-red-error-text);
     text-align: center;
     font-size: 16px;
   }

@@ -18,7 +18,7 @@ export default css`
     font-size: 16px;
     line-height: 26px;
     margin-right: 10px;
-    color: (--lighter-black);
+    color: (--bds-color-black-light);
   }
   #total-value {
     font-family: Barlow;
@@ -27,7 +27,7 @@ export default css`
     font-size: 32px;
     line-height: 40px;
     letter-spacing: 0.3px;
-    color: var(--shark);
+    color: var(--bds-color-black-lighter);
   }
   .extract {
     display: flex;
@@ -41,7 +41,7 @@ export default css`
     font-size: 12px;
     line-height: 16px;
     max-width: 25rem;
-    color: var(--shark);
+    color: var(--bds-color-black-lighter);
   }
   #extract-redirect {
     font-style: normal;
@@ -49,7 +49,7 @@ export default css`
     font-size: 14px;
     line-height: 24px;
     margin-right: 5px;
-    color: var(--blue);
+    color: var(--bds-color-blue);
     cursor: pointer;
   }
 `;

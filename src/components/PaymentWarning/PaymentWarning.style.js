@@ -8,7 +8,7 @@ export default css`
     margin: 2rem auto;
     padding: 0 1.5rem;
     min-height: 114px;
-    background-color: var(--yellow);
+    background-color: var(--bds-color-yellow);
     border-radius: 4px;
     position: relative;
     width: 79rem;
@@ -23,7 +23,7 @@ export default css`
     height: 32px;
     width: 32px;
     border-radius: 50%;
-    background: var(--white);
+    background: var(--bds-color-white);
     box-shadow: rgb(0 0 0 / 20%) 0px 3px 10px;
     cursor: pointer;
   }
@@ -39,9 +39,8 @@ export default css`
   }
   .notice {
     font-size: 16px;
-    color: var(--dark-grey);
+    color: var(--bds-color-gray-dark);
     margin-left: 26px;
     margin-right: 45px;
-    
   }
 `;

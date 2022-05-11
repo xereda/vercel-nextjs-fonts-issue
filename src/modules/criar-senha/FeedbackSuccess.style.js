@@ -18,7 +18,7 @@ export default css`
     font-weight: 300;
     font-size: 2rem;
     line-height: 30px;
-    color: var(--grey);
+    color: var(--bds-color-gray);
     margin-top: 3rem;
   }
   .disclaimer {
@@ -31,10 +31,10 @@ export default css`
   }
   .back-to-login {
     font-size: 16px;
-    color: var(--red);
+    color: var(--bds-color-red);
     cursor: pointer;
     background: none;
-    border: 2px solid var(--white);
+    border: 2px solid var(--bds-color-white);
     text-transform: uppercase;
     font-weight: 700;
   }

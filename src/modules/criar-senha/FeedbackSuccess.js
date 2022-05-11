@@ -6,15 +6,13 @@ export default function FeedbackSuccess() {
   return (
     <div className="feedback-success">
       <CheckCircleOutlined
-        style={{ fontSize: '50px', color: 'var(--green)' }}
+        style={{ fontSize: '50px', color: 'var(--bds-color-green)' }}
       />
-      <span className="message">
-        Senha foi criada com sucesso!
-      </span>
+      <span className="message">Senha foi criada com sucesso!</span>
 
       <span className="disclaimer">
-        Agora é só fazer login para voltar a usar os recursos
-        que o <strong>Ben</strong> tem para gerenciar suas vendas
+        Agora é só fazer login para voltar a usar os recursos que o{' '}
+        <strong>Ben</strong> tem para gerenciar suas vendas
       </span>
 
       <Link href="/login">

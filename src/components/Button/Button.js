@@ -14,10 +14,7 @@ export default function Button({ children, ...props }) {
 
   return (
     <>
-      <button
-        {...rest}
-        className="primary-btn"
-      >
+      <button {...rest} className="primary-btn">
         {children}
       </button>
 
@@ -37,19 +34,19 @@ export default function Button({ children, ...props }) {
           letter-spacing: 1px;
           padding: 10px 1em;
           text-transform: uppercase;
-          border: 2px solid var(--red);
-          color: var(--white);
-          background-color: var(--red);
+          border: 2px solid var(--bds-color-red);
+          color: var(--bds-color-white);
+          background-color: var(--bds-color-red);
           outline: none;
           line-height: normal;
           text-decoration: none;
         }
 
         .primary-btn:disabled {
-          background-color: var(--medium-grey);
-          color: var(--dusty-grey);
+          background-color: var(--bds-color-gray-lighter);
+          color: var(--bds-color-gray-medium);
           cursor: not-allowed;
-          border: 2px solid var(--medium-grey);
+          border: 2px solid var(--bds-color-gray-lighter);
         }
       `}</style>
     </>

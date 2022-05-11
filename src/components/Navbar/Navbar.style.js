@@ -2,21 +2,23 @@ import css from 'styled-jsx/css';
 
 export const dropdownNotificationStyle = css`
   .option-dropdown {
-    background-color: var(--white);
+    background-color: var(--bds-color-white);
     padding: 16px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;  
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   }
-  .notification-msg, .notification-link {
+  .notification-msg,
+  .notification-link {
     font-size: 13px;
   }
-  .notification-link, .notification-link:hover {
-    color: var(--blue);
+  .notification-link,
+  .notification-link:hover {
+    color: var(--bds-color-blue);
   }
 `;
 
 export default css`
   .navbar {
-    background-color: var(--navbar-grey);
+    background-color: var(--bds-color-gray-darker);
     height: 98px;
     position: sticky;
     top: 0;
@@ -31,7 +33,7 @@ export default css`
     margin: 0 auto;
   }
   .menu {
-    background-color: var(--navbar-grey);
+    background-color: var(--bds-color-gray-darker);
     border: none;
   }
   .nav-links {
@@ -43,7 +45,7 @@ export default css`
   .nav-link {
     display: flex;
     align-items: center;
-    color: var(--white);
+    color: var(--bds-color-white);
     font-size: 16px;
     box-sizing: border-box;
     height: 94px;
@@ -51,11 +53,10 @@ export default css`
     text-decoration: none;
     cursor: pointer;
   }
-  .active { 
-    border-bottom: 4px solid var(--red);
+  .active {
+    border-bottom: 4px solid var(--bds-color-red);
   }
   .bell-icon {
-    background-color: var(--shark);
+    background-color: var(--bds-color-black-lighter);
   }
-  
 `;

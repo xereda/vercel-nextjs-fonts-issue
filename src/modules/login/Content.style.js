@@ -16,7 +16,7 @@ export default css`
     font-size: 32px;
     letter-spacing: 0.3px;
     text-transform: lowercase;
-    color: var(--green);
+    color: var(--bds-color-green);
     padding: 0;
     margin: 0 0 40px 0px;
   }
@@ -39,9 +39,10 @@ export default css`
   .establishment-area {
     text-align: right;
     padding-right: 2rem;
-    border-right: 1px solid var(--ligth-grey);
+    border-right: 1px solid var(--bds-color-gray-light);
   }
-  .establishment-area h1, .costumer-area h1 {
+  .establishment-area h1,
+  .costumer-area h1 {
     font-weight: 300;
     font-size: 26px;
     line-height: 29px;
@@ -49,15 +50,17 @@ export default css`
     margin: 0;
     font-family: Barlow, sans-serif;
   }
-  .establishment-area h2, .costumer-area h2 {
+  .establishment-area h2,
+  .costumer-area h2 {
     font-weight: 500;
     font-size: 24px;
     line-height: 24px;
     text-transform: lowercase;
     margin: 0;
     font-family: Barlow, sans-serif;
-    }
-  .establishment-area p, .costumer-area p {
+  }
+  .establishment-area p,
+  .costumer-area p {
     font-style: normal;
     font-weight: 300;
     font-size: 15px;
@@ -67,12 +70,12 @@ export default css`
     font-family: Open Sans, serif;
   }
   .establishment-area p a {
-    color: var(--blue);
+    color: var(--bds-color-blue);
     text-decoration: underline;
     font-weight: 600;
   }
   .costumer-area p span {
-    color: var(--red);
+    color: var(--bds-color-red);
     font-weight: 600;
   }
   .app-download {
