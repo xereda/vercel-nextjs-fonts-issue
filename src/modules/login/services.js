@@ -40,7 +40,7 @@ export const authenticate = async ({
         ? krypton.generateHash(publicKey, new Date().getTime() + '')
         : 'credential key';
 
-      const responseGrupoEmpresa = await httpClient({
+      const responseGruposEmpresa = await httpClient({
         method: 'post',
         url: '/api/permissoes',
         data: { accessToken, credential, idUsuario: usuario?.id || '' },
@@ -58,40 +58,52 @@ export const authenticate = async ({
         data: { accessToken, credential, cpf },
       });
 
-      const responseParametros = await httpClient({
-        method: 'post',
-        url: '/api/parametros',
-        data: {
-          accessToken,
-          credential,
-          idUsuario: usuario?.id || '',
-          idGrupoEmpresa: responseGrupoEmpresa?.data?.id,
-        },
-      });
-
       const usuarioAceitouTermos = responseAceiteTermos?.data || false;
-      const grupoEmpresa = responseGrupoEmpresa?.data || {};
-      const parametros = responseParametros?.data || {};
+      const gruposEmpresa = responseGruposEmpresa?.data || [];
       const statusUsuario = responseStatusUsuario?.data || {};
 
-      await httpClient({
-        method: 'post',
-        url: '/api/set-cookie',
-        data: {
-          accessToken,
-          publicKey,
-          usuario: {...usuario, ...statusUsuario },
-          grupoEmpresa,
-          parametros,
-        },
-      });
+      let session = {};
 
-      onSuccess({
-        usuario: {...usuario, ...statusUsuario },
-        grupoEmpresa,
-        parametros,
-        usuarioAceitouTermos,
-      });
+      if (gruposEmpresa.length === 1) {
+
+        const responseParametros = await httpClient({
+          method: 'post',
+          url: '/api/parametros',
+          data: {
+            accessToken,
+            credential,
+            idUsuario: usuario?.id || '',
+            idGrupoEmpresa: gruposEmpresa[0].id,
+          },
+        });
+
+        const parametros = responseParametros?.data || {};
+
+        session = {
+          usuario: { ...usuario, ...statusUsuario },
+          grupoEmpresa: gruposEmpresa[0],
+          parametros,
+          usuarioAceitouTermos,
+        };
+
+        await httpClient({
+          method: 'post',
+          url: '/api/set-cookie',
+          data: {
+            ...session,
+            accessToken,
+            publicKey,
+          },
+        });
+      } else {
+        session = {
+          usuario: { ...usuario, ...statusUsuario },
+          gruposEmpresa,
+          usuarioAceitouTermos,
+        };
+      };
+
+      onSuccess(session);
     })
     .catch(onError)
     .finally(onFinally);

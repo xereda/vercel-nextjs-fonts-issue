@@ -4,7 +4,9 @@ import { httpClient } from './services';
 const krypton = new Krypton(process.env.NEXT_PUBLIC_KRYPTON_KEY);
 
 export const revalidateUserSession = async (ctx) => {
-  if (!ctx?.req?.cookies?.session) {
+  const session = JSON.parse(ctx?.req?.cookies?.session || '{}');
+
+  if (!session?.grupoEmpresa?.id && !session?.usuario?.id) {
     return {
       redirect: {
         destination: '/login',

@@ -13,9 +13,10 @@ export default async function handler(req, res) {
 
     const response = await httpClient({ method: 'get', url, headers });
 
-    const grupoEmpresa = response?.data?.content?.[0].grupoEmpresa || {};
+    const gruposEmpresa = response?.data?.content?.map(
+      grupoEmpresa => grupoEmpresa.grupoEmpresa) || [];
 
-    res.status(200).json(grupoEmpresa);
+    res.status(200).json(gruposEmpresa);
   } catch (e) {
     console.error(e);
 

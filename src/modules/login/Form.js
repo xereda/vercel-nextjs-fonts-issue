@@ -79,7 +79,11 @@ export default function Form({ withRecaptcha }) {
             session.usuario.telefone &&
             session.usuario.nomeMae
           ) {
-            router.push('/dashboard');
+            if (session?.gruposEmpresa?.length > 1) {
+              router.push('/selecionar-grupo-empresa');
+            } else {
+              router.push('/dashboard');
+            }
           } else {
             router.push('/atualizar-usuario');
           }
