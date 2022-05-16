@@ -1,33 +1,37 @@
 import css from 'styled-jsx/css';
 
 export default css`
-  .order-card {
-    min-height: 75px;
-    margin: auto auto 8px;
-    display: grid;
-    grid-template-columns: 130px 200px 150px 215px 250px 130px;
-    justify-content: space-around;
-    padding: 16px 8px;
-    background: var(--bds-color-white-gray);
-    border-radius: 4px;
-    position: relative;
-  }
   .order-row {
-    display: flex;
-    gap: 4px;
-    flex-direction: column;
-    margin: auto;
-    position: relative;
-    font-size: 13px;
+    display: table-row;
+    background: var(--bds-color-white-gray);
+    height: 78px;
   }
-  .order-content {
+  .order-column {
+    display: table-cell;
+    font-size: 13px;
+    vertical-align: middle;
+    border-bottom: 8px solid white;
+  }
+  .order-column:first-child {
+    padding-left: 40px;
+    width: 200px;
+  }
+  .order-column:last-child {
+    padding-right: 40px;
+    width: 100px;
+  }
+  .order-label {
+    text-align: left;
+  }
+  .order-value {
     font-size: 14px;
     font-weight: bold;
     text-align: left;
     overflow: hidden;
   }
-  a,
-  a:hover {
-    color: var(--bds-color-black-light);
+  .order-link {
+    font-size: 14px !important;
+    font-weight: 600;
+    color: var(--bds-color-blue);
   }
 `;

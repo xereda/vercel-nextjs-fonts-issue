@@ -1,6 +1,6 @@
+import Link from 'next/link';
 import propTypes from 'prop-types';
 import { useState } from 'react';
-import { Button } from 'antd';
 import CancelOrderModal from '@/components/CancelOrderModal/CancelOrderModal';
 import DropdownButton from '@/components/DropdownButton/DropdownButton';
 import style from './OrderCard.style.js';
@@ -51,42 +51,46 @@ export default function OrderCard({ order }) {
           handleCloseModal={() => toggleCancelModal(false)}
         />
       )}
-      <div className="order-card">
-        <div className="order-row">
-          <span>Id do pedido</span>
-          <span className="order-content">{order.orderId}</span>
+      <div className="order-row">
+        <div className="order-column">
+          <label className="order-label display-block">Id do pedido</label>
+          <span className="order-value">{order.orderId}</span>
         </div>
-        <div className="order-row">
-          <span>Data de criação</span>
-          <span className="order-content">{order.date}</span>
+        <div className="order-column">
+          <label className="order-label display-block">Data de criação</label>
+          <span className="order-value">{order.date}</span>
         </div>
-        <div className="order-row">
-          <span>Valor do benefício</span>
-          <span className="order-content">{order.value}</span>
+        <div className="order-column">
+          <label className="order-label display-block">
+            Valor do benefício
+          </label>
+          <span className="order-value">{order.value}</span>
         </div>
-        <div className="order-row">
-          <span>Status do pedido</span>
-          <div>
-            <DropdownButton
-              label={order.status.label}
-              color={order.status.color}
-              hasAction={getDropdownActionRules().condition}
-              handleAction={getDropdownActionRules().callback}
-              labelAction={getDropdownActionRules().label}
-            />
-          </div>
+        <div className="order-column">
+          <label className="order-label display-block">Status do pedido</label>
+          <DropdownButton
+            label={order.status.label}
+            color={order.status.color}
+            hasAction={getDropdownActionRules().condition}
+            handleAction={getDropdownActionRules().callback}
+            labelAction={getDropdownActionRules().label}
+          />
         </div>
-        <div className="order-row">
-          <span>Status de pagamento</span>
+        <div className="order-column">
+          <label className="order-label display-block">
+            Status de pagamento
+          </label>
           <span
-            className="order-content"
+            className="order-value"
             style={{ color: `var(${order.paymentStatus.color})` }}
           >
             {order.paymentStatus.label}
           </span>
         </div>
-        <div className="order-row">
-          <Button type="link">Detalhe</Button>
+        <div className="order-column">
+          <Link href={`/pedido/${order.orderId}`}>
+            <a className="order-link">Detalhe</a>
+          </Link>
         </div>
       </div>
       <style jsx="true">{style}</style>

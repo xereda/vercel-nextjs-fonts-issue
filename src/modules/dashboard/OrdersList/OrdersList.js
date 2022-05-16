@@ -10,10 +10,19 @@ OrdersList.defaultProps = {
 };
 
 export default function OrdersList({ orders }) {
-
-  return(
+  return (
     <>
-      {orders.map((order, index) => <OrderCard {...{order}} key={index} />)}
+      <div className="order-table">
+        {orders.map((order, index) => (
+          <OrderCard {...{ order }} key={index} />
+        ))}
+      </div>
+      <style jsx="true">{`
+        .order-table {
+          display: table;
+          width: 100%;
+        }
+      `}</style>
     </>
   );
 }

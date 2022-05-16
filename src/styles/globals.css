@@ -15,6 +15,10 @@ a {
   box-sizing: border-box;
 }
 
+.display-block {
+  display: block !important;
+}
+
 .ant-page-header-heading-title {
   font-size: 16px !important;
   font-weight: 400 !important;
@@ -32,3 +36,4 @@ a {
 .ant-btn-link {
   color: var(--bds-color-blue) !important;
 }
+
