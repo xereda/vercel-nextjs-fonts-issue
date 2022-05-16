@@ -1,25 +1,24 @@
 import Link from 'next/link';
-import { Menu } from 'antd';
+import { Divider, Menu } from 'antd';
 
 export default function DropdownNavbar() {
-
   return (
-    <Menu>
-      <Menu.Item key="0">
-        <Link href="/permissao-acesso">Permissão de acesso</Link>
-      </Menu.Item>
-      <Menu.Divider />
-      <Menu.Item key="1">
-        <Link href="/conversor">Converter arquivos</Link>
-      </Menu.Item>
-      <Menu.Divider />
-      <Menu.Item key="2">
-        <Link href="/locais-entrega">Locais de entrega</Link>
-      </Menu.Item>
-      <Menu.Divider />
-      <Menu.Item key="3">
-        <Link href="/login">Sair</Link>
-      </Menu.Item>
-    </Menu>
+    <Menu
+      items={[
+        {
+          key: 0,
+          label: <Link href="/permissao-acesso">Permissão de acesso</Link>,
+        },
+        { type: Divider },
+        { key: 1, label: <Link href="/conversor">Converter arquivos</Link> },
+        { type: Divider },
+        {
+          key: 2,
+          label: <Link href="/locais-entrega">Locais de entrega</Link>,
+        },
+        { type: Divider },
+        { key: 3, label: <Link href="/login">Sair</Link> },
+      ]}
+    />
   );
 }

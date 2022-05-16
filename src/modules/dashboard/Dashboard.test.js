@@ -13,7 +13,7 @@ describe('Dashboard component', () => {
 
     await waitFor(() => {
       expect(screen.getByText(/1111/)).toBeInTheDocument();
-      expect(screen.getAllByText('Id do pedido')).toHaveLength(2);
+      expect(screen.getAllByText('Id do pedido')).toHaveLength(4);
     });
   });
 

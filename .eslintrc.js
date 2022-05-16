@@ -28,7 +28,7 @@ module.exports = {
   rules: {
     'import/no-anonymous-default-export': [
       2,
-      { allowArrowFunction: true, allowObject: true },
+      { allowArrowFunction: true, allowObject: true, allowArray: true },
     ],
     'react/prop-types': 'error',
     'react/require-default-props': 'error',

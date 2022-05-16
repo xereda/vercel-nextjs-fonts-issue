@@ -1,59 +1,77 @@
 export const orderStatusEnum = {
   VALIDANDO_ARQUIVO: {
-    label: 'Validando Arquivo',
+    label: 'Validando arquivo',
+    color: '--bds-color-blue',
   },
   PROCESSANDO: {
     label: 'Processando',
+    color: '--bds-color-blue',
   },
   INVALIDADO: {
     label: 'Invalidado',
+    color: '--bds-color-red',
   },
   CONCLUIDO: {
     label: 'Concluído',
+    color: '--bds-color-green',
   },
   VALIDADO_PARCIAL: {
-    label: 'Validado Parcial',
+    label: 'Validado parcial',
+    color: '--bds-color-blue',
   },
   CANCELADO: {
     label: 'Cancelado',
+    color: '--bds-color-red',
   },
   CANCELADO_PARCIAL: {
-    label: 'Cancelado Parcial',
+    label: 'Cancelado parcial',
+    color: '--bds-color-yellow-dark',
   },
   AGUARDANDO_CONFIRMACAO: {
-    label: 'Aguardando Confirmação',
+    label: 'Aguardando confirmação',
+    color: '--bds-color-black-lighter',
   },
   EXPIRADO: {
     label: 'Expirado',
+    color: '--bds-color-red',
   },
 };
 
 export const paymentStatusEnum = {
   PAGO: {
     label: 'Pago',
+    color: '--bds-color-green',
   },
   EXPIRADO: {
     label: 'Expirado',
+    color: '--bds-color-red',
   },
   PAGO_PARCIALMENTE: {
-    label: 'Pago Parcialmente',
+    label: 'Pago parcialmente',
+    color: '--bds-color-yellow-dark',
   },
   AGUARDANDO_PAGAMENTO: {
     label: 'Aguardando',
+    color: '--bds-color-yellow-dark',
   },
   LIMITE_CREDITO_VENCIDO: {
-    label: 'Limite de Crédito Vencido',
+    label: 'Limite de crédito vencido',
+    color: '--bds-color-red',
   },
   LIMITE_CREDITO_INSUFICIENTE: {
-    label: 'Limite de Crédito Insuficiente',
+    label: 'Limite de crédito insuficiente',
+    color: '--bds-color-red',
   },
   CANCELADO: {
     label: 'Cancelado',
+    color: '--bds-color-red',
   },
   CANCELADO_PARCIAL: {
-    label: 'Parcialmente Cancelado',
+    label: 'Parcialmente cancelado',
+    color: '--bds-color-yellow-dark',
   },
   FATURA_EM_ABERTO: {
-    label: 'Fatura em Aberto',
+    label: 'Fatura em aberto',
+    color: '--bds-color-yellow-dark',
   },
 };

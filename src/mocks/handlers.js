@@ -21,17 +21,13 @@ export const handlers = [
       );
     }
 
-    return res(
-      ctx.status(200),
-      ctx.json({ success: true }),
-      ctx.delay(),
-    );
+    return res(ctx.status(200), ctx.json({ success: true }), ctx.delay());
   }),
   rest.get('/api/dashboard', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(dataMocks.dashboard), ctx.delay());
   }),
   rest.post('/api/permissoes', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(dataMocks.grupoEmpresa), ctx.delay());
+    return res(ctx.status(200), ctx.json(dataMocks.gruposEmpresa), ctx.delay());
   }),
   rest.post('/api/parametros', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(dataMocks.parametros), ctx.delay());

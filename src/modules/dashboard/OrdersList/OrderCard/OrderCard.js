@@ -1,8 +1,8 @@
 import propTypes from 'prop-types';
 import { useState } from 'react';
-import { Button, Dropdown, Menu } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
-import CancelOrderModal from '@/components/CancelOrderModal/CancelOrderModal.js';
+import { Button } from 'antd';
+import CancelOrderModal from '@/components/CancelOrderModal/CancelOrderModal';
+import DropdownButton from '@/components/DropdownButton/DropdownButton';
 import style from './OrderCard.style.js';
 
 OrderCard.propTypes = {
@@ -10,13 +10,16 @@ OrderCard.propTypes = {
     orderId: propTypes.string.isRequired,
     date: propTypes.string.isRequired,
     value: propTypes.string.isRequired,
+    canCancel: propTypes.bool.isRequired,
     status: propTypes.shape({
       enum: propTypes.string.isRequired,
       label: propTypes.string.isRequired,
+      color: propTypes.string.isRequired,
     }),
     paymentStatus: propTypes.shape({
       enum: propTypes.string.isRequired,
       label: propTypes.string.isRequired,
+      color: propTypes.string.isRequired,
     }),
   }).isRequired,
 };
@@ -24,23 +27,30 @@ OrderCard.propTypes = {
 export default function OrderCard({ order }) {
   const [showCancelModal, toggleCancelModal] = useState(false);
 
-  const DropdownItems = (
-    <Menu>
-      <Menu.Item key="0">
-        <a onClick={() => toggleCancelModal(true)}>
-          Cancelar pedido
-        </a>
-      </Menu.Item>
-    </Menu>
-  );
+  const getDropdownActionRules = () => {
+    if (order.status.enum === 'INVALIDADO') {
+      return {
+        condition: true,
+        callback: () => console.log('ver inconsistências...'),
+        label: 'Ver inconsistências',
+      };
+    }
+
+    return {
+      condition: order.canCancel,
+      callback: toggleCancelModal,
+      label: 'Cancelar pedido',
+    };
+  };
 
   return (
     <>
-      {showCancelModal &&
+      {showCancelModal && (
         <CancelOrderModal
           handleContinue={() => console.log('handleContinue')}
           handleCloseModal={() => toggleCancelModal(false)}
-        />}
+        />
+      )}
       <div className="order-card">
         <div className="order-row">
           <span>Id do pedido</span>
@@ -57,16 +67,23 @@ export default function OrderCard({ order }) {
         <div className="order-row">
           <span>Status do pedido</span>
           <div>
-            <Dropdown overlay={DropdownItems} trigger={['click']} arrow placement="bottomRight">
-              <a onClick={e => e.preventDefault()} className="order-content">
-                {order.status.label} <DownOutlined />
-              </a>
-            </Dropdown>
+            <DropdownButton
+              label={order.status.label}
+              color={order.status.color}
+              hasAction={getDropdownActionRules().condition}
+              handleAction={getDropdownActionRules().callback}
+              labelAction={getDropdownActionRules().label}
+            />
           </div>
         </div>
         <div className="order-row">
           <span>Status de pagamento</span>
-          <span className="order-content">{order.paymentStatus.label}</span>
+          <span
+            className="order-content"
+            style={{ color: `var(${order.paymentStatus.color})` }}
+          >
+            {order.paymentStatus.label}
+          </span>
         </div>
         <div className="order-row">
           <Button type="link">Detalhe</Button>

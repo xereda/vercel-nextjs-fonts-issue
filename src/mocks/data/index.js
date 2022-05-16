@@ -1,13 +1,13 @@
 import dashboard from './dashboard';
 import session from './session';
-import grupoEmpresa from './grupoEmpresa';
+import gruposEmpresa from './gruposEmpresa';
 import parametros from './parametros';
 import aceiteTermos from './aceiteTermos';
 
 export const dataMocks = {
   dashboard,
   session,
-  grupoEmpresa,
+  gruposEmpresa,
   parametros,
   aceiteTermos,
 };
