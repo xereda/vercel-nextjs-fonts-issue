@@ -28,6 +28,7 @@ export const makeSessionHeaders = (req = {}) => {
   const timestamp = session?.timestamp;
   const client_id = process.env.HEIMDALL_CLIENT_ID;
   const idGrupoEmpresa = session?.grupoEmpresa?.id;
+  const usuarioAceitouTermos = session?.usuarioAceitouTermos;
   const usuario = session?.usuario;
   const idUsuario = session?.usuario?.id;
   const cpf = session?.usuario?.cpf;
@@ -51,6 +52,7 @@ export const makeSessionHeaders = (req = {}) => {
     timestamp,
     client_id,
     idGrupoEmpresa,
+    usuarioAceitouTermos,
     usuario,
     idUsuario,
     cpf,

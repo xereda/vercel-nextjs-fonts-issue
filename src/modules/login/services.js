@@ -101,6 +101,16 @@ export const authenticate = async ({
           gruposEmpresa,
           usuarioAceitouTermos,
         };
+
+        await httpClient({
+          method: 'post',
+          url: '/api/set-cookie',
+          data: {
+            ...session,
+            accessToken,
+            publicKey,
+          },
+        });
       };
 
       onSuccess(session);

@@ -18,8 +18,8 @@ export default css`
     overflow: auto;
   }
   .group-item {
-    background-color: var(--white-f2);
-    color: var(--blue);
+    background-color: var(--bds-color-white-gray);
+    color: var(--bds-color-blue);
     cursor: pointer;
     display: flex;
     font-size: 16px;
@@ -31,5 +31,10 @@ export default css`
     user-select: none;
     align-items: center;
     border: 0;
+  }
+  .error {
+    color: var(--bds-color-red-error-text);
+    text-align: center;
+    font-size: 14px;
   }
 `;
