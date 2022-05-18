@@ -1,10 +1,8 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
-
+import { useRouter } from 'next/router';
 import { Avatar, Badge, Dropdown } from 'antd';
 import { BellOutlined, UserOutlined } from '@ant-design/icons';
-
 import DropdownNavbar from './DropdownNavbar/DropdownNavbar.js';
 import style, { dropdownNotificationStyle } from './Navbar.style.js';
 

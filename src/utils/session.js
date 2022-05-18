@@ -6,7 +6,7 @@ const krypton = new Krypton(process.env.NEXT_PUBLIC_KRYPTON_KEY);
 export const revalidateUserSession = async (ctx) => {
   const session = JSON.parse(ctx?.req?.cookies?.session || '{}');
 
-  if (!session?.grupoEmpresa?.id && !session?.usuario?.id) {
+  if (!session?.grupoEmpresa?.id || !session?.usuario?.id) {
     return {
       redirect: {
         destination: '/login',

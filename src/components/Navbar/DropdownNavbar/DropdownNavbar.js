@@ -10,14 +10,25 @@ export default function DropdownNavbar() {
           label: <Link href="/permissao-acesso">Permissão de acesso</Link>,
         },
         { type: Divider },
-        { key: 1, label: <Link href="/conversor">Converter arquivos</Link> },
+        {
+          key: 1,
+          label: <Link href="/conversor">Converter arquivos</Link>,
+        },
         { type: Divider },
         {
           key: 2,
           label: <Link href="/locais-entrega">Locais de entrega</Link>,
         },
         { type: Divider },
-        { key: 3, label: <Link href="/login">Sair</Link> },
+        {
+          key: 3,
+          label: <Link href="selecionar-grupo-empresa">Trocar grupo</Link>,
+        },
+        { type: Divider },
+        {
+          key: 4,
+          label: <Link href="/login">Sair</Link>,
+        },
       ]}
     />
   );

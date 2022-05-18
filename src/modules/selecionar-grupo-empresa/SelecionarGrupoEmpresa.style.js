@@ -32,6 +32,10 @@ export default css`
     align-items: center;
     border: 0;
   }
+  .group-item:disabled {
+    cursor: not-allowed;
+    color: var(--bds-color-gray);
+  }
   .error {
     color: var(--bds-color-red-error-text);
     text-align: center;

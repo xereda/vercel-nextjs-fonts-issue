@@ -10,7 +10,7 @@ import {
   toMaskDate,
   toPhoneMask,
 } from '@/utils/format';
-import { loadingStore, sessionStore } from '@/store/index';
+import { loadingStore, persistSession, sessionStore } from '@/store/index';
 import { getErrorMessage } from '@/utils/services';
 import Button from '@/components/Button/Button.js';
 import LayoutLogin from '@/components/LayoutLogin/LayoutLogin';
@@ -22,6 +22,8 @@ export default function UpdateUser() {
   const error = useState('');
   const loading = useState(loadingStore);
   const session = useState(sessionStore);
+
+  persistSession(session);
 
   const usuario = useMemo(() => session?.usuario?.value || {}, [session]);
 
@@ -108,7 +110,11 @@ export default function UpdateUser() {
         error?.set('');
       },
       onSuccess: () => {
-        router.push('/dashboard');
+        if (session?.gruposEmpresa?.length > 1) {
+          router.push('/selecionar-grupo-empresa');
+        } else {
+          router.push('/dashboard');
+        }
       },
       onError: (e) => {
         error?.set(getErrorMessage(e).message);

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useState } from '@hookstate/core';
-import { loadingStore } from '@/store/index';
+import { loadingStore, persistSession, sessionStore } from '@/store/index';
 import Layout from '@/components/Layout/Layout';
 import PageContent from '@/components/PageContent/PageContent';
 import LimitChart from '@/components/LimitChart/LimitChart';
@@ -16,8 +16,11 @@ export default function Dashboard() {
   const virtualBalance = data?.virtualBalance?.balanceValue;
   const useLimit = data?.useLimit;
   const orders = data?.orders;
+  const session = useState(sessionStore);
 
   const loading = useState(loadingStore);
+
+  persistSession(session);
 
   useEffect(() => {
     if (!isLoading && loading?.value) {

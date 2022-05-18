@@ -23,6 +23,9 @@ export default css`
     overflow: hidden;
     height: 100%;
   }
+  .outside {
+    background-color: transparent;
+  }
   .wrapper-header {
     display: flex;
     -webkit-box-pack: justify;
