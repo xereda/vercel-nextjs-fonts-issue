@@ -1,13 +1,11 @@
-import { render, renderHook, screen } from '@testing-library/react';
-import { useState } from '@hookstate/core';
-import { loadingStore } from '@/store/index';
+import { render, screen } from '@testing-library/react';
+import { loadingState } from '@/store/index';
 import Loading from './Loading';
 
-const setLoading = (isLoading) =>
-  renderHook(() => {
-    const loading = useState(loadingStore);
-    loading.set(isLoading);
-  });
+const setLoading = (isLoading) => {
+  const loading = loadingState();
+  loading.set(isLoading);
+};
 
 beforeAll(() => setLoading(true));
 

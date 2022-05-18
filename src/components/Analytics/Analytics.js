@@ -1,7 +1,8 @@
 import Script from 'next/script';
+import ClientOnly from '../ClientOnly/ClientOnly';
 
 const Analytics = () => (
-  <>
+  <ClientOnly>
     <Script
       strategy="afterInteractive"
       src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
@@ -20,7 +21,7 @@ const Analytics = () => (
           `,
       }}
     />
-  </>
+  </ClientOnly>
 );
 
 export default Analytics;

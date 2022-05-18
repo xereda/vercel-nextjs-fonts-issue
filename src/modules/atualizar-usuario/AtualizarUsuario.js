@@ -1,5 +1,4 @@
-import React, { useMemo } from 'react';
-import { useState } from '@hookstate/core';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import {
@@ -10,22 +9,20 @@ import {
   toMaskDate,
   toPhoneMask,
 } from '@/utils/format';
-import { loadingStore, persistSession, sessionStore } from '@/store/index';
+import { useLoadingState, useSessionState } from '@/store/index';
 import { getErrorMessage } from '@/utils/services';
 import Button from '@/components/Button/Button.js';
 import LayoutLogin from '@/components/LayoutLogin/LayoutLogin';
+import ClientOnly from '@/components/ClientOnly/ClientOnly';
 import style from './AtualizarUsuario.style';
 import { postStatus } from './services.js';
 
 export default function UpdateUser() {
   const router = useRouter();
-  const error = useState('');
-  const loading = useState(loadingStore);
-  const session = useState(sessionStore);
-
-  persistSession(session);
-
-  const usuario = useMemo(() => session?.usuario?.value || {}, [session]);
+  const [error, setError] = useState('');
+  const [, setLoading] = useLoadingState();
+  const [session] = useSessionState();
+  const usuario = session?.usuario || {};
 
   const formik = useFormik({
     initialValues: {
@@ -106,8 +103,8 @@ export default function UpdateUser() {
       phone,
       motherName,
       onStart: () => {
-        loading?.set(true);
-        error?.set('');
+        setLoading(true);
+        setError('');
       },
       onSuccess: () => {
         if (session?.gruposEmpresa?.length > 1) {
@@ -117,10 +114,10 @@ export default function UpdateUser() {
         }
       },
       onError: (e) => {
-        error?.set(getErrorMessage(e).message);
-        loading?.set(false);
+        setError(getErrorMessage(e).message);
+        setLoading(false);
       },
-      onFinally: () => loading?.set(false),
+      onFinally: () => setLoading(false),
     });
   };
 
@@ -130,89 +127,92 @@ export default function UpdateUser() {
 
   return (
     <LayoutLogin>
-      <header className="header">
-        <h1 className="title">atualização de dados</h1>
-        <p className="label">
-          Agora, para manter o nosso ambiente seguro, pedimos que você atualize
-          seus dados abaixo. Eles serão utilizados para sua identificação na
-          nossa central de atendimento
+      <ClientOnly>
+        <header className="header">
+          <h1 className="title">atualização de dados</h1>
+          <p className="label">
+            Agora, para manter o nosso ambiente seguro, pedimos que você
+            atualize seus dados abaixo. Eles serão utilizados para sua
+            identificação na nossa central de atendimento
+          </p>
+        </header>
+
+        <form className="update-form" onSubmit={formik.handleSubmit}>
+          <div className="fieldset">
+            <label htmlFor="birthdate">Data de nascimento</label>
+            <input
+              required
+              autoComplete="birthdate"
+              className={`input-field ${defineClassBirthField()}`}
+              type="text"
+              name="birthdate"
+              id="birthdate"
+              maxLength="10"
+              value={toMaskDate(formik.values.birthdate)}
+              placeholder="DD/MM/AAAA"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+            />
+
+            <span className={`${defineClassBirthField()}-icon`}></span>
+
+            {formik.touched.birthdate && formik.errors.birthdate && (
+              <span className="error-message">{formik.errors.birthdate}</span>
+            )}
+          </div>
+          <div className="fieldset">
+            <label htmlFor="phone">Telefone</label>
+            <input
+              required
+              autoComplete="phone"
+              className={`input-field ${defineClassPhoneField()}`}
+              type="text"
+              name="phone"
+              id="phone"
+              maxLength="15"
+              value={toPhoneMask(formik.values.phone)}
+              placeholder="(11) 98888-1111"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+            />
+
+            <span className={`${defineClassPhoneField()}-icon`}></span>
+
+            {formik.touched.phone && formik.errors.phone && (
+              <span className="error-message">{formik.errors.phone}</span>
+            )}
+          </div>
+          <div className="fieldset last-field">
+            <label htmlFor="motherName">Nome da mãe</label>
+            <input
+              required
+              autoComplete="motherName"
+              className={`input-field ${defineClassMotherField()}`}
+              type="motherName"
+              name="motherName"
+              id="motherName"
+              value={formik.values.motherName}
+              placeholder="Joana de Paula"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+
+            <span className={`${defineClassMotherField()}-icon`}></span>
+
+            {formik.touched.motherName && formik.errors.motherName && (
+              <span className="error-message">{formik.errors.motherName}</span>
+            )}
+          </div>
+
+          <Button isFullWidth type="submit" disabled={disableUpdateButton()}>
+            Atualizar
+          </Button>
+        </form>
+
+        <p className="error" role="error">
+          {error}
         </p>
-      </header>
-
-      <form className="update-form" onSubmit={formik.handleSubmit}>
-        <div className="fieldset">
-          <label htmlFor="birthdate">Data de nascimento</label>
-          <input
-            required
-            autoComplete="birthdate"
-            className={`input-field ${defineClassBirthField()}`}
-            type="text"
-            name="birthdate"
-            id="birthdate"
-            maxLength="10"
-            value={toMaskDate(formik.values.birthdate)}
-            placeholder="DD/MM/AAAA"
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-          />
-
-          <span className={`${defineClassBirthField()}-icon`}></span>
-
-          {formik.touched.birthdate && formik.errors.birthdate && (
-            <span className="error-message">{formik.errors.birthdate}</span>
-          )}
-        </div>
-        <div className="fieldset">
-          <label htmlFor="phone">Telefone</label>
-          <input
-            required
-            autoComplete="phone"
-            className={`input-field ${defineClassPhoneField()}`}
-            type="text"
-            name="phone"
-            id="phone"
-            maxLength="15"
-            value={toPhoneMask(formik.values.phone)}
-            placeholder="(11) 98888-1111"
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-          />
-
-          <span className={`${defineClassPhoneField()}-icon`}></span>
-
-          {formik.touched.phone && formik.errors.phone && (
-            <span className="error-message">{formik.errors.phone}</span>
-          )}
-        </div>
-        <div className="fieldset last-field">
-          <label htmlFor="motherName">Nome da mãe</label>
-          <input
-            required
-            autoComplete="motherName"
-            className={`input-field ${defineClassMotherField()}`}
-            type="motherName"
-            name="motherName"
-            id="motherName"
-            value={formik.values.motherName}
-            placeholder="Joana de Paula"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-
-          <span className={`${defineClassMotherField()}-icon`}></span>
-
-          {formik.touched.motherName && formik.errors.motherName && (
-            <span className="error-message">{formik.errors.motherName}</span>
-          )}
-        </div>
-
-        <Button isFullWidth type="submit" disabled={disableUpdateButton()}>
-          Atualizar
-        </Button>
-      </form>
-
-      <p className="error" role="error">{error?.value}</p>
-
+      </ClientOnly>
       <style jsx="true">{style}</style>
     </LayoutLogin>
   );

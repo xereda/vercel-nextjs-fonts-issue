@@ -37,8 +37,10 @@ describe('Form login component', () => {
     await userEvent.clear(cpf);
     await userEvent.clear(password);
 
-    expect(await screen.findAllByText('Campo obrigatório')).toHaveLength(2);
-    expect(screen.getByText('fazer login', { exact: false })).toBeDisabled();
+    await waitFor(async () => {
+      expect(await screen.findAllByText('Campo obrigatório')).toHaveLength(2);
+      expect(screen.getByText('fazer login', { exact: false })).toBeDisabled();
+    });
   });
 
   test('deve habilitar o botao quando cpf e senha informados corretamente', async () => {

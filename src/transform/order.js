@@ -5,7 +5,7 @@ export const transformOrders = (orders) =>
   orders.map((order) => ({
     orderId: order.idPedido + '',
     date: formatDateWithTime(order.dataCriacao),
-    value: formatMoney(order.valorBeneficio),
+    value: formatMoney(order.valorBeneficio) || '-',
     canCancel: !!order.podeCancelar,
     status: {
       enum: order.statusPedido || 'INDEFINIDO',

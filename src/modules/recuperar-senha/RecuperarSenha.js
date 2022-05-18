@@ -1,13 +1,13 @@
+import { useState } from 'react';
 import propTypes from 'prop-types';
+import { useLoadingState } from '@/store/index';
 import LayoutLogin from '@/components/LayoutLogin/LayoutLogin';
 import style from './RecuperarSenha.style';
 import Button from '@/components/Button/Button.js';
 import Recaptcha from '@/components/Recaptcha/Recaptcha';
-import { loadingStore } from '@/store/index';
 import { getErrorMessage } from '@/utils/services';
 import { isValidCPF, isValidEmail, toCPFMask } from '@/utils/format';
 import { useFormik } from 'formik';
-import { useState } from '@hookstate/core';
 import { recoverPassword } from './services.js';
 import FeedbackSuccess from './FeedbackSuccess';
 
@@ -20,10 +20,12 @@ RecuperarSenha.defaultProps = {
 };
 
 export default function RecuperarSenha({ withRecaptcha }) {
-  const error = useState('');
-  const loading = useState(loadingStore);
-  const recaptchaVerified = useState(withRecaptcha ? false : true);
-  const hasSuccess = useState(false);
+  const [error, setError] = useState('');
+  const [, setLoading] = useLoadingState();
+  const [recaptchaVerified, setRecaptchaVerified] = useState(
+    withRecaptcha ? false : true,
+  );
+  const [hasSuccess, setSuccess] = useState(false);
 
   const formik = useFormik({
     initialValues: { cpf: '', email: '' },
@@ -74,7 +76,7 @@ export default function RecuperarSenha({ withRecaptcha }) {
   };
 
   const disableButton = () => {
-    return !formik.isValid || !formik.dirty || !recaptchaVerified.value;
+    return !formik.isValid || !formik.dirty || !recaptchaVerified;
   };
 
   const handleSubmit = async ({ cpf, email }) => {
@@ -82,22 +84,22 @@ export default function RecuperarSenha({ withRecaptcha }) {
       cpf,
       email,
       onStart: () => {
-        loading?.set(true);
-        error?.set('');
+        setLoading(true);
+        setError('');
       },
       onSuccess: () => {
-        hasSuccess.set(true);
+        setSuccess(true);
       },
       onError: (e) => {
-        error?.set(getErrorMessage(e).message);
-        loading?.set(false);
+        setError(getErrorMessage(e).message);
+        setLoading(false);
       },
-      onFinally: () => loading?.set(false),
+      onFinally: () => setLoading(false),
     });
   };
 
   const handleRecaptch = (isVerified) => {
-    recaptchaVerified.set(!!isVerified);
+    setRecaptchaVerified(!!isVerified);
 
     isVerified && formik.validateForm();
   };
@@ -114,7 +116,7 @@ export default function RecuperarSenha({ withRecaptcha }) {
         </p>
       </header>
 
-      {!hasSuccess.value ? (
+      {!hasSuccess ? (
         <form className="recover-password-form" onSubmit={formik.handleSubmit}>
           <div className="fieldset">
             <label htmlFor="cpf">CPF</label>
@@ -163,7 +165,7 @@ export default function RecuperarSenha({ withRecaptcha }) {
           {withRecaptcha && <Recaptcha {...{ handleRecaptch }} />}
 
           <p className="error" role="error">
-            {error?.value}
+            {error}
           </p>
 
           <Button isFullWidth type="submit" disabled={disableButton()}>

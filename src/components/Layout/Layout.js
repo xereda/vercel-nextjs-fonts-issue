@@ -1,4 +1,5 @@
 import propTypes from 'prop-types';
+import CompanyGroup from '@/components/CompanyGroup/CompanyGroup';
 import Navbar from '../Navbar/Navbar';
 import style from './Layout.style.js';
 import { useRouter } from 'next/router';
@@ -18,12 +19,15 @@ export default function Layout({ children, renderNotice }) {
   return (
     <div className="layout">
       <Navbar />
-
+      <CompanyGroup />
       {renderNotice()}
 
       <div
-        className={router.pathname === '/selecionar-grupo-empresa'
-          ? 'outside container' : 'container'}
+        className={
+          router.pathname === '/selecionar-grupo-empresa'
+            ? 'outside container'
+            : 'container'
+        }
       >
         {children}
       </div>

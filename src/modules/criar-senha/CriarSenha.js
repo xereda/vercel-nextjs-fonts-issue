@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import propTypes from 'prop-types';
 import LayoutLogin from '@/components/LayoutLogin/LayoutLogin';
 import style from './CriarSenha.style';
@@ -7,8 +8,7 @@ import Recaptcha from '@/components/Recaptcha/Recaptcha';
 import { isStrongPassword } from '@/utils/format';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { useFormik } from 'formik';
-import { useState } from '@hookstate/core';
-import { loadingStore } from '@/store/index';
+import { useLoadingState } from '@/store/index';
 import { useRouter } from 'next/router';
 import { createPassword } from './services';
 import { getErrorMessage } from '@/utils/services';
@@ -23,16 +23,17 @@ CreatePassword.defaultProps = {
 };
 
 export default function CreatePassword({ withRecaptcha }) {
-  const error = useState('');
-  const hasSuccess = useState(false);
-  const loading = useState(loadingStore);
-
-  const showPassword = useState(false);
-  const recaptchaVerified = useState(withRecaptcha ? false : true);
+  const [error, setError] = useState('');
+  const [hasSuccess, setSuccess] = useState(false);
+  const [, setLoading] = useLoadingState();
+  const [visiblePassword, setVisiblePassword] = useState(false);
+  const [recaptchaVerified, setRecaptchaVerified] = useState(
+    withRecaptcha ? false : true,
+  );
   const router = useRouter();
   const { token } = router.query;
 
-  const handlePasswordVisibility = () => showPassword.set(!showPassword.value);
+  const handlePasswordVisibility = () => setVisiblePassword(!visiblePassword);
 
   const formik = useFormik({
     initialValues: { password: '', confirmPassword: '' },
@@ -89,25 +90,25 @@ export default function CreatePassword({ withRecaptcha }) {
   };
 
   const disableButton = () => {
-    return !formik.isValid || !formik.dirty || !recaptchaVerified.value;
+    return !formik.isValid || !formik.dirty || !recaptchaVerified;
   };
 
   const handleSubmit = async ({ password }) => {
     createPassword({
       password,
       token,
-      onStart: () => loading?.set(true),
-      onFinally: () => loading?.set(false),
-      onSuccess: () => hasSuccess.set(true),
+      onStart: () => setLoading(true),
+      onFinally: () => setLoading(false),
+      onSuccess: () => setSuccess(true),
       onError: (e) => {
-        error?.set(getErrorMessage(e).message);
-        loading?.set(false);
+        setError(getErrorMessage(e).message);
+        setLoading(false);
       },
     });
   };
 
   const handleRecaptch = (isVerified) => {
-    recaptchaVerified.set(!!isVerified);
+    setRecaptchaVerified(!!isVerified);
 
     isVerified && formik.validateForm();
   };
@@ -123,14 +124,14 @@ export default function CreatePassword({ withRecaptcha }) {
       <header className="header">
         <h1 className="title">criar nova senha</h1>
         <h2 className="subtitle">Para recursos humanos</h2>
-        {!hasSuccess.value && token && (
+        {!hasSuccess && token && (
           <p className="label">
             Para continuar, crie uma nova senha seguindo as orientações abaixo:
           </p>
         )}
       </header>
 
-      {!hasSuccess.value ? (
+      {!hasSuccess ? (
         <>
           {token ? (
             <>
@@ -148,7 +149,7 @@ export default function CreatePassword({ withRecaptcha }) {
                     required
                     autoComplete="password"
                     className={`input-field ${defineClassPasswordField()}`}
-                    type={showPassword.value ? 'password' : 'text'}
+                    type={visiblePassword ? 'password' : 'text'}
                     name="password"
                     id="password"
                     maxLength="15"
@@ -159,7 +160,7 @@ export default function CreatePassword({ withRecaptcha }) {
                   />
 
                   <div className="eye">
-                    {showPassword.value ? (
+                    {visiblePassword ? (
                       <EyeOutlined
                         onClick={handlePasswordVisibility}
                         style={{ color: 'var(--bds-color-gray-light)' }}
@@ -186,7 +187,7 @@ export default function CreatePassword({ withRecaptcha }) {
                     required
                     autoComplete="confirmPassword"
                     className={`input-field ${defineClassConfirmPasswordField()}`}
-                    type={showPassword.value ? 'password' : 'text'}
+                    type={visiblePassword ? 'password' : 'text'}
                     name="confirmPassword"
                     id="confirmPassword"
                     maxLength="15"
@@ -197,7 +198,7 @@ export default function CreatePassword({ withRecaptcha }) {
                   />
 
                   <div className="eye">
-                    {showPassword.value ? (
+                    {visiblePassword ? (
                       <EyeOutlined
                         onClick={handlePasswordVisibility}
                         style={{ color: 'var(--bds-color-gray-light)' }}
@@ -223,9 +224,9 @@ export default function CreatePassword({ withRecaptcha }) {
 
                 {withRecaptcha && <Recaptcha {...{ handleRecaptch }} />}
 
-                {error.value && (
+                {error && (
                   <p className="error" role="error">
-                    {error.value}
+                    {error}
                   </p>
                 )}
 

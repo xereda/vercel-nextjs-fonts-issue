@@ -1,10 +1,9 @@
+import { useState } from 'react';
 import propTypes from 'prop-types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
-import { useState } from '@hookstate/core';
-import { Persistence } from '@hookstate/persistence';
-import { loadingStore, sessionStore } from '@/store/index';
+import { useLoadingState, useSessionState } from '@/store/index';
 import { isValidCPF, toCPFMask } from '@/utils/format';
 import { authenticate } from './services.js';
 import { getErrorMessage } from '@/utils/services';
@@ -22,21 +21,19 @@ Form.defaultProps = {
 
 export default function Form({ withRecaptcha }) {
   const router = useRouter();
-  const error = useState('');
+  const [error, setError] = useState('');
 
-  const session = useState(sessionStore);
-  const loading = useState(loadingStore);
-
-  if (typeof window !== 'undefined') {
-    session.attach(Persistence('session'));
-  }
+  const [, setSession] = useSessionState();
+  const [, setLoading] = useLoadingState();
 
   const updateSessionState = (payload) => {
     console.log(payload);
-    session?.set(payload);
+    setSession(payload);
   };
 
-  const recaptchaVerified = useState(withRecaptcha ? false : true);
+  const [recaptchaVerified, setRecaptchaVerified] = useState(
+    withRecaptcha ? false : true,
+  );
 
   const formik = useFormik({
     initialValues: { cpf: '', password: '' },
@@ -66,8 +63,8 @@ export default function Form({ withRecaptcha }) {
       cpf,
       password,
       onStart: () => {
-        loading?.set(true);
-        error?.set('');
+        setLoading(true);
+        setError('');
       },
       onSuccess: (session) => {
         console.log('onSuccess login:', { session });
@@ -92,15 +89,15 @@ export default function Form({ withRecaptcha }) {
         }
       },
       onError: (e) => {
-        error?.set(getErrorMessage(e).message);
-        loading?.set(false);
+        setError(getErrorMessage(e).message);
+        setLoading(false);
       },
-      onFinally: () => loading?.set(false),
+      onFinally: () => setLoading(false),
     });
   };
 
   const handleRecaptch = (isVerified) => {
-    recaptchaVerified.set(!!isVerified);
+    setRecaptchaVerified(!!isVerified);
 
     isVerified && formik.validateForm();
   };
@@ -130,7 +127,7 @@ export default function Form({ withRecaptcha }) {
   };
 
   const disableSubmitButton = () => {
-    return !formik.isValid || !formik.dirty || !recaptchaVerified.value;
+    return !formik.isValid || !formik.dirty || !recaptchaVerified;
   };
 
   return (
@@ -178,7 +175,7 @@ export default function Form({ withRecaptcha }) {
         )}
       </div>
       {withRecaptcha && <Recaptcha {...{ handleRecaptch }} />}
-      <p className="integration-error">{error?.value}</p>
+      <p className="integration-error">{error}</p>
       <Button isFullWidth type="submit" disabled={disableSubmitButton()}>
         Fazer login
       </Button>

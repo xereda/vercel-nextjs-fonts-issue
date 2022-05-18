@@ -1,41 +1,42 @@
-import { useState } from '@hookstate/core';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { postStatusTerm } from './services.js';
-import { loadingStore } from '@/store/index';
 import { getErrorMessage } from '@/utils/services';
 import ReactTooltip from 'react-tooltip';
 import LayoutLogin from '@/components/LayoutLogin/LayoutLogin';
 import TermoContent from './TermoContent.js';
 import style from './TermoPrivacidade.style';
+import { useLoadingState } from '@/store/index.js';
+import ClientOnly from '@/components/ClientOnly/ClientOnly.js';
 
 export default function TermPrivacy() {
   const router = useRouter();
-  const enableButton = useState(false);
-  const error = useState('');
-  const loading = useState(loadingStore);
+  const [enabledButton, setButtonIsEnabled] = useState(false);
+  const [error, setError] = useState('');
+  const [, setLoading] = useLoadingState();
 
   const handleScroll = (e) => {
     const isBottom =
       Math.floor(e.target.scrollHeight - e.target.scrollTop) ===
       e.target.clientHeight;
 
-    enableButton?.set(isBottom);
+    setButtonIsEnabled(isBottom);
   };
 
   const handleSubmit = async () => {
     postStatusTerm({
       onStart: () => {
-        loading?.set(true);
-        error?.set('');
+        setLoading(true);
+        setError('');
       },
       onSuccess: () => {
         router.push('/atualizar-usuario');
       },
       onError: (e) => {
-        error?.set(getErrorMessage(e).message);
-        loading?.set(false);
+        setError(getErrorMessage(e).message);
+        setLoading(false);
       },
-      onFinally: () => loading?.set(false),
+      onFinally: () => setLoading(false),
     });
   };
 
@@ -50,8 +51,7 @@ export default function TermPrivacy() {
         </p>
       </header>
 
-      <div
-        className="term-content" role="term" onScroll={handleScroll}>
+      <div className="term-content" role="term" onScroll={handleScroll}>
         <TermoContent />
       </div>
 
@@ -62,7 +62,7 @@ export default function TermPrivacy() {
 
         <div data-tip data-for="read-terms">
           <button
-            disabled={!enableButton.value}
+            disabled={!enabledButton}
             className="accept-term"
             onClick={handleSubmit}
           >
@@ -70,14 +70,16 @@ export default function TermPrivacy() {
           </button>
         </div>
 
-        {!enableButton.value && (
-          <ReactTooltip id="read-terms" place="top" effect="solid">
-            Você precisa ler o termo antes de continuar.
-          </ReactTooltip>
+        {!enabledButton && (
+          <ClientOnly>
+            <ReactTooltip id="read-terms" place="top" effect="solid">
+              Você precisa ler o termo antes de continuar.
+            </ReactTooltip>
+          </ClientOnly>
         )}
       </div>
 
-      <p className="error">{error?.value}</p>
+      <p className="error">{error}</p>
 
       <style jsx="true">{style}</style>
     </LayoutLogin>

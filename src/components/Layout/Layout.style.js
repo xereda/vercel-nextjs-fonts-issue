@@ -17,7 +17,6 @@ export default css`
     width: 79rem;
     padding: 20px 10px;
     margin: 0 auto;
-    margin-top: 30px;
     background-color: var(--bds-color-white);
     border-radius: 6px;
     overflow: hidden;

@@ -5,7 +5,7 @@ export default css`
     display: flex;
     -webkit-box-align: center;
     align-items: center;
-    margin: 2rem auto;
+    margin: 0 auto 30px;
     padding: 0 1.5rem;
     min-height: 114px;
     background-color: var(--bds-color-yellow);

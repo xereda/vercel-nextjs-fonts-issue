@@ -1,12 +1,11 @@
 import Image from 'next/image';
-import { useState } from '@hookstate/core';
-import { loadingStore } from '@/store/index';
+import { useLoadingState } from '@/store/index';
 import style from './Loading.style';
 
 export default function Loading() {
-  const loading = useState(loadingStore);
+  const [loading] = useLoadingState();
 
-  return loading?.value ? (
+  return loading ? (
     <>
       <div role="Loading" className="wrapper-loading">
         <Image

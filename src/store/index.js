@@ -1,18 +1,37 @@
-import { createState } from '@hookstate/core';
+import { createState, useState } from '@hookstate/core';
 import { Persistence } from '@hookstate/persistence';
 
-export const sessionStore = createState({
+const sessionStore = createState({
   usuario: {},
   gruposEmpresa: [],
   grupoEmpresa: {},
   parametros: {},
-  usuarioAceitouTermos: {},
+  usuarioAceitouTermos: false,
 });
 
-export const persistSession = (session) => {
-  if (typeof window !== 'undefined') {
-    session.attach(Persistence('session'));
-  }
+const loadingStore = createState(false);
+
+export const sessionState = () => sessionStore;
+
+export const useSessionState = () => {
+  const session = useState(sessionStore);
+  const sessionNativeObject = session.keys.reduce((acc, cur) => {
+    acc[cur] = JSON.parse(JSON.stringify(session.nested(cur).value));
+
+    return acc;
+  }, {});
+
+  return [sessionNativeObject, session.set, session.merge];
 };
 
-export const loadingStore = createState(false);
+export const loadingState = () => loadingStore;
+
+export const useLoadingState = () => {
+  const loading = useState(loadingStore);
+
+  return [loading.value, loading.set];
+};
+
+if (typeof window !== 'undefined') {
+  sessionState().attach(Persistence('session'));
+}

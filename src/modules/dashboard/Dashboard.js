@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import { useState } from '@hookstate/core';
-import { loadingStore, persistSession, sessionStore } from '@/store/index';
+import { useLoadingState } from '@/store/index';
 import Layout from '@/components/Layout/Layout';
 import PageContent from '@/components/PageContent/PageContent';
 import LimitChart from '@/components/LimitChart/LimitChart';
@@ -16,17 +15,10 @@ export default function Dashboard() {
   const virtualBalance = data?.virtualBalance?.balanceValue;
   const useLimit = data?.useLimit;
   const orders = data?.orders;
-  const session = useState(sessionStore);
+  const [, setLoading] = useLoadingState();
 
-  const loading = useState(loadingStore);
-
-  persistSession(session);
-
-  useEffect(() => {
-    if (!isLoading && loading?.value) {
-      loading?.set(false);
-    }
-  }, [isLoading, loading]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => setLoading(false), []);
 
   return (
     <Layout renderNotice={() => <PaymentWarning />}>

@@ -1,9 +1,8 @@
 import userEvent from '@testing-library/user-event';
-import { useState } from '@hookstate/core';
 import { rest } from 'msw';
 import { server } from '@/mocks/server';
-import { render, renderHook, screen, waitFor } from '@testing-library/react';
-import { sessionStore } from '@/store/index';
+import { render, screen, waitFor } from '@testing-library/react';
+import { sessionState } from '@/store/index';
 import AtualizarUsuario from './AtualizarUsuario';
 
 describe('User update page', () => {
@@ -14,22 +13,20 @@ describe('User update page', () => {
   });
 
   test('deve renderizar o form integrado ao mock com mascara aplicada', async () => {
-    renderHook(() => {
-      const session = useState(sessionStore);
-      session.set({
-        usuario: {
-          id: 999999,
-          email: 'jackson.schroeder@sciensa.com',
-          cpf: '11651232903',
-          nome: 'Jackson Ricardo Schroeder',
-          anonimizado: false,
-          dataNascimento: '1976-12-18',
-          ddd: '11',
-          nomeMae: '',
-          status: 'ATIVO',
-          telefone: '995674852',
-        },
-      });
+    const session = sessionState();
+    session.set({
+      usuario: {
+        id: 999999,
+        email: 'jackson.schroeder@sciensa.com',
+        cpf: '11651232903',
+        nome: 'Jackson Ricardo Schroeder',
+        anonimizado: false,
+        dataNascimento: '1976-12-18',
+        ddd: '11',
+        nomeMae: '',
+        status: 'ATIVO',
+        telefone: '995674852',
+      },
     });
 
     render(<AtualizarUsuario />);
@@ -75,8 +72,10 @@ describe('User update page', () => {
     await userEvent.clear(phone);
     await userEvent.clear(mother);
 
-    expect(await screen.findAllByText('Campo obrigatório')).toHaveLength(3);
-    expect(screen.getByText('atualizar', { exact: false })).toBeDisabled();
+    await waitFor(async () => {
+      expect(await screen.findAllByText('Campo obrigatório')).toHaveLength(3);
+      expect(screen.getByText('atualizar', { exact: false })).toBeDisabled();
+    });
   });
 
   test('deve habilitar o botao quando todos os campos forem informados corretamente', async () => {
