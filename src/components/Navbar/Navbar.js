@@ -1,12 +1,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { Avatar, Badge, Dropdown } from 'antd';
+import { useSessionState } from '@/store/index';
+import { Avatar, Badge, Dropdown, Menu } from 'antd';
 import { BellOutlined, UserOutlined } from '@ant-design/icons';
-import DropdownNavbar from './DropdownNavbar/DropdownNavbar.js';
 import style, { dropdownNotificationStyle } from './Navbar.style.js';
 
 const Navbar = () => {
+  const [session] = useSessionState();
+  const groupAmount = session?.gruposEmpresa?.length;
   const router = useRouter();
 
   const Options = (
@@ -19,6 +21,40 @@ const Navbar = () => {
       <style jsx="true">{dropdownNotificationStyle}</style>
     </>
   );
+
+  const menu = [
+    {
+      key: 0,
+      label: <Link href="/permissao-acesso">Permissão de acesso</Link>,
+    },
+    { type: 'divider' },
+    {
+      key: 1,
+      label: <Link href="/conversor">Converter arquivos</Link>,
+    },
+    { type: 'divider' },
+    {
+      key: 2,
+      label: <Link href="/locais-entrega">Locais de entrega</Link>,
+    },
+    { type: 'divider' },
+    {
+      key: 3,
+      label: <Link href="selecionar-grupo-empresa"><a>Trocar grupo ({groupAmount})</a></Link>,
+      id: 'TROCAR_GRUPO',
+    },
+    {
+      type: 'divider',
+      id: 'TROCAR_GRUPO',
+    },
+    {
+      key: 4,
+      label: <Link href="/login">Sair</Link>,
+    },
+  ];
+
+  const filteredMenu =
+    groupAmount > 1 ? menu : menu.filter((item) => item.id !== 'TROCAR_GRUPO');
 
   const getClassNameForNavBarItem = (pathName) =>
     router.pathname === pathName ? 'active' : '';
@@ -85,12 +121,12 @@ const Navbar = () => {
           </Badge>
 
           <Dropdown
-            overlay={DropdownNavbar}
+            overlay={<Menu items={filteredMenu} />}
             trigger={['click']}
             placement="bottomRight"
             overlayStyle={{ position: 'fixed' }}
           >
-            <a onClick={(e) => e.preventDefault()}>
+            <a role="dropdown" onClick={(e) => e.preventDefault()}>
               <Avatar
                 icon={<UserOutlined />}
                 shape="circle"

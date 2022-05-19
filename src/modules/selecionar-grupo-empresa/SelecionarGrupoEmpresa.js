@@ -51,6 +51,7 @@ export default function SelecionarGrupoEmpresa() {
         <Modal
           closable={groupCompanyIsSelected}
           keyboard={false}
+          maskClosable={false}
           visible
           width={400}
           bodyStyle={modalStyle}
