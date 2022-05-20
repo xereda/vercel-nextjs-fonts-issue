@@ -30,7 +30,22 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(dataMocks.gruposEmpresa), ctx.delay());
   }),
   rest.post('/api/parametros', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(dataMocks.parametros), ctx.delay());
+    const currentCookie = req.cookies?.session || '{}';
+    const currentCookieObject = JSON.parse(currentCookie);
+    const newCookieObject = {
+      ...currentCookieObject,
+      grupoEmpresa: req.body?.grupoEmpresa || {},
+    };
+    const newCookie = JSON.stringify(newCookieObject);
+
+    const cookie = req.body?.shouldSelectGroup ? newCookie : cookie;
+
+    return res(
+      ctx.status(200),
+      ctx.json(dataMocks.parametros),
+      ctx.delay(),
+      ctx.cookie('session', cookie),
+    );
   }),
   rest.post('/api/aceite-termos', (req, res, ctx) => {
     return res(
@@ -53,7 +68,10 @@ export const handlers = [
       ctx.delay(),
     );
   }),
-  rest.get('/api/clean-cookie', (req, res, ctx) => {
+  rest.post('/api/set-cookie', (req, res, ctx) => {
+    return res(ctx.cookie('session', JSON.stringify(req.body || {})));
+  }),
+  rest.post('/api/clean-cookie', (req, res, ctx) => {
     return res(ctx.cookie('session', '{}'));
   }),
 ];

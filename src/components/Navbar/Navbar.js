@@ -8,7 +8,7 @@ import style, { dropdownNotificationStyle } from './Navbar.style.js';
 
 const Navbar = () => {
   const [session] = useSessionState();
-  const groupAmount = session?.gruposEmpresa?.length;
+  const groupAmount = session?.gruposEmpresa?.value?.length;
   const router = useRouter();
 
   const Options = (
@@ -40,7 +40,11 @@ const Navbar = () => {
     { type: 'divider' },
     {
       key: 3,
-      label: <Link href="selecionar-grupo-empresa"><a>Trocar grupo ({groupAmount})</a></Link>,
+      label: (
+        <Link href="selecionar-grupo-empresa">
+          <a>Trocar grupo ({groupAmount})</a>
+        </Link>
+      ),
       id: 'TROCAR_GRUPO',
     },
     {

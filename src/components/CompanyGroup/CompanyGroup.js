@@ -4,7 +4,7 @@ import ClientOnly from '../ClientOnly/ClientOnly';
 
 export default function CompanyGroup() {
   const [session] = useSessionState();
-  const companyGroupName = session?.grupoEmpresa?.nomeGrupo;
+  const companyGroupName = session?.grupoEmpresa?.nomeGrupo?.value || '';
 
   return (
     <>

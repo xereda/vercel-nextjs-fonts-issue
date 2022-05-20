@@ -22,7 +22,7 @@ export default function UpdateUser() {
   const [error, setError] = useState('');
   const [, setLoading] = useLoadingState();
   const [session] = useSessionState();
-  const usuario = session?.usuario || {};
+  const usuario = session?.usuario?.value || {};
 
   const formik = useFormik({
     initialValues: {
@@ -107,7 +107,7 @@ export default function UpdateUser() {
         setError('');
       },
       onSuccess: () => {
-        if (session?.gruposEmpresa?.length > 1) {
+        if (session?.gruposEmpresa?.value?.length > 1) {
           router.push('/selecionar-grupo-empresa');
         } else {
           router.push('/dashboard');

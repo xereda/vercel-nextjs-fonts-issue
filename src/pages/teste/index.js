@@ -5,15 +5,18 @@ export default function Teste() {
   const [loading, setLoading] = useLoadingState();
   const [session, , mergeSession] = useSessionState();
 
-  const orders = session?.orders || [];
+  const orders = session?.nested?.('orders')?.value || [];
 
   const addOrderToSessionState = () => {
     const newOrder = { id: orders.length + 1, date: new Date().getTime() };
-    const ordersToAdd = [...orders, newOrder];
 
-    console.log('addOrderToSessionState', { orders, newOrder, ordersToAdd });
+    console.log('addOrderToSessionState', { orders, newOrder });
 
-    mergeSession({ orders: ordersToAdd });
+    if (!session?.orders?.value) {
+      mergeSession({ orders: [] });
+    }
+
+    session.orders.merge([newOrder]);
   };
 
   return (

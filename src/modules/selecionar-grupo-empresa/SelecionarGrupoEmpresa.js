@@ -14,8 +14,9 @@ export default function SelecionarGrupoEmpresa() {
   const [error, setError] = useState('');
   const [, setLoading] = useLoadingState();
   const [session, , mergeSession] = useSessionState();
-  const gruposEmpresa = session?.gruposEmpresa || [];
-  const groupCompanyIsSelected = !!session?.grupoEmpresa?.id;
+  const gruposEmpresa = session?.gruposEmpresa?.value || [];
+  const selectedGroupCompany = session?.grupoEmpresa?.value || {};
+  const groupCompanyIsSelected = !!session?.grupoEmpresa?.value?.id;
 
   const modalStyle = {
     display: 'flex',
@@ -66,7 +67,7 @@ export default function SelecionarGrupoEmpresa() {
           </p>
           <div className="modal-content">
             {gruposEmpresa.map((grupoEmpresa, index) => {
-              const isSelected = grupoEmpresa.id === session?.grupoEmpresa?.id;
+              const isSelected = grupoEmpresa.id === selectedGroupCompany.id;
 
               return (
                 <button

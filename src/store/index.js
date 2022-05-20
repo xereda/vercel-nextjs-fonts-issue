@@ -15,13 +15,8 @@ export const sessionState = () => sessionStore;
 
 export const useSessionState = () => {
   const session = useState(sessionStore);
-  const sessionNativeObject = session.keys.reduce((acc, cur) => {
-    acc[cur] = JSON.parse(JSON.stringify(session.nested(cur).value));
 
-    return acc;
-  }, {});
-
-  return [sessionNativeObject, session.set, session.merge];
+  return [session, session.set, session.merge];
 };
 
 export const loadingState = () => loadingStore;

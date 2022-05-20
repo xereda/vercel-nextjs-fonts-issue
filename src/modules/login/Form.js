@@ -27,7 +27,6 @@ export default function Form({ withRecaptcha }) {
   const [, setLoading] = useLoadingState();
 
   const updateSessionState = (payload) => {
-    console.log(payload);
     setSession(payload);
   };
 

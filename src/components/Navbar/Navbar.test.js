@@ -28,13 +28,21 @@ describe('Navbar component', () => {
     const { getByText, getByRole, queryByText } = render(<Navbar />);
 
     const dropdown = getByRole('dropdown');
-    userEvent.click(dropdown);
+    await userEvent.click(dropdown);
 
     await waitFor(() => {
       expect(getByText('Permissão de acesso')).toBeInTheDocument();
-      expect(getByText('Converter arquivos').closest('a')).toHaveAttribute('href', '/conversor');
-      expect(getByText('Locais de entrega').closest('a')).toHaveAttribute('href', '/locais-entrega');
-      expect(queryByText('Trocar grupo', { exact: false })).not.toBeInTheDocument();
+      expect(getByText('Converter arquivos').closest('a')).toHaveAttribute(
+        'href',
+        '/conversor',
+      );
+      expect(getByText('Locais de entrega').closest('a')).toHaveAttribute(
+        'href',
+        '/locais-entrega',
+      );
+      expect(
+        queryByText('Trocar grupo', { exact: false }),
+      ).not.toBeInTheDocument();
       expect(getByText('Sair').closest('a')).toHaveAttribute('href', '/login');
     });
   });
@@ -65,13 +73,22 @@ describe('Navbar component', () => {
     const { getByText, getByRole } = render(<Navbar />);
 
     const dropdown = getByRole('dropdown');
-    userEvent.click(dropdown);
+    await userEvent.click(dropdown);
 
     await waitFor(() => {
       expect(getByText('Permissão de acesso')).toBeInTheDocument();
-      expect(getByText('Converter arquivos').closest('a')).toHaveAttribute('href', '/conversor');
-      expect(getByText('Locais de entrega').closest('a')).toHaveAttribute('href', '/locais-entrega');
-      expect(getByText('Trocar grupo (2)').closest('a')).toHaveAttribute('href', '/selecionar-grupo-empresa');
+      expect(getByText('Converter arquivos').closest('a')).toHaveAttribute(
+        'href',
+        '/conversor',
+      );
+      expect(getByText('Locais de entrega').closest('a')).toHaveAttribute(
+        'href',
+        '/locais-entrega',
+      );
+      expect(getByText('Trocar grupo (2)').closest('a')).toHaveAttribute(
+        'href',
+        '/selecionar-grupo-empresa',
+      );
       expect(getByText('Sair').closest('a')).toHaveAttribute('href', '/login');
     });
   });
