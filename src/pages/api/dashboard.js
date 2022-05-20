@@ -8,15 +8,27 @@ export default async function handler(req, res) {
     const { headers, idGrupoEmpresa, params, isInvalidSession } =
       makeSessionHeaders(req);
 
+    const { filterStatus } = req?.query || {};
+
     if (isInvalidSession) {
       throw 'INVALID_DATA_SESSION';
     }
+
+    const parameters = {
+      ...params,
+      paginaAtual: 1,
+      tamanhoPagina: 10,
+    };
+
+    if (filterStatus) {
+      parameters.statusPedido = filterStatus;
+    };
 
     const responseOrders = await httpClient({
       method: 'get',
       url: process.env.RESUMO_PEDIDOS_PATH,
       headers,
-      params: { ...params, paginaAtual: 1, tamanhoPagina: 10 },
+      params: parameters,
     });
 
     const orders = transformOrders(responseOrders?.data?.pedidos || []);

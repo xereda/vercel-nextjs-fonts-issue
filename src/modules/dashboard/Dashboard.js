@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLoadingState } from '@/store/index';
 import Layout from '@/components/Layout/Layout';
 import PageContent from '@/components/PageContent/PageContent';
@@ -9,13 +9,16 @@ import OrdersList from './OrdersList/OrdersList';
 import FeedbackPlaceholder from '@/components/FeedbackPlaceholder/FeedbackPlaceholder';
 import style from './Dashboard.style';
 import { useDashboard } from './services';
+import FilterOrderStatus from '@/components/FilterOrderStatus/FilterOrderStatus';
 
 export default function Dashboard() {
-  const { data, hasError, isLoading, noData } = useDashboard();
+  const [, setLoading] = useLoadingState();
+  const [filterStatus, setFilterStatus] = useState('');
+
+  const { data, hasError, isLoading, noData } = useDashboard({ filterStatus });
   const virtualBalance = data?.virtualBalance?.balanceValue;
   const useLimit = data?.useLimit;
   const orders = data?.orders;
-  const [, setLoading] = useLoadingState();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => setLoading(false), []);
@@ -29,6 +32,13 @@ export default function Dashboard() {
           <div className="account-info">
             <LimitChart {...useLimit} />
             <VirtualAccount virtualBalance={virtualBalance} />
+          </div>
+
+          <div className="filter-section">
+            <FilterOrderStatus
+              status={filterStatus}
+              onClickFilter={setFilterStatus}
+            />
           </div>
 
           <div className="orders-list">

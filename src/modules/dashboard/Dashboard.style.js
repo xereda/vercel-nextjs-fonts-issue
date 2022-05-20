@@ -8,6 +8,12 @@ export default css`
     border-bottom: 2px dotted #EBEBEB;
     height: 153px;
   }
+  .filter-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 10px;
+  }
   .orders-list {
     display: block;
     margin-top: 20px;

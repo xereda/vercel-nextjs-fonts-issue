@@ -1,8 +1,8 @@
 import useSWR from 'swr';
 import { fetcher } from '@/utils/services';
 
-const useDashboard = () => {
-  const { data, error } = useSWR('/api/dashboard', fetcher, {
+const useDashboard = ({ filterStatus }) => {
+  const { data, error } = useSWR(`/api/dashboard?filterStatus=${filterStatus}`, fetcher, {
     refreshInterval: 5000,
   });
 
