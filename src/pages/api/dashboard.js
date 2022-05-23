@@ -8,21 +8,21 @@ export default async function handler(req, res) {
     const { headers, idGrupoEmpresa, params, isInvalidSession } =
       makeSessionHeaders(req);
 
-    const { filterStatus } = req?.query || {};
+    const { filterStatus, page } = req?.query || {};
 
     if (isInvalidSession) {
-      throw 'INVALID_DATA_SESSION';
+      throw 'Não foi possível definir os headers de autorização';
     }
 
     const parameters = {
       ...params,
-      paginaAtual: 1,
+      paginaAtual: page,
       tamanhoPagina: 10,
     };
 
     if (filterStatus) {
       parameters.statusPedido = filterStatus;
-    };
+    }
 
     const responseOrders = await httpClient({
       method: 'get',
@@ -32,6 +32,7 @@ export default async function handler(req, res) {
     });
 
     const orders = transformOrders(responseOrders?.data?.pedidos || []);
+    const totalItems = responseOrders?.data?.meta?.total || 0;
 
     const urlVirtualBalance = process.env.SALDO_CONTA_VIRTUAL_PATH.replace(
       '[idGrupoEmpresa]',
@@ -63,7 +64,7 @@ export default async function handler(req, res) {
       totalLimit: formatMoney(responseUseLimit?.data?.valorLimiteDisponivel),
     };
 
-    res.status(200).json({ orders, virtualBalance, useLimit });
+    res.status(200).json({ orders, virtualBalance, useLimit, totalItems });
   } catch (e) {
     const error = getErrorMessage(
       e,

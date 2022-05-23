@@ -26,3 +26,17 @@ export const getErrorMessage = (e, defaultMessage) => {
 
   return error;
 };
+
+export const makeUrlQueryString = (queries = {}) => {
+  if (typeof queries !== 'object' || !queries) {
+    return '';
+  }
+
+  return Object.keys(queries).reduce((acc, cur) => {
+    if (queries[cur]) {
+      acc = `${acc}${cur}=${queries[cur]}&`;
+    }
+
+    return acc;
+  }, '');
+};

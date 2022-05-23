@@ -1,0 +1,25 @@
+.ant-page-header-heading-title {
+  font-size: 16px !important;
+  font-weight: 400 !important;
+}
+
+.ant-page-header-back-button:focus, .ant-page-header-back-button:hover {
+  color: var(--bds-color-black) !important;
+}
+
+.ant-tooltip-inner {
+  color: var(--bds-color-black) !important;
+  font-size: 12px !important;
+}
+
+.ant-btn-link {
+  color: var(--bds-color-blue) !important;
+}
+
+.ant-pagination-item-active {
+  border-color: var(--bds-color-black) !important;
+}
+
+.ant-pagination-item a {
+  color: var(--bds-color-black) !important;
+}

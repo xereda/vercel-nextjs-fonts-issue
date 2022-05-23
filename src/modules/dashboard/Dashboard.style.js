@@ -5,7 +5,7 @@ export default css`
     display: grid;
     grid-template-columns: 1fr 36rem;
     justify-content: space-between;
-    border-bottom: 2px dotted #EBEBEB;
+    border-bottom: 2px dotted #ebebeb;
     height: 153px;
   }
   .filter-section {
@@ -17,5 +17,11 @@ export default css`
   .orders-list {
     display: block;
     margin-top: 20px;
+  }
+  .orders-pagination {
+    padding: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;

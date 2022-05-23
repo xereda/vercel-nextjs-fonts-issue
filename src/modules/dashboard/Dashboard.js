@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Pagination } from 'antd';
 import { useLoadingState } from '@/store/index';
 import Layout from '@/components/Layout/Layout';
 import PageContent from '@/components/PageContent/PageContent';
@@ -13,12 +14,17 @@ import FilterOrderStatus from '@/components/FilterOrderStatus/FilterOrderStatus'
 
 export default function Dashboard() {
   const [, setLoading] = useLoadingState();
+  const [page, setPage] = useState(1);
   const [filterStatus, setFilterStatus] = useState('');
 
-  const { data, hasError, isLoading, noData } = useDashboard({ filterStatus });
+  const { data, hasError, isLoading, noData } = useDashboard({
+    filterStatus,
+    page,
+  });
   const virtualBalance = data?.virtualBalance?.balanceValue;
   const useLimit = data?.useLimit;
   const orders = data?.orders;
+  const totalItems = data?.totalItems;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => setLoading(false), []);
@@ -43,6 +49,16 @@ export default function Dashboard() {
 
           <div className="orders-list">
             <OrdersList {...{ orders }} />
+          </div>
+
+          <div className="orders-pagination">
+            <Pagination
+              size="small"
+              current={page}
+              pageSize={10}
+              total={totalItems}
+              onChange={setPage}
+            />
           </div>
 
           <style jsx="true">{style}</style>
