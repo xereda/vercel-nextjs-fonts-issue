@@ -11,14 +11,17 @@ import FeedbackPlaceholder from '@/components/FeedbackPlaceholder/FeedbackPlaceh
 import style from './Dashboard.style';
 import { useDashboard } from './services';
 import FilterOrderStatus from '@/components/FilterOrderStatus/FilterOrderStatus';
+import FilterOrderDate from '@/components/FilterOrderDate/FilterOrderDate';
 
 export default function Dashboard() {
   const [, setLoading] = useLoadingState();
   const [page, setPage] = useState(1);
   const [filterStatus, setFilterStatus] = useState('');
+  const [filterDate, setFilterDate] = useState('');
 
   const { data, hasError, isLoading, noData } = useDashboard({
     filterStatus,
+    filterDate,
     page,
   });
   const virtualBalance = data?.virtualBalance?.balanceValue;
@@ -44,6 +47,10 @@ export default function Dashboard() {
             <FilterOrderStatus
               status={filterStatus}
               onClickFilter={setFilterStatus}
+            />
+            <FilterOrderDate
+              status={filterDate}
+              onClickFilter={setFilterDate}
             />
           </div>
 
