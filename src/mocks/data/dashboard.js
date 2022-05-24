@@ -1,77 +1,79 @@
-export default {
-  useLimit: {
-    percentage: 1,
-    limiteBalance: 'R$ 99,00',
-    usedLimit: 'R$ 1,00',
-    totalLimit: 'R$ 100,00',
-  },
-  virtualBalance: {
-    balanceValue: 'R$ 1.000,00',
-  },
-  orders: [
-    {
-      orderId: '3333',
-      date: '04/01/2022 - 14:35:00',
-      value: 'R$ 2.635,01',
-      canCancel: true,
-      status: {
-        enum: 'CONCLUIDO',
-        label: 'Concluído',
-        color: '--bds-color-green',
-      },
-      paymentStatus: {
-        enum: 'AGUARDANDO',
-        label: 'Aguardando',
-        color: '--bds-color-yellow',
-      },
-    },
-    {
-      orderId: '2222',
-      date: '20/12/2021 - 11:35:10',
-      value: 'R$ 150.650,00',
-      canCancel: true,
-      status: {
-        enum: 'AGUARDANDO_CONIRMACAO',
-        label: 'Aguardando confirmação',
-        color: '--bds-color-black-lighter',
-      },
-      paymentStatus: {
-        enum: 'PAGO',
-        label: 'Pago',
-        color: '--bds-color-green',
-      },
-    },
-    {
-      orderId: '1111',
-      date: '15/11/2021 - 15:07:54',
-      value: 'R$ 580.344,97',
-      canCancel: false,
-      status: {
-        enum: 'CANCELADO',
-        label: 'Cancelado',
-        color: '--bds-color-red',
-      },
-      paymentStatus: {
-        enum: 'LIMITE_CREDITO_INSUFICIENTE',
-        label: 'Limite de crédito insuficiente',
-        color: '--bds-color-red',
-      },
-    },
-    {
-      orderId: '0957',
-      date: '13/11/2021 - 12:41:32',
-      value: 'R$ 903.889,05',
-      canCancel: true,
-      status: {
-        enum: 'INVALIDADO',
-        label: 'Invalidado',
-        color: '--bds-color-red',
-      },
-      paymentStatus: {
-        enum: '-',
-        label: '-',
-        color: '--bds-color-black-light',
-      },
-    },
-  ],
+import { DASHBOARD_TOTAL_ORDERS_PER_PAGE } from '@/utils/constants';
+import { paginate } from '@/utils/services';
+import { transformOrders } from '@/transform/order';
+import ordersMock from './orders';
+
+const useLimit = {
+  percentage: 51,
+  limiteBalance: 'R$ 4.900,00',
+  usedLimit: 'R$ 5.100,00',
+  totalLimit: 'R$ 10.000,00',
 };
+
+const virtualBalance = {
+  balanceValue: 'R$ 1.000,00',
+};
+
+const getMock = (req) => {
+  const page = req?.url?.searchParams?.get?.('page') || 0;
+  const filterStatus = req?.url?.searchParams?.get?.('filterStatus');
+  const filterDate = req?.url?.searchParams?.get?.('filterDate');
+  const filterOrderId = req?.url?.searchParams?.get?.('filterOrderId');
+
+  const filteringByStatus = (order) => {
+    if (filterStatus && order.statusPedido !== filterStatus) {
+      return false;
+    }
+
+    return true;
+  };
+
+  const filteringByDate = (order) => {
+    if (
+      filterDate &&
+      new Date(order.dataCriacao).getTime() < new Date(filterDate).getTime()
+    ) {
+      return false;
+    }
+
+    return true;
+  };
+
+  const filteringByOrderId = (order) => {
+    if (filterOrderId && !(order.idPedido + '').includes(filterOrderId)) {
+      return false;
+    }
+
+    return true;
+  };
+
+  const filteredOrders = ordersMock
+    .filter(filteringByStatus)
+    .filter(filteringByOrderId)
+    .filter(filteringByDate);
+
+  const paginatedOrders = paginate({
+    array: filteredOrders,
+    pageNumber: page,
+    pageSize: DASHBOARD_TOTAL_ORDERS_PER_PAGE,
+  });
+
+  return {
+    useLimit,
+    virtualBalance,
+    totalItems: filteredOrders.length,
+    orders: transformOrders(paginatedOrders),
+  };
+};
+
+export const orders = transformOrders(
+  paginate({
+    array: ordersMock,
+    pageNumber: 1,
+    pageSize: DASHBOARD_TOTAL_ORDERS_PER_PAGE,
+  }),
+);
+
+export default function hadler(req, res, ctx) {
+  return res(ctx.status(200), ctx.json(getMock(req)), ctx.delay());
+}

@@ -1,17 +1,16 @@
 import { render, screen } from '@testing-library/react';
-import mock from '@/mocks/data/dashboard';
+import { DASHBOARD_TOTAL_ORDERS_PER_PAGE } from '@/utils/constants';
+import { orders } from '@/mocks/data/dashboard';
 import OrdersList from './OrdersList';
-
-const { orders } = mock;
 
 describe('OrdersList component', () => {
   test('deve renderizar a lista de pedidos informada via prop', () => {
     render(<OrdersList orders={orders} />);
 
-    expect(screen.getAllByText('Id do pedido')).toHaveLength(4);
-    expect(screen.getByText(/1111/)).toBeInTheDocument();
-    expect(screen.getByText(/2222/)).toBeInTheDocument();
-    expect(screen.getByText(/3333/)).toBeInTheDocument();
-    expect(screen.getByText(/0957/)).toBeInTheDocument();
+    expect(screen.getAllByText('Id do pedido')).toHaveLength(
+      DASHBOARD_TOTAL_ORDERS_PER_PAGE,
+    );
+    expect(screen.getByText(/10882/)).toBeInTheDocument();
+    expect(screen.getByText(/10881/)).toBeInTheDocument();
   });
 });

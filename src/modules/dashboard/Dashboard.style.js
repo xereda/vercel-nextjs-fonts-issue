@@ -5,14 +5,13 @@ export default css`
     display: grid;
     grid-template-columns: 1fr 36rem;
     justify-content: space-between;
-    border-bottom: 2px dotted #ebebeb;
+    border-bottom: 2px dotted var(--bds-color-gray-extralight);
     height: 153px;
   }
   .filter-section {
     display: flex;
-    align-items: center;
-    /* justify-content: space-between; */
-    margin: 20px 10px;
+    justify-content: space-between;
+    margin: 20px 0;
   }
   .orders-list {
     display: block;

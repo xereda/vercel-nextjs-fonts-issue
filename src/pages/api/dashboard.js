@@ -1,5 +1,6 @@
 import { getErrorMessage, httpClient } from '@/utils/services';
 import { makeSessionHeaders } from '@/utils/session';
+import { DASHBOARD_TOTAL_ORDERS_PER_PAGE } from '@/utils/constants';
 import { transformOrders } from '@/transform/order';
 import { formatMoney } from '@/utils/format';
 import { format } from 'date-fns';
@@ -9,26 +10,29 @@ export default async function handler(req, res) {
     const { headers, idGrupoEmpresa, params, isInvalidSession } =
       makeSessionHeaders(req);
 
-    const { filterStatus, filterDate, page } = req?.query || {};
-    const today = format(new Date(), 'yyyy-MM-dd');
-
     if (isInvalidSession) {
       throw 'Não foi possível definir os headers de autorização';
     }
 
+    const { filterStatus, filterDate, filterOrderId, page } = req?.query || {};
+
     const parameters = {
       ...params,
       paginaAtual: page,
-      tamanhoPagina: 10,
+      tamanhoPagina: DASHBOARD_TOTAL_ORDERS_PER_PAGE,
     };
 
     if (filterStatus) {
       parameters.statusPedido = filterStatus;
     }
 
+    if (filterOrderId) {
+      parameters.idPedido = filterOrderId;
+    }
+
     if (filterDate) {
       parameters.dataCriacaoInicial = filterDate;
-      parameters.dataCriacaoFinal = today;
+      parameters.dataCriacaoFinal = format(new Date(), 'yyyy-MM-dd');
     }
 
     const responseOrders = await httpClient({

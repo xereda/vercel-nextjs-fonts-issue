@@ -3,6 +3,7 @@ import { rest } from 'msw';
 import { server } from '@/mocks/server';
 import { render, screen, waitFor } from '@testing-library/react';
 import RenderWithoutSWRCache from '@/mocks/RenderWithouCache';
+import { DASHBOARD_TOTAL_ORDERS_PER_PAGE } from '@/utils/constants';
 import Dashboard from './Dashboard';
 
 describe('Dashboard component', () => {
@@ -12,8 +13,10 @@ describe('Dashboard component', () => {
     expect(screen.getByRole('Loading')).toBeInTheDocument();
 
     await waitFor(() => {
-      expect(screen.getByText(/1111/)).toBeInTheDocument();
-      expect(screen.getAllByText('Id do pedido')).toHaveLength(4);
+      expect(screen.getByText(/10882/)).toBeInTheDocument();
+      expect(screen.getAllByText('Status do pedido')).toHaveLength(
+        DASHBOARD_TOTAL_ORDERS_PER_PAGE,
+      );
     });
   });
 

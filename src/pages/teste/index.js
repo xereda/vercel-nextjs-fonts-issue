@@ -1,5 +1,6 @@
 import ClientOnly from '@/components/ClientOnly/ClientOnly';
 import { useLoadingState, useSessionState } from '@/store/index';
+import InputOptions from '@/components/InputOptions/InputOptions';
 
 export default function Teste() {
   const [loading, setLoading] = useLoadingState();
@@ -9,8 +10,6 @@ export default function Teste() {
 
   const addOrderToSessionState = () => {
     const newOrder = { id: orders.length + 1, date: new Date().getTime() };
-
-    console.log('addOrderToSessionState', { orders, newOrder });
 
     if (!session?.orders?.value) {
       mergeSession({ orders: [] });
@@ -30,7 +29,18 @@ export default function Teste() {
           </p>
         ))}
       </div>
-      <button onClick={() => setLoading(true)}>ligar loading</button>
+      <InputOptions
+        value="1158"
+        placeholder="Buscar por"
+        options={[
+          { value: 'ID_PEDIDO', label: 'Id do pedido' },
+          { value: 'ID_FATURA', label: 'Id da fatura', default: true },
+          { value: 'CNPJ', label: 'CNPJ' },
+        ]}
+        onTypeFilter={console.log}
+        onChangeOption={console.log}
+      />
+      ,<button onClick={() => setLoading(true)}>ligar loading</button>
       <button onClick={() => setLoading(false)}>desligar loading</button>
       <button onClick={addOrderToSessionState}>
         adicionar pedido numa nova propriedade em session

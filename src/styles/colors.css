@@ -8,6 +8,7 @@
   --bds-color-gray-medium: #979797;
   --bds-color-gray-light: #d8d8d8;
   --bds-color-gray-lighter: #dddddd;
+  --bds-color-gray-extralight: #ebebeb;
   --bds-color-white-gray: #f2f2f2; 
   --bds-color-white: #fff;
   --bds-color-red: #ff053f;
@@ -17,3 +18,4 @@
   --bds-color-yellow: #feca43;
   --bds-color-yellow-dark: #ecb832;  
 }
+

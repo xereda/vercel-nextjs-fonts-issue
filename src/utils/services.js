@@ -40,3 +40,13 @@ export const makeUrlQueryString = (queries = {}) => {
     return acc;
   }, '');
 };
+
+export const paginate = (paginationProps = {}) => {
+  if (!paginationProps?.array?.[0]) {
+    return [];
+  }
+
+  const { array, pageNumber, pageSize } = paginationProps;
+
+  return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+};

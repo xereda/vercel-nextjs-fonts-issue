@@ -78,8 +78,6 @@ export const getTempSessionData = async () => {
 
   const { encryptedKey, encryptedData } = await krypton.encrypt(code);
 
-  console.log({ encryptedKey, encryptedData });
-
   const responseToken = await httpClient({
     method: 'post',
     url: process.env.TOKEN_TEMPORARIO_PATH,

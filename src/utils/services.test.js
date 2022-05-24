@@ -1,4 +1,4 @@
-import { getErrorMessage, makeUrlQueryString } from './services';
+import { getErrorMessage, makeUrlQueryString, paginate } from './services';
 
 const responseWithArrayOfErrors = {
   response: {
@@ -41,5 +41,30 @@ describe('makeUrlQueryString', () => {
     expect(makeUrlQueryString(NaN)).toEqual('');
     expect(makeUrlQueryString(undefined)).toEqual('');
     expect(makeUrlQueryString(() => null)).toEqual('');
+  });
+});
+
+describe('paginate', () => {
+  test('deve retornar uma lista paginada de uma array origem', () => {
+    expect(
+      paginate({ array: [1, 2, 3, 4, 5, 6], pageNumber: 2, pageSize: 2 }),
+    ).toEqual([3, 4]);
+  });
+
+  test('deve retornar uma lista vazia caso o número da página não exista', () => {
+    expect(
+      paginate({ array: [1, 2, 3, 4, 5, 6], pageNumber: 10, pageSize: 2 }),
+    ).toEqual([]);
+  });
+
+  test('deve retornar uma lista vazia caso receba um argumento inválido', () => {
+    expect(paginate()).toEqual([]);
+    expect(paginate([])).toEqual([]);
+    expect(paginate(0)).toEqual([]);
+    expect(paginate('aaa')).toEqual([]);
+    expect(paginate(null)).toEqual([]);
+    expect(paginate(NaN)).toEqual([]);
+    expect(paginate(undefined)).toEqual([]);
+    expect(paginate(() => null)).toEqual([]);
   });
 });
