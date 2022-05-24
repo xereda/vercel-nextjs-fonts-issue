@@ -64,7 +64,6 @@ export default css`
     font-size: 12px;
     line-height: 18px;
     letter-spacing: 0.1px;
-    color: var(--bds-color-green);
   }
   #total {
     color: var(--bds-color-black);

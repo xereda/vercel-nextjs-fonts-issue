@@ -1,6 +1,7 @@
 import { PieChart } from 'react-minimal-pie-chart';
 import propTypes from 'prop-types';
 import style from './LimitChart.style';
+import { useEffect, useState } from 'react';
 
 LimitChart.propTypes = {
   percentage: propTypes.number,
@@ -23,19 +24,37 @@ export default function LimitChart({
   totalLimit,
 }) {
 
+  const [backgroudColor, setBackgroundColor] = useState('');
+  const [gaugeColor, setGageColor] = useState('');
+
+  useEffect(() => {
+    if (percentage >= 0 && percentage <= 49) {
+      setBackgroundColor('var(--bds-color-green)');
+      setGageColor('var(--bds-color-green-dark)');
+    }
+    if (percentage >= 50 && percentage <= 74) {
+      setBackgroundColor('var(--bds-color-yellow-light)');
+      setGageColor('var(--bds-color-yellow-dark)');
+    }
+    if (percentage >= 75) {
+      setBackgroundColor('var(--bds-color-red-light)');
+      setGageColor('var(--bds-color-red-dark)');
+    }
+  }, [percentage]);
+
   return(
     <div className="chart-container">
       <div className="chart-wrapper">
         <div className="chart-transform">
           <PieChart
             id="chart"
-            data={[{ value: 1, key: 1, color: 'green' }]}
+            data={[{ value: 1, key: 1, color: gaugeColor }]}
             reveal={percentage}
             lineWidth={25}
             percentage={`${percentage}`}
             lengthAngle={270}
             rounded
-            background="#2AD178"
+            background={backgroudColor}
           />
         </div>
         <span id="chart-percentage">{`${percentage}%`}</span>
@@ -52,7 +71,7 @@ export default function LimitChart({
 
         <span id="chart-desc">
           Você está utilizando
-          <span id="used-value">
+          <span id="used-value" style={{color: gaugeColor}}>
             {` ${usedLimit} `}
           </span>
           do seu limite total de

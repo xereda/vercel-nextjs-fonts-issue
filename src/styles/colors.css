@@ -12,10 +12,14 @@
   --bds-color-white-gray: #f2f2f2; 
   --bds-color-white: #fff;
   --bds-color-red: #ff053f;
+  --bds-color-red-light: #ffa0a0;
+  --bds-color-red-dark:#de0202;
   --bds-color-red-error-text: #ed5050;
   --bds-color-blue: #09f;
   --bds-color-green: #15c759;
+  --bds-color-green-dark: #10843c;
   --bds-color-yellow: #feca43;
+  --bds-color-yellow-light: #ffe8ad;
   --bds-color-yellow-dark: #ecb832;  
 }
 
