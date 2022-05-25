@@ -38,7 +38,7 @@ export default function LimitChart({
     }
     if (percentage >= 75) {
       setBackgroundColor('var(--bds-color-red-light)');
-      setGageColor('var(--bds-color-red-dark)');
+      setGageColor('var(--bds-color-red-medium)');
     }
   }, [percentage]);
 

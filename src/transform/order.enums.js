@@ -9,7 +9,7 @@ export const orderStatusEnum = {
   },
   INVALIDADO: {
     label: 'Invalidado',
-    color: '--bds-color-red',
+    color: '--bds-color-red-dark',
   },
   CONCLUIDO: {
     label: 'Concluído',
@@ -21,7 +21,7 @@ export const orderStatusEnum = {
   },
   CANCELADO: {
     label: 'Cancelado',
-    color: '--bds-color-red',
+    color: '--bds-color-red-dark',
   },
   CANCELADO_PARCIAL: {
     label: 'Cancelado parcial',
@@ -33,7 +33,7 @@ export const orderStatusEnum = {
   },
   EXPIRADO: {
     label: 'Expirado',
-    color: '--bds-color-red',
+    color: '--bds-color-red-dark',
   },
 };
 
@@ -44,7 +44,7 @@ export const paymentStatusEnum = {
   },
   EXPIRADO: {
     label: 'Expirado',
-    color: '--bds-color-red',
+    color: '--bds-color-red-dark',
   },
   PAGO_PARCIALMENTE: {
     label: 'Pago parcialmente',
@@ -56,15 +56,15 @@ export const paymentStatusEnum = {
   },
   LIMITE_CREDITO_VENCIDO: {
     label: 'Limite de crédito vencido',
-    color: '--bds-color-red',
+    color: '--bds-color-red-dark',
   },
   LIMITE_CREDITO_INSUFICIENTE: {
     label: 'Limite de crédito insuficiente',
-    color: '--bds-color-red',
+    color: '--bds-color-red-dark',
   },
   CANCELADO: {
     label: 'Cancelado',
-    color: '--bds-color-red',
+    color: '--bds-color-red-dark',
   },
   CANCELADO_PARCIAL: {
     label: 'Parcialmente cancelado',
