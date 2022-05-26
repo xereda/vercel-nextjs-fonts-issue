@@ -66,6 +66,7 @@ export default function Dashboard() {
               onClickFilter={setFilterDate}
             />
             <InputOptions
+              placeholder="Buscar por"
               value={filterOrderId}
               options={[{ value: 'ID_PEDIDO', label: 'Id do pedido' }]}
               onType={setFilterOrderId}

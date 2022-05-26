@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import { DASHBOARD_TOTAL_ORDERS_PER_PAGE } from '@/utils/constants';
-import { orders } from '@/mocks/data/dashboard';
+import { getOrdersFromPage } from '@/mocks/data/dashboard';
 import OrdersList from './OrdersList';
 
 describe('OrdersList component', () => {
   test('deve renderizar a lista de pedidos informada via prop', () => {
-    render(<OrdersList orders={orders} />);
+    render(<OrdersList orders={getOrdersFromPage(1)} />);
 
     expect(screen.getAllByText('Id do pedido')).toHaveLength(
       DASHBOARD_TOTAL_ORDERS_PER_PAGE,

@@ -3,6 +3,8 @@ import { paginate } from '@/utils/services';
 import { transformOrders } from '@/transform/order';
 import ordersMock from './orders';
 
+export const totalOrders = ordersMock.length;
+
 const useLimit = {
   percentage: 51,
   limiteBalance: 'R$ 4.900,00',
@@ -66,13 +68,14 @@ const getMock = (req) => {
   };
 };
 
-export const orders = transformOrders(
-  paginate({
-    array: ordersMock,
-    pageNumber: 1,
-    pageSize: DASHBOARD_TOTAL_ORDERS_PER_PAGE,
-  }),
-);
+export const getOrdersFromPage = (page) =>
+  transformOrders(
+    paginate({
+      array: ordersMock,
+      pageNumber: page,
+      pageSize: DASHBOARD_TOTAL_ORDERS_PER_PAGE,
+    }),
+  );
 
 export default function hadler(req, res, ctx) {
   return res(ctx.status(200), ctx.json(getMock(req)), ctx.delay());
