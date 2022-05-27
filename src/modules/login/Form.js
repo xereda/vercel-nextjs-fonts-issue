@@ -1,3 +1,4 @@
+import { useSWRConfig } from 'swr';
 import { useState } from 'react';
 import propTypes from 'prop-types';
 import Link from 'next/link';
@@ -20,7 +21,11 @@ Form.defaultProps = {
 };
 
 export default function Form({ withRecaptcha }) {
+  const { cache } = useSWRConfig();
+
   const router = useRouter();
+  const { userSessionTimeout } = router.query;
+
   const [error, setError] = useState('');
 
   const [, setSession] = useSessionState();
@@ -78,6 +83,9 @@ export default function Form({ withRecaptcha }) {
             if (session?.gruposEmpresa?.length > 1) {
               router.push('/selecionar-grupo-empresa');
             } else {
+              cache.get('/api/dashboard');
+              cache.clear();
+
               router.push('/dashboard');
             }
           } else {
@@ -174,7 +182,11 @@ export default function Form({ withRecaptcha }) {
         )}
       </div>
       {withRecaptcha && <Recaptcha {...{ handleRecaptch }} />}
-      <p className="integration-error">{error}</p>
+
+      <p className="integration-error">
+        {userSessionTimeout ? 'Sessão do usuário expirada' : error}
+      </p>
+
       <Button isFullWidth type="submit" disabled={disableSubmitButton()}>
         Fazer login
       </Button>

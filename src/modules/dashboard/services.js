@@ -8,11 +8,16 @@ const useDashboard = (apiFilters = {}) => {
     refreshInterval: 5000,
   });
 
+  const status = error?.response?.data?.error?.status;
+  const hasError = !!error;
+
   return {
     data,
     isLoading: !error && !data,
-    hasError: !!error,
     noData: !error && !data?.virtualBalance,
+    hasError,
+    error,
+    status,
   };
 };
 

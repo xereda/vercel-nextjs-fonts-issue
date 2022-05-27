@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Pagination } from 'antd';
 import { useLoadingState } from '@/store/index';
@@ -16,18 +17,24 @@ import style from './Dashboard.style';
 import { useDashboard } from './services';
 
 export default function Dashboard() {
+  const router = useRouter();
   const [, setLoading] = useLoadingState();
   const [page, setPage] = useState(1);
   const [filterStatus, setFilterStatus] = useState('');
   const [filterDate, setFilterDate] = useState('');
   const [filterOrderId, setFilterOrderId] = useState('');
 
-  const { data, hasError, isLoading, noData } = useDashboard({
+  const { data, hasError, isLoading, noData, status } = useDashboard({
     filterStatus,
     filterDate,
     filterOrderId,
     page,
   });
+
+  if (status === 401) {
+    router.push('/login?userSessionTimeout=true');
+  }
+
   const virtualBalance = data?.virtualBalance?.balanceValue;
   const useLimit = data?.useLimit;
   const orders = data?.orders;

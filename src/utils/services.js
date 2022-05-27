@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { stripTags } from '@/utils/string';
 
 export const fetcher = (url) => axios.get(url).then((res) => res.data);
 
@@ -16,13 +17,17 @@ export const getErrorMessage = (e, defaultMessage) => {
       e?.message,
   };
 
-  if (e === 'INVALID_DATA_SESSION') {
-    error.message = 'Não foi possível obter os dados da sessão. [E0010]';
+  if (e === 'UNAUTHORIZED') {
+    error.status = 401;
+    error.message =
+      '[UNAUTHORIZED] - Não foi possível obter os dados da sessão do usuário';
   }
 
   if (!error.message) {
-    error.message = defaultMessage || `${e} [E0020]`;
+    error.message = defaultMessage || e;
   }
+
+  error.message = stripTags(error.message);
 
   return error;
 };

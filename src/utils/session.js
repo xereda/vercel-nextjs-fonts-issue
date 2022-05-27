@@ -32,11 +32,18 @@ export const makeSessionHeaders = (req = {}) => {
   const usuario = session?.usuario;
   const idUsuario = session?.usuario?.id;
   const cpf = session?.usuario?.cpf;
-  const isInvalidSession = !accessToken || !idGrupoEmpresa || !idUsuario;
+  const isInvalidSession =
+    !accessToken || !idGrupoEmpresa || !idUsuario || !publicKey;
+
+  if (isInvalidSession) {
+    throw 'UNAUTHORIZED';
+  }
 
   const params = { idUsuario, idGrupoEmpresa };
 
-  const credential = krypton.generateHash(publicKey, new Date().getTime() + '');
+  const credential = publicKey
+    ? krypton.generateHash(publicKey, new Date().getTime() + '')
+    : '';
 
   const headers = {
     authorization: `Bearer ${accessToken}`,

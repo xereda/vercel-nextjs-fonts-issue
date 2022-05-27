@@ -7,12 +7,7 @@ import { format } from 'date-fns';
 
 export default async function handler(req, res) {
   try {
-    const { headers, idGrupoEmpresa, params, isInvalidSession } =
-      makeSessionHeaders(req);
-
-    if (isInvalidSession) {
-      throw 'Não foi possível definir os headers de autorização';
-    }
+    const { headers, idGrupoEmpresa, params } = makeSessionHeaders(req);
 
     const { filterStatus, filterDate, filterOrderId, page } = req?.query || {};
 
