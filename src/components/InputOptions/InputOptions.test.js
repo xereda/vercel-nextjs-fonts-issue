@@ -11,8 +11,8 @@ const renderSetup = () =>
       value="1158"
       placeholder="Buscar por"
       options={[
-        { value: 'ID_PEDIDO', label: 'Id do pedido' },
-        { value: 'ID_FATURA', label: 'Id da fatura', default: true },
+        { value: 'ID_PEDIDO', label: 'ID do pedido' },
+        { value: 'ID_FATURA', label: 'ID da fatura', default: true },
         { value: 'CNPJ', label: 'Cnpj' },
       ]}
       onType={handleInput}
@@ -30,7 +30,7 @@ describe('InputOptions Component', () => {
     expect(input).toBeEnabled();
     expect(input).toHaveValue('1158');
     expect(placeholder).toBeInTheDocument();
-    expect(getByText('Id da fatura')).toBeInTheDocument();
+    expect(getByText('ID da fatura')).toBeInTheDocument();
   });
 
   test('deve renderizar as opções do input após o click no select', async () => {
@@ -42,8 +42,8 @@ describe('InputOptions Component', () => {
     await userEvent.click(select);
 
     await waitFor(() => {
-      expect(getByText('Id do pedido')).toBeInTheDocument();
-      expect(getAllByText('Id da fatura')).toHaveLength(2);
+      expect(getByText('ID do pedido')).toBeInTheDocument();
+      expect(getAllByText('ID da fatura')).toHaveLength(2);
       expect(getByText('CNPJ')).toBeInTheDocument();
     });
   });

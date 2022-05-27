@@ -53,7 +53,7 @@ export default function OrderCard({ order }) {
       )}
       <div className="order-row">
         <div className="order-column">
-          <label className="order-label display-block">Id do pedido</label>
+          <label className="order-label display-block">ID do pedido</label>
           <span className="order-value">{order.orderId}</span>
         </div>
         <div className="order-column">

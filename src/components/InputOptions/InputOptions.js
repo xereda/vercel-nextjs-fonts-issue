@@ -9,8 +9,11 @@ const getDefaultOption = (options) =>
 
 const SelectOptions = ({ options, onChange }) => (
   <Select
+    placement='bottomRight'
     defaultValue={getDefaultOption(options)}
     size="large"
+    dropdownMatchSelectWidth={180}
+    showArrow={options.length > 1}
     onChange={(_, selectedOption) =>
       onChange({
         value: selectedOption.value,
@@ -43,7 +46,7 @@ InputOptions.propTypes = {
 InputOptions.defaultProps = {
   placeholder: '',
   value: '',
-  width: '350px',
+  width: '320px',
   onChangeOption: () => null,
 };
 

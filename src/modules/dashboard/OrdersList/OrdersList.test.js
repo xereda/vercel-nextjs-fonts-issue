@@ -7,7 +7,7 @@ describe('OrdersList component', () => {
   test('deve renderizar a lista de pedidos informada via prop', () => {
     render(<OrdersList orders={getOrdersFromPage(1)} />);
 
-    expect(screen.getAllByText('Id do pedido')).toHaveLength(
+    expect(screen.getAllByText('ID do pedido')).toHaveLength(
       DASHBOARD_TOTAL_ORDERS_PER_PAGE,
     );
     expect(screen.getByText(/10882/)).toBeInTheDocument();

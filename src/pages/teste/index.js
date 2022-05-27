@@ -33,8 +33,8 @@ export default function Teste() {
         value="1158"
         placeholder="Buscar por"
         options={[
-          { value: 'ID_PEDIDO', label: 'Id do pedido' },
-          { value: 'ID_FATURA', label: 'Id da fatura', default: true },
+          { value: 'ID_PEDIDO', label: 'ID do pedido' },
+          { value: 'ID_FATURA', label: 'ID da fatura', default: true },
           { value: 'CNPJ', label: 'CNPJ' },
         ]}
         onTypeFilter={console.log}

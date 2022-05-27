@@ -13,7 +13,7 @@ export default css`
     display: flex;
     flex-direction: column;
     flex: 1;
-    min-height: 100vh;
+    min-height: 850px;
     width: 79rem;
     padding: 20px 10px;
     margin: 0 auto;

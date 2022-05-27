@@ -68,7 +68,7 @@ export default function Dashboard() {
             <InputOptions
               placeholder="Buscar por"
               value={filterOrderId}
-              options={[{ value: 'ID_PEDIDO', label: 'Id do pedido' }]}
+              options={[{ value: 'ID_PEDIDO', label: 'ID do pedido' }]}
               onType={setFilterOrderId}
             />
           </div>

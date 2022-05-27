@@ -22,15 +22,19 @@ export default css`
     height: 98px;
     position: sticky;
     top: 0;
-    z-index: 999;
+    z-index: 9999;
   }
   .wrapper-nav {
-    display: grid;
-    grid-template-columns: 4rem 1fr 2.5rem 2.5rem;
+    display: flex;
     gap: 1.5rem;
     align-items: center;
+    justify-content: space-between;
     width: 76rem;
     margin: 0 auto;
+  }
+  .main-navigation {
+    display: flex;
+    gap: 2rem;
   }
   .menu {
     background-color: var(--bds-color-gray-darker);
@@ -55,6 +59,10 @@ export default css`
   }
   .active {
     border-bottom: 4px solid var(--bds-color-red);
+  }
+  .dropdown-navigation {
+    display: flex;
+    gap: 1rem;
   }
   .bell-icon {
     background-color: var(--bds-color-black-lighter);

@@ -2,6 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { Select } from 'antd';
 import { format, subDays, subWeeks } from 'date-fns';
+import { DownOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 
@@ -25,15 +26,17 @@ export default function FilterOrderDate({ onClickFilter, status }) {
     <div>
       <span>Data de criação:</span>
       <Select
+        placement='bottomLeft'
         defaultValue={status}
         style={{ width: 'auto', color: 'var(--bds-color-blue)' }}
         bordered={false}
         dropdownMatchSelectWidth={220}
         onChange={handleChange}
+        suffixIcon={<DownOutlined style={{ color: 'var(--bds-color-blue)' }} />}
       >
-        <Option value="">Todas</Option>
-        <Option value={today}>Hoje</Option>
-        <Option value={yesterday}>Ontem</Option>
+        <Option className="antd-select-option" value="">Todas</Option>
+        <Option className="antd-select-option" value={today}>Hoje</Option>
+        <Option className="antd-select-option" value={yesterday}>Ontem</Option>
         <Option value={oneWeek}>7 dias</Option>
       </Select>
     </div>
