@@ -65,7 +65,11 @@ export default async function handler(req, res) {
 
     const useLimit = {
       percentage: responseUseLimit?.data?.porcentagemUtilizado,
-      limiteBalance: formatMoney(responseUseLimit?.data?.valorDisponivel),
+      limiteBalance: formatMoney(
+        responseUseLimit?.data?.valorDisponivel > 0
+          ? responseUseLimit?.data?.valorDisponivel
+          : 0,
+      ),
       usedLimit: formatMoney(responseUseLimit?.data?.valorUtilizado),
       totalLimit: formatMoney(responseUseLimit?.data?.valorLimiteDisponivel),
     };

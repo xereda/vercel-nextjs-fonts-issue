@@ -14,7 +14,7 @@ export default css`
   .chart-transform {
     transform: rotate(135deg);
   }
-  #chart-percentage {
+  .chart-percentage {
     position: absolute;
     left: 20px;
     top: 35px;
@@ -39,33 +39,36 @@ export default css`
     flex-direction: column;
     margin: auto 18px;
   }
-  #chart-limit {
+  .chart-limit {
     font-size: 12px;
     line-height: 26px;
     letter-spacing: 0.1px;
     color: var(--bds-color-red);
   }
-  #chart-available-value {
+  .chart-available-value {
     font-weight: 600;
     font-size: 32px;
     line-height: 40px;
     letter-spacing: 0.3px;
     color: (--bds-color-black-light);
   }
-  #chart-desc {
+  .chart-desc {
     font-weight: bold;
     font-size: 12px;
     line-height: 18px;
     letter-spacing: 0.1px;
     color: var(--bds-color-gray-medium);
   }
-  #used-value {
+  .chart-email-link {
+    font-weight: normal;
+  }
+  .used-value {
     font-weight: bold;
     font-size: 12px;
     line-height: 18px;
     letter-spacing: 0.1px;
   }
-  #total {
+  .total {
     color: var(--bds-color-black);
   }
 `;

@@ -23,7 +23,6 @@ export default function LimitChart({
   usedLimit,
   totalLimit,
 }) {
-
   const [backgroudColor, setBackgroundColor] = useState('');
   const [gaugeColor, setGageColor] = useState('');
 
@@ -42,7 +41,7 @@ export default function LimitChart({
     }
   }, [percentage]);
 
-  return(
+  return (
     <div className="chart-container">
       <div className="chart-wrapper">
         <div className="chart-transform">
@@ -57,29 +56,38 @@ export default function LimitChart({
             background={backgroudColor}
           />
         </div>
-        <span id="chart-percentage">{`${percentage}%`}</span>
+        <span className="chart-percentage">{`${percentage}%`}</span>
         <span className="label">Utilizado</span>
       </div>
       <div className="description">
-        <span id="chart-limit">
+        <span className="chart-limit">
           seu limite disponível para pedidos é:
         </span>
 
-        <span id="chart-available-value">
-          {limiteBalance}
-        </span>
+        <span className="chart-available-value">{limiteBalance}</span>
 
-        <span id="chart-desc">
-          Você está utilizando
-          <span id="used-value" style={{color: gaugeColor}}>
-            {` ${usedLimit} `}
+        {percentage < 100 ? (
+          <span className="chart-desc">
+            Você está utilizando
+            <span className="used-value" style={{ color: gaugeColor }}>
+              {` ${usedLimit} `}
+            </span>
+            do seu limite total de
+            <span className="total">{` ${totalLimit} `}</span>
           </span>
-          do seu limite total de
-          <span id="total">
-            {` ${totalLimit} `}
+        ) : (
+          <span className="chart-desc">
+            entre em contato com{` `}
+            <a
+              className="chart-email-link"
+              href="mailto:contasareceber@benvisavale.com.br"
+              target="_blank"
+              rel="noreferrer"
+            >
+              contasareceber@benvisavale.com.br
+            </a>
           </span>
-        </span>
-
+        )}
       </div>
 
       <style jsx="true">{style}</style>

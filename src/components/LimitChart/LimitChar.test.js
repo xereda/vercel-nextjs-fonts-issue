@@ -19,9 +19,24 @@ describe('LimitChart component', () => {
       />,
     );
 
-    expect(screen.queryByText('99%')).toBeInTheDocument();
-    expect(screen.queryByText('R$ 1,00')).toBeInTheDocument();
-    expect(screen.queryByText('R$ 99,00')).toBeInTheDocument();
-    expect(screen.queryByText('R$ 100,00')).toBeInTheDocument();
+    expect(screen.getByText('99%')).toBeInTheDocument();
+    expect(screen.getByText('R$ 1,00')).toBeInTheDocument();
+    expect(screen.getByText('R$ 99,00')).toBeInTheDocument();
+    expect(screen.getByText('R$ 100,00')).toBeInTheDocument();
+  });
+
+  test('deve renderizar o email de contato caso o percentual seja 100%', () => {
+    render(
+      <LimitChart
+        percentage={100}
+        limiteBalance="R$ 0,00"
+        usedLimit="R$ 100,00"
+        totalLimit="R$ 100,00"
+      />,
+    );
+
+    expect(screen.getByText('100%')).toBeInTheDocument();
+    expect(screen.getByText('R$ 0,00')).toBeInTheDocument();
+    expect(screen.getByText(/entre em contato com/)).toBeInTheDocument();
   });
 });
