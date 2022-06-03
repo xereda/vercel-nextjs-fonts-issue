@@ -1,12 +1,16 @@
 import useSWR from 'swr';
-import { fetcher, makeUrlQueryString } from '@/utils/services';
+import { fetcher, httpClient, makeUrlQueryString } from '@/utils/services';
 
-const useDashboard = (apiFilters = {}) => {
+const useDashboard = (apiFilters) => {
   const queryParams = makeUrlQueryString(apiFilters);
 
-  const { data, error } = useSWR(`/api/dashboard?${queryParams}`, fetcher, {
-    refreshInterval: 5000,
-  });
+  const { data, error, mutate } = useSWR(
+    `/api/dashboard?${queryParams}`,
+    fetcher,
+    {
+      refreshInterval: 5000,
+    },
+  );
 
   const status = error?.response?.data?.error?.status;
   const hasError = !!error;
@@ -18,7 +22,17 @@ const useDashboard = (apiFilters = {}) => {
     hasError,
     error,
     status,
+    mutate,
   };
 };
 
-export { useDashboard };
+const findWaitingConfirmationOrders = async () => {
+  const response = await httpClient({
+    method: 'get',
+    url: '/api/orders?page=1&filterStatus=AGUARDANDO_CONFIRMACAO',
+  });
+
+  return response?.data?.totalItems > 0;
+};
+
+export { useDashboard, findWaitingConfirmationOrders };

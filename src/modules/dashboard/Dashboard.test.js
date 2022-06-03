@@ -5,7 +5,7 @@ import { server } from '@/mocks/server';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import RenderWithoutSWRCache from '@/mocks/RenderWithouCache';
-import { getOrdersFromPage, totalOrders } from '@/mocks/data/dashboard';
+import { getOrdersFromPage, totalOrders } from '@/mocks/handlers/dashboard';
 import { DASHBOARD_TOTAL_ORDERS_PER_PAGE } from '@/utils/constants';
 import Dashboard from './Dashboard';
 
@@ -75,7 +75,7 @@ describe('Dashboard component', () => {
       expect(screen.queryByRole('Loading')).not.toBeInTheDocument();
     });
 
-    const filterStatus = screen.getByText('Todos');
+    const filterStatus = await screen.findByText('Todos');
     await userEvent.click(filterStatus);
     const statusInvalidado = await screen.findByText('Invalidado');
     await userEvent.click(statusInvalidado);
@@ -107,7 +107,7 @@ describe('Dashboard component', () => {
       expect(screen.queryByRole('Loading')).not.toBeInTheDocument();
     });
 
-    const filterDate = screen.getByText('Todas');
+    const filterDate = await screen.findByText('Todas');
     await userEvent.click(filterDate);
     const today = await screen.findByText('Hoje');
     await userEvent.click(today);
@@ -180,5 +180,29 @@ describe('Dashboard component', () => {
     expect(screen.getAllByText('Status do pedido')).toHaveLength(
       ordersLastPage.length,
     );
+  });
+
+  test('deve renderizar filtrando pelos pedidos aguardando confirmação', async () => {
+    server.use(
+      rest.get('/api/orders', (req, res, ctx) => {
+        return res(ctx.status(200), ctx.json({ totalItems: 1 }));
+      }),
+    );
+
+    render(
+      <RenderWithoutSWRCache>
+        <Dashboard />
+      </RenderWithoutSWRCache>,
+    );
+
+    expect(screen.getByRole('Loading')).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(screen.queryByRole('Loading')).not.toBeInTheDocument();
+    });
+
+    expect(
+      await screen.findByText('Aguardando confirmação'),
+    ).toBeInTheDocument();
   });
 });

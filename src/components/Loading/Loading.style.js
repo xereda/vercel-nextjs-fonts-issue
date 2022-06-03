@@ -3,7 +3,7 @@ import css from 'styled-jsx/css';
 export default css`
   .wrapper-loading {
     z-index: 999;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
     top: 0;
     left: 0;

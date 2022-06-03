@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { stripTags } from '@/utils/string';
 
-export const fetcher = (url) => axios.get(url).then((res) => res.data);
+export const fetcher = (url, options) =>
+  axios.get(url, options).then((res) => res.data);
 
 export const httpClient = axios;
 

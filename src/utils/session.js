@@ -33,7 +33,7 @@ export const makeSessionHeaders = (req = {}) => {
   const idUsuario = session?.usuario?.id;
   const cpf = session?.usuario?.cpf;
   const isInvalidSession =
-    !accessToken || !idGrupoEmpresa || !idUsuario || !publicKey;
+    !accessToken || !idGrupoEmpresa || !idUsuario || !publicKey || !client_id;
 
   if (isInvalidSession) {
     throw 'UNAUTHORIZED';

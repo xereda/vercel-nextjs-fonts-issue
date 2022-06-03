@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import {
@@ -117,13 +117,15 @@ export default function UpdateUser() {
         setError(getErrorMessage(e).message);
         setLoading(false);
       },
-      onFinally: () => setLoading(false),
     });
   };
 
   const disableUpdateButton = () => {
     return !formik.isValid || !formik.dirty;
   };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => setLoading(false), []);
 
   return (
     <LayoutLogin>

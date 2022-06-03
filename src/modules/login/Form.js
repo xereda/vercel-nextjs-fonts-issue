@@ -99,7 +99,6 @@ export default function Form({ withRecaptcha }) {
         setError(getErrorMessage(e).message);
         setLoading(false);
       },
-      onFinally: () => setLoading(false),
     });
   };
 

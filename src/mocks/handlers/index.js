@@ -1,8 +1,11 @@
 import { rest } from 'msw';
-import { dataMocks } from './data/index';
+import { dataMocks } from '../data';
+import dashboard from './dashboard';
+import orders from './orders';
 
 export const handlers = [
-  rest.get('/api/dashboard', dataMocks.dashboard),
+  rest.get('/api/dashboard', dashboard),
+  rest.get('/api/orders', orders),
   rest.post('/api/login', (req, res, ctx) => {
     return res(
       ctx.status(200),

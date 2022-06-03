@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { DASHBOARD_TOTAL_ORDERS_PER_PAGE } from '@/utils/constants';
-import { getOrdersFromPage } from '@/mocks/data/dashboard';
+import { getOrdersFromPage } from '@/mocks/handlers/dashboard';
 import OrdersList from './OrdersList';
 
 describe('OrdersList component', () => {

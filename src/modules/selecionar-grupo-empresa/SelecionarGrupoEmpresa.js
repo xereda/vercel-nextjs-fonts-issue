@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '@/components/Layout/Layout';
 import { ArrowRightOutlined, CheckOutlined } from '@ant-design/icons';
 import { Modal } from 'antd';
@@ -42,9 +42,11 @@ export default function SelecionarGrupoEmpresa() {
         setError(getErrorMessage(e).message);
         setLoading(false);
       },
-      onFinally: () => setLoading(false),
     });
   };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => setLoading(false), []);
 
   return (
     <Layout>

@@ -14,7 +14,7 @@ import FilterOrderDate from '@/components/FilterOrderDate/FilterOrderDate';
 import InputOptions from '@/components/InputOptions/InputOptions';
 import OrdersList from './OrdersList/OrdersList';
 import style from './Dashboard.style';
-import { useDashboard } from './services';
+import { findWaitingConfirmationOrders, useDashboard } from './services';
 
 export default function Dashboard() {
   const router = useRouter();
@@ -44,13 +44,29 @@ export default function Dashboard() {
     setPage(1);
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => setLoading(false), []);
+  useEffect(() => {
+    resetPageNumber(1);
+  }, [filterStatus, filterDate, filterOrderId]);
 
-  useEffect(
-    () => resetPageNumber(1),
-    [filterStatus, filterDate, filterOrderId],
-  );
+  const gotoWaitingConfirmationStatus = async () => {
+    if (await findWaitingConfirmationOrders()) {
+      setFilterStatus('AGUARDANDO_CONFIRMACAO');
+    }
+  };
+
+  useEffect(() => {
+    if (isLoading) {
+      setLoading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
+
+  useEffect(() => {
+    gotoWaitingConfirmationStatus();
+    setLoading(false);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Layout renderNotice={() => <PaymentWarning />}>
@@ -82,16 +98,16 @@ export default function Dashboard() {
 
           <div className="orders-list">
             <OrdersList {...{ orders }} />
-          </div>
 
-          <div className="orders-pagination">
-            <Pagination
-              size="small"
-              current={page}
-              pageSize={DASHBOARD_TOTAL_ORDERS_PER_PAGE}
-              total={totalItems}
-              onChange={setPage}
-            />
+            <div className="orders-pagination">
+              <Pagination
+                size="small"
+                current={page}
+                pageSize={DASHBOARD_TOTAL_ORDERS_PER_PAGE}
+                total={totalItems}
+                onChange={setPage}
+              />
+            </div>
           </div>
 
           <style jsx="true">{style}</style>

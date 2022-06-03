@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { postStatusTerm } from './services.js';
 import { getErrorMessage } from '@/utils/services';
@@ -36,9 +36,11 @@ export default function TermPrivacy() {
         setError(getErrorMessage(e).message);
         setLoading(false);
       },
-      onFinally: () => setLoading(false),
     });
   };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => setLoading(false), []);
 
   return (
     <LayoutLogin>

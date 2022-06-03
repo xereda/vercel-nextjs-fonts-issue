@@ -1,20 +1,9 @@
 import { DASHBOARD_TOTAL_ORDERS_PER_PAGE } from '@/utils/constants';
 import { paginate } from '@/utils/services';
 import { transformOrders } from '@/transform/order';
-import ordersMock from './orders';
+import ordersMock from '../data/orders';
 
 export const totalOrders = ordersMock.length;
-
-const useLimit = {
-  percentage: 51,
-  limiteBalance: 'R$ 4.900,00',
-  usedLimit: 'R$ 5.100,00',
-  totalLimit: 'R$ 10.000,00',
-};
-
-const virtualBalance = {
-  balanceValue: 'R$ 1.000,00',
-};
 
 const getMock = (req) => {
   const page = req?.url?.searchParams?.get?.('page') || 0;
@@ -61,9 +50,7 @@ const getMock = (req) => {
   });
 
   return {
-    useLimit,
-    virtualBalance,
-    totalItems: filteredOrders.length,
+    totalItems: filteredOrders.length || 0,
     orders: transformOrders(paginatedOrders),
   };
 };
