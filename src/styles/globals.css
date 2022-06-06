@@ -1,5 +1,6 @@
 @import url('./colors.css');
 @import url('./custom-ant-design.css');
+@import url('../components/Datepicker/Datepicker.custom.css');
 
 html,
 body {

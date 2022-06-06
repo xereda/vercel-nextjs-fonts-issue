@@ -3,7 +3,6 @@ import { makeSessionHeaders } from '@/utils/session';
 import { DASHBOARD_TOTAL_ORDERS_PER_PAGE } from '@/utils/constants';
 import { transformOrders } from '@/transform/order';
 import { formatMoney } from '@/utils/format';
-import { format } from 'date-fns';
 
 const loadOrders = async ({ headers, params }) => {
   const responseOrders = await httpClient({
@@ -60,7 +59,14 @@ const loadUseLimit = async ({ headers, params }) => {
 export default async function handler(req, res) {
   try {
     const { headers, idGrupoEmpresa, params } = makeSessionHeaders(req);
-    const { filterStatus, filterDate, filterOrderId, page } = req?.query || {};
+
+    const {
+      filterStatus,
+      startDate,
+      endDate,
+      filterOrderId,
+      page,
+    } = req?.query || {};
 
     const parameters = {
       paginaAtual: page,
@@ -71,9 +77,9 @@ export default async function handler(req, res) {
       parameters.idPedido = filterOrderId;
     }
 
-    if (filterDate) {
-      parameters.dataCriacaoInicial = filterDate;
-      parameters.dataCriacaoFinal = format(new Date(), 'yyyy-MM-dd');
+    if (startDate) {
+      parameters.dataCriacaoInicial = startDate;
+      parameters.dataCriacaoFinal = endDate;
     }
 
     if (filterStatus) {

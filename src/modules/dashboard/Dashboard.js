@@ -21,12 +21,15 @@ export default function Dashboard() {
   const [, setLoading] = useLoadingState();
   const [page, setPage] = useState(1);
   const [filterStatus, setFilterStatus] = useState('');
-  const [filterDate, setFilterDate] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [filterOrderId, setFilterOrderId] = useState('');
+  const [filterDate, setFilterDate] = useState('');
 
   const { data, hasError, isLoading, noData, status } = useDashboard({
     filterStatus,
-    filterDate,
+    startDate,
+    endDate,
     filterOrderId,
     page,
   });
@@ -85,8 +88,14 @@ export default function Dashboard() {
               onClickFilter={setFilterStatus}
             />
             <FilterOrderDate
-              status={filterDate}
-              onClickFilter={setFilterDate}
+              startDate={startDate}
+              endDate={endDate}
+              selectedOption={filterDate}
+              onChange={setFilterDate}
+              onChangeDates={({ startDate, endDate }) => {
+                setStartDate(startDate);
+                setEndDate(endDate);
+              }}
             />
             <InputOptions
               placeholder="Buscar por"

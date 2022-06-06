@@ -19,7 +19,8 @@ const virtualBalance = {
 const getMock = (req) => {
   const page = req?.url?.searchParams?.get?.('page') || 0;
   const filterStatus = req?.url?.searchParams?.get?.('filterStatus');
-  const filterDate = req?.url?.searchParams?.get?.('filterDate');
+  const startDate = req?.url?.searchParams?.get?.('startDate');
+  const endDate = req?.url?.searchParams?.get?.('endDate');
   const filterOrderId = req?.url?.searchParams?.get?.('filterOrderId');
 
   const filteringByStatus = (order) => {
@@ -32,8 +33,10 @@ const getMock = (req) => {
 
   const filteringByDate = (order) => {
     if (
-      filterDate &&
-      new Date(order.dataCriacao).getTime() < new Date(filterDate).getTime()
+      startDate &&
+      endDate &&
+      (new Date(order.dataCriacao).getTime() < new Date(startDate).getTime() ||
+        new Date(order.dataCriacao).getTime() > new Date(endDate).getTime())
     ) {
       return false;
     }
