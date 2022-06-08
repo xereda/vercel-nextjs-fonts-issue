@@ -93,7 +93,7 @@ describe('Dashboard component', () => {
   });
 
   test('deve filtrar os pedidos conforme data selecionada', async () => {
-    timekeeper.freeze(new Date('2022-05-24'));
+    timekeeper.freeze(new Date('2022-05-24T12:00:00'));
 
     render(
       <RenderWithoutSWRCache>

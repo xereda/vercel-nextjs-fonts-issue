@@ -9,9 +9,9 @@ const sessionStore = createState({
   usuarioAceitouTermos: false,
 });
 
-export const sessionState = () => sessionStore;
+const sessionState = () => sessionStore;
 
-export const useSessionState = () => {
+const useSessionState = () => {
   const session = useState(sessionStore);
 
   return [session, session.set, session.merge];
@@ -23,10 +23,12 @@ if (typeof window !== 'undefined') {
 
 const loadingStore = createState(false);
 
-export const loadingState = () => loadingStore;
+const loadingState = () => loadingStore;
 
-export const useLoadingState = () => {
+const useLoadingState = () => {
   const loading = useState(loadingStore);
 
   return [loading.value, loading.set];
 };
+
+export { sessionState, useSessionState, loadingState, useLoadingState };

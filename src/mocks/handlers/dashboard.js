@@ -32,13 +32,16 @@ const getMock = (req) => {
   };
 
   const filteringByDate = (order) => {
-    if (
-      startDate &&
-      endDate &&
-      (new Date(order.dataCriacao).getTime() < new Date(startDate).getTime() ||
-        new Date(order.dataCriacao).getTime() > new Date(endDate).getTime())
-    ) {
-      return false;
+    if (startDate && endDate) {
+      const orderDateTime = new Date(
+        order.dataCriacao.substring(0, 10),
+      ).getTime();
+      const startDateTime = new Date(startDate).getTime();
+      const endDateTime = new Date(endDate).getTime();
+
+      if (orderDateTime < startDateTime || orderDateTime > endDateTime) {
+        return false;
+      }
     }
 
     return true;
