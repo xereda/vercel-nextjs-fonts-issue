@@ -27,6 +27,7 @@ describe('Filter by order date component', () => {
       expect(screen.getByText('Hoje')).toBeInTheDocument();
       expect(screen.getByText('Ontem')).toBeInTheDocument();
       expect(screen.getByText('7 dias')).toBeInTheDocument();
+      expect(screen.getByText('Selecionar período')).toBeInTheDocument();
     });
   });
 
@@ -142,6 +143,83 @@ describe('Filter by order date component', () => {
     expect(onChangeDates).toHaveBeenCalledWith({
       startDate: oneWeek,
       endDate: today,
+    });
+  });
+
+  test('deve abrir datepicker no filtro Selecionar periodo', async () => {
+    render(
+      <FilterOrderDate
+        startDate=""
+        endDate=""
+        selectedOption=""
+        onChange={onChange}
+        onChangeDates={onChangeDates}
+      />,
+    );
+
+    const dropdown = screen.getByRole('combobox');
+    await userEvent.click(dropdown);
+
+    const filterOption = screen.getByText('Selecionar período');
+    await userEvent.click(filterOption);
+
+    const datepicker = screen.getByRole('application');
+
+    expect(datepicker).toBeInTheDocument();
+  });
+
+  test('deve fechar datepicker ao clicar fora dele', async () => {
+    render(
+      <FilterOrderDate
+        startDate=""
+        endDate=""
+        selectedOption=""
+        onChange={onChange}
+        onChangeDates={onChangeDates}
+      />,
+    );
+
+    const dropdown = screen.getByRole('combobox');
+    await userEvent.click(dropdown);
+
+    const filterOption = screen.getByText('Selecionar período');
+    await userEvent.click(filterOption);
+
+    const datepicker = screen.queryByRole('application');
+    await userEvent.click(document.body);
+
+    expect(datepicker).not.toBeInTheDocument();
+  });
+
+  test('deve manter filtro Todas se não informar datas no Selecionar período', async () => {
+    render(
+      <FilterOrderDate
+        startDate=""
+        endDate=""
+        selectedOption="period"
+        onChange={onChange}
+        onChangeDates={onChangeDates}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText('Todas')).toBeInTheDocument();
+    });
+  });
+
+  test('deve setar datas selecionadas no label do Select', async () => {
+    render(
+      <FilterOrderDate
+        startDate="2022-06-18"
+        endDate="2022-06-22"
+        selectedOption="period"
+        onChange={onChange}
+        onChangeDates={onChangeDates}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText('18 jun 22 - 22 jun 22')).toBeInTheDocument();
     });
   });
 });
