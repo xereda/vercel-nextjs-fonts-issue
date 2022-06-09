@@ -66,11 +66,18 @@ const getMock = (req) => {
     pageSize: DASHBOARD_TOTAL_ORDERS_PER_PAGE,
   });
 
+  const orders = transformOrders(paginatedOrders);
+  const waitingConfirmationOrders =
+    orders
+      ?.filter((order) => order?.status?.enum === 'AGUARDANDO_CONFIRMACAO')
+      ?.map((order) => order.orderId) || [];
+
   return {
     useLimit,
     virtualBalance,
     totalItems: filteredOrders.length || 0,
-    orders: transformOrders(paginatedOrders),
+    orders,
+    waitingConfirmationOrders,
   };
 };
 

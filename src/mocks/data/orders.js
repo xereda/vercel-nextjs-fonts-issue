@@ -1,5 +1,14 @@
 export default [
   {
+    idPedido: 19405,
+    dataCriacao: '2022-06-08T16:18:18.927',
+    valorBeneficio: 340,
+    statusPedido: 'AGUARDANDO_CONFIRMACAO',
+    statusPagamento: 'FATURA_EM_ABERTO',
+    podeCancelar: true,
+    motivoErro: null,
+  },
+  {
     idPedido: 10882,
     dataCriacao: '2022-03-15T15:42:02.87',
     valorBeneficio: 910,

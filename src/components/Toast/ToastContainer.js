@@ -4,14 +4,14 @@ import style from './Toast.style';
 export default function ToastContainer() {
   const [toast] = useToastState();
 
-  return (
-    <div className="toast-container">
-      {toast?.visible ? (
+  return toast?.visible ? (
+    <>
+      <div className="toast-container" role="alert">
         <div className="toast-message">{toast?.message}</div>
-      ) : null}
+      </div>
       <style jsx="true">{style}</style>
-    </div>
-  );
+    </>
+  ) : null;
 }
 
 export { toastState, useToastState, toast };

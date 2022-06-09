@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Pagination } from 'antd';
 import { useLoadingState } from '@/store/index';
 import { DASHBOARD_TOTAL_ORDERS_PER_PAGE } from '@/utils/constants';
@@ -12,6 +12,7 @@ import FeedbackPlaceholder from '@/components/FeedbackPlaceholder/FeedbackPlaceh
 import FilterOrderStatus from '@/components/FilterOrderStatus/FilterOrderStatus';
 import FilterOrderDate from '@/components/FilterOrderDate/FilterOrderDate';
 import InputOptions from '@/components/InputOptions/InputOptions';
+import ToastContainer, { toast } from '@/components/Toast/ToastContainer';
 import OrdersList from './OrdersList/OrdersList';
 import style from './Dashboard.style';
 import { findWaitingConfirmationOrders, useDashboard } from './services';
@@ -25,6 +26,7 @@ export default function Dashboard() {
   const [endDate, setEndDate] = useState('');
   const [filterOrderId, setFilterOrderId] = useState('');
   const [filterDate, setFilterDate] = useState('');
+  const [notifiedOrders, setNotifiedOrders] = useState([]);
 
   const { data, hasError, isLoading, noData, status } = useDashboard({
     filterStatus,
@@ -41,6 +43,7 @@ export default function Dashboard() {
   const virtualBalance = data?.virtualBalance?.balanceValue;
   const useLimit = data?.useLimit;
   const orders = data?.orders;
+  const waitingConfirmationOrders = data?.waitingConfirmationOrders;
   const totalItems = data?.totalItems;
 
   const resetPageNumber = () => {
@@ -70,6 +73,31 @@ export default function Dashboard() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleToast = useCallback(() => {
+    const ordersToNotify =
+      waitingConfirmationOrders?.filter(
+        (order) => !notifiedOrders.includes(order),
+      ) || [];
+
+    if (ordersToNotify.length > 0) {
+      const message =
+        ordersToNotify.length === 1
+          ? `O pedido ${ordersToNotify[0]} está aguardando a sua confirmação.`
+          : `O pedido ${ordersToNotify[0]} e outros estão aguardando a sua confirmação.`;
+
+      toast({ message });
+
+      setNotifiedOrders(
+        Array.from(new Set([...notifiedOrders, ...ordersToNotify])),
+      );
+    }
+  }, [notifiedOrders, waitingConfirmationOrders]);
+
+  useEffect(() => {
+    handleToast();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [waitingConfirmationOrders]);
 
   return (
     <Layout renderNotice={() => <PaymentWarning />}>
@@ -122,6 +150,7 @@ export default function Dashboard() {
           <style jsx="true">{style}</style>
         </PageContent>
       </FeedbackPlaceholder>
+      <ToastContainer />
     </Layout>
   );
 }

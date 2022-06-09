@@ -60,13 +60,8 @@ export default async function handler(req, res) {
   try {
     const { headers, idGrupoEmpresa, params } = makeSessionHeaders(req);
 
-    const {
-      filterStatus,
-      startDate,
-      endDate,
-      filterOrderId,
-      page,
-    } = req?.query || {};
+    const { filterStatus, startDate, endDate, filterOrderId, page } =
+      req?.query || {};
 
     const parameters = {
       paginaAtual: page,
@@ -94,6 +89,11 @@ export default async function handler(req, res) {
       },
     });
 
+    const waitingConfirmationOrders =
+      orders
+        ?.filter((order) => order?.status?.enum === 'AGUARDANDO_CONFIRMACAO')
+        .map((order) => order.orderId) || [];
+
     const virtualBalance = await loadVirtualBalance({
       headers,
       params,
@@ -104,6 +104,7 @@ export default async function handler(req, res) {
 
     res.status(200).json({
       orders,
+      waitingConfirmationOrders,
       totalItems,
       virtualBalance,
       useLimit,

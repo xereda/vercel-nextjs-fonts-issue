@@ -17,6 +17,7 @@ export default css`
     position: fixed;
     width: 100%;
     bottom: 0;
+    left: 0;
     padding: 30px 40px;
   }
 

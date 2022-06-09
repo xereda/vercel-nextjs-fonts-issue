@@ -12,8 +12,10 @@ const useToastState = () => {
 
 const toast = (options = {}) => {
   const currentState = toastState();
+  const isVisible = currentState?.visible?.value;
+  const currentMessage = currentState?.message?.value;
 
-  if (currentState?.visible?.value) {
+  if (isVisible && currentMessage !== options?.message) {
     setTimeout(() => toast(options), 1000);
 
     return;

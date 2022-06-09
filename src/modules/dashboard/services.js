@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { fetcher, httpClient, makeUrlQueryString } from '@/utils/services';
 
-const useDashboard = (apiFilters) => {
+const useDashboard = (apiFilters, options) => {
   const queryParams = makeUrlQueryString(apiFilters);
 
   const { data, error, mutate } = useSWR(
@@ -9,6 +9,7 @@ const useDashboard = (apiFilters) => {
     fetcher,
     {
       refreshInterval: 5000,
+      ...options,
     },
   );
 
