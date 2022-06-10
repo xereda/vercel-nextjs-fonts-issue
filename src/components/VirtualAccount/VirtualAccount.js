@@ -2,6 +2,7 @@ import Link from 'next/link';
 import propTypes from 'prop-types';
 import { Tooltip } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
+import { useSessionState } from '@/store/index';
 import style from './VirtualAccount.style.js';
 
 VirtualAccount.propTypes = {
@@ -13,6 +14,11 @@ VirtualAccount.defaultProps = {
 };
 
 export default function VirtualAccount({ virtualBalance }) {
+  const [session] = useSessionState();
+
+  const parametros = session?.parametros?.value;
+  const descentralizado = !parametros.FLAG_FATURAMENTO_CENTRALIZADO;
+
   return (
     <div className="balance-wrapper">
       <div className="row-title">
@@ -30,7 +36,10 @@ export default function VirtualAccount({ virtualBalance }) {
       <section className="extract">
         <span id="extract-message">
           Este valor representa o saldo total de todas as suas empresas juntas.
-          Mas cada uma poderá usar o valor que ela mesma gerou de crédito.
+          <br />
+          {descentralizado &&
+            'Mas cada uma poderá usar o valor que ela mesma gerou de crédito.'
+          }
         </span>
 
         <Link href="/">

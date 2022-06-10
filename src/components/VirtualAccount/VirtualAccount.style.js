@@ -2,7 +2,8 @@ import css from 'styled-jsx/css';
 
 export default css`
   .balance-wrapper {
-    margin-left: 37px;
+    border-left: 3px double var(--bds-color-gray-lighter);
+    padding-left: 2rem;
     margin-top: 30px;
   }
   .row-title {

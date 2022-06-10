@@ -142,6 +142,7 @@ export default function Dashboard() {
                 current={page}
                 pageSize={DASHBOARD_TOTAL_ORDERS_PER_PAGE}
                 total={totalItems}
+                showTotal={(total, range) => `${range[0]}-${range[1]} de ${total}`}
                 onChange={setPage}
               />
             </div>

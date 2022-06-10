@@ -67,7 +67,11 @@ export default async function handler(req, res) {
 
       const response = await httpClient({ method: 'get', url, headers });
 
-      const parametros = response?.data || {};
+      const parametros = {
+        ...response?.data,
+        FLAG_FATURAMENTO_CENTRALIZADO:
+          response?.data?.FLAG_FATURAMENTO_CENTRALIZADO === '1',
+      };
 
       if (!Object.keys(parametros || {}).length) {
         throw new Error('Não há parâmetros para o grupo empresa selecionado');

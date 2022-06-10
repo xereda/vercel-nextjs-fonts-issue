@@ -64,7 +64,7 @@ export default function InputOptions({
       style={{ width }}
       defaultValue={value}
       placeholder={placeholder}
-      onChange={debounce((event) => onType(event?.target?.value || ''), 500)}
+      onChange={debounce((event) => onType(event?.target?.value || ''), 800)}
       prefix={<SearchOutlined />}
       addonAfter={<SelectOptions options={options} onChange={onChangeOption} />}
     />

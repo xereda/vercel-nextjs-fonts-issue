@@ -132,6 +132,7 @@ const Navbar = () => {
               overlay={<Menu items={filteredMenu} />}
               trigger={['click']}
               placement="bottomRight"
+              overlayClassName="logout-dropdown"
               overlayStyle={{ position: 'fixed' }}
             >
               <a role="dropdown" onClick={(e) => e.preventDefault()}>

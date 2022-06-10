@@ -19,6 +19,7 @@ export default css`
     bottom: 0;
     left: 0;
     padding: 30px 40px;
+    z-index: 1020;
   }
 
   .toast-message {

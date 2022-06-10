@@ -22,7 +22,7 @@ export default css`
     height: 98px;
     position: sticky;
     top: 0;
-    z-index: 9999;
+    z-index: 1020;
   }
   .wrapper-nav {
     display: flex;

@@ -4,7 +4,6 @@ export default css`
   .chart-container {
     display: flex;
     padding: 40px 20px 24px 0;
-    margin: 0 0 32px;
   }
   .chart-wrapper {
     width: 80px;
