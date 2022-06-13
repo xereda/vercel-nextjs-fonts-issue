@@ -147,6 +147,9 @@ describe('Filter by order date component', () => {
   });
 
   test('deve abrir datepicker no filtro Selecionar periodo', async () => {
+    const toRestoreLogger = console.warn;
+    console.warn = jest.fn();
+
     render(
       <FilterOrderDate
         startDate=""
@@ -166,6 +169,8 @@ describe('Filter by order date component', () => {
     const datepicker = screen.getByRole('application');
 
     expect(datepicker).toBeInTheDocument();
+
+    console.warn = toRestoreLogger;
   });
 
   test('deve fechar datepicker ao clicar fora dele', async () => {
