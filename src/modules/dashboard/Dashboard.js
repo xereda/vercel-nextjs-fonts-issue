@@ -114,6 +114,7 @@ export default function Dashboard() {
             <FilterOrderStatus
               status={filterStatus}
               onClickFilter={setFilterStatus}
+              withScroll={orders?.length < 7}
             />
             <FilterOrderDate
               startDate={startDate}

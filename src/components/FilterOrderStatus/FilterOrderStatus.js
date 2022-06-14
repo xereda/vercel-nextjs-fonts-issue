@@ -8,9 +8,18 @@ const { Option } = Select;
 FilterOrderStatus.propTypes = {
   onClickFilter: propTypes.func.isRequired,
   status: propTypes.string.isRequired,
+  withScroll: propTypes.bool,
 };
 
-export default function FilterOrderStatus({ onClickFilter, status }) {
+FilterOrderStatus.defaultProps = {
+  withScroll: false,
+};
+
+export default function FilterOrderStatus({
+  onClickFilter,
+  status,
+  withScroll,
+}) {
   const handleChange = async (value) => {
     onClickFilter(value);
   };
@@ -19,7 +28,7 @@ export default function FilterOrderStatus({ onClickFilter, status }) {
     <div>
       <span>Status:</span>
       <Select
-        listHeight={600}
+        listHeight={withScroll ? 300 : 600}
         value={status}
         style={{ width: 'auto', color: 'var(--bds-color-blue)' }}
         bordered={false}

@@ -16,7 +16,6 @@ export default css`
   .orders-list {
     display: block;
     margin-top: 20px;
-    min-height: 750px;
   }
   .orders-pagination {
     padding: 15px 0;

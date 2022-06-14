@@ -40,7 +40,6 @@
 
 .ant-select-dropdown {
   z-index: 1000 !important;
-  top: 645px !important;
 }
 
 .ant-select-item-option {
@@ -124,7 +123,9 @@
 
 /* Pagination */
 
-.ant-pagination-item {
+.ant-pagination-item, 
+.ant-pagination-options,
+.ant-pagination-jump-next {
   display: none !important;
 }
 

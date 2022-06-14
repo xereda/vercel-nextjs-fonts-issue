@@ -5,6 +5,7 @@ export default css`
     border-left: 3px double var(--bds-color-gray-lighter);
     padding-left: 2rem;
     margin-top: 30px;
+    margin-bottom: 14px;
   }
   .row-title {
     display: flex;

@@ -3,17 +3,14 @@ import css from 'styled-jsx/css';
 export default css`
   .layout {
     width: 100%;
-    height: calc(100% - 148px);
-    min-height: calc(100% - 148px);
+    min-height: 100vh;
     padding-bottom: 18px;
-    position: relative;
     background: var(--bds-color-black) url(/png/bg.png) no-repeat left bottom;
   }
   .container {
     display: flex;
     flex-direction: column;
     flex: 1;
-    min-height: 850px;
     width: 79rem;
     padding: 20px 10px;
     margin: 0 auto;
