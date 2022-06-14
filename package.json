@@ -3,8 +3,8 @@
   "private": true,
   "scripts": {
     "prepare-envs": "shx rm -f .env.local",
-    "dev": "shx cp .env .env.local && next dev",
-    "build": "next build",
+    "dev": "yarn prepare-envs && shx cp .env .env.local && next dev",
+    "build": "yarn prepare-envs && shx cat .env.production .env.generic-vars > .env.local && next build",
     "start": "next start",
     "dev:qa": "yarn prepare-envs && shx cat .env.qa .env.generic-vars > .env.local && next dev",
     "build:qa": "yarn prepare-envs && shx cat .env.qa .env.generic-vars > .env.local && next build",
