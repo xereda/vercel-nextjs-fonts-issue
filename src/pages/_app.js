@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import 'antd/dist/antd.css';
 import '../styles.css';
 
 export default function App({ Component, pageProps }) {

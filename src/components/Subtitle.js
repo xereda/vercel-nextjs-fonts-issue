@@ -1,3 +1,3 @@
 export default function Subtitle() {
-  return <h2 className="subtitle">Subtitle</h2>;
+  return <h2>Subtitle</h2>;
 }

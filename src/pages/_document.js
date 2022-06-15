@@ -4,7 +4,6 @@ export default function MyDocument() {
   return (
     <Html>
       <Head>
-        <link rel="icon" type="image/svg" href="/svg/icon-ben.svg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
