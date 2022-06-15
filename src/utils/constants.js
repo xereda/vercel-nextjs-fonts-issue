@@ -1,1 +1,0 @@
-export const DASHBOARD_TOTAL_ORDERS_PER_PAGE = 10;

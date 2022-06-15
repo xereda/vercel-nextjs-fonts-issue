@@ -13,13 +13,6 @@ const customJestConfig = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   moduleNameMapper: {
     '^@/components/(.*)$': '<rootDir>/src/components/$1',
-    '^@/utils/(.*)$': '<rootDir>/src/utils/$1',
-    '^@/styles/(.*)$': '<rootDir>/src/styles/$1',
-    '^@/mocks/(.*)$': '<rootDir>/src/mocks/$1',
-    '^@/modules/(.*)$': '<rootDir>/src/modules/$1',
-    '^@/constants/(.*)$': '<rootDir>/src/constants/$1',
-    '^@/transform/(.*)$': '<rootDir>/src/transform/$1',
-    '^@/store/(.*)$': '<rootDir>/src/store/$1',
   },
 };
 

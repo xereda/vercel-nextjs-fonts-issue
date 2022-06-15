@@ -1,5 +1,4 @@
 import '@testing-library/jest-dom/extend-expect';
-import { server } from '@/mocks/server.js';
 
 jest.mock('next/router', () => ({
   useRouter() {
@@ -33,7 +32,3 @@ Object.defineProperty(window, 'matchMedia', {
     dispatchEvent: jest.fn(),
   })),
 });
-
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());

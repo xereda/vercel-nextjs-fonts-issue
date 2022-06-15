@@ -1,6 +1,11 @@
-import Dashboard from '@/modules/dashboard/Dashboard';
-import { revalidateUserSession } from '@/utils/session';
+import Subtitle from '@/components/Subtitle';
+import Title from '@/components/Title';
 
-export default Dashboard;
-
-export const getServerSideProps = (context) => revalidateUserSession(context);
+export default function Dashboard() {
+  return (
+    <>
+      <Title />
+      <Subtitle />
+    </>
+  );
+}

@@ -13,15 +13,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       alias: {
-        map: [
-          ['@/components', './src/components'],
-          ['@/utils', './src/utils'],
-          ['@/styles', './src/styles'],
-          ['@/mocks', './src/mocks'],
-          ['@/modules', './src/modules'],
-          ['@/transform', './src/transform'],
-          ['@/store', './src/store'],
-        ],
+        map: [['@/components', './src/components']],
       },
     },
   },
@@ -30,7 +22,7 @@ module.exports = {
       2,
       { allowArrowFunction: true, allowObject: true, allowArray: true },
     ],
-    'react/prop-types': 'error',
+    'react/prop-types': 'off',
     'react/require-default-props': 'error',
     'no-unused-vars': 'off',
     'unused-imports/no-unused-imports': 'error',
