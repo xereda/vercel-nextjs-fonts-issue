@@ -1,0 +1,15 @@
+h1 {
+  font-family: 'Open Sans';
+  font-size: 5rem;
+}
+
+h2 {
+  font-family: 'Barlow';
+  font-size: 3rem;
+  color: grey;
+}
+
+
+a {
+  font-size: 2rem;
+}
